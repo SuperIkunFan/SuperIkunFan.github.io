@@ -1,6 +1,6 @@
 # Setup
-title: ikun 学习
-description: 描述 红红火火和
+title: ikun爱学习
+description: ikun不惹事，也不怕事！！！
 url: https://superikunfan.github.io/
 avatar: /avator.jpg
 paginate: 5
@@ -55,5 +55,5 @@ sass:
 # Specify the author for blog posts
 author:
   name: Songzi Vong
-  url: https://github.com/vszhub/
+  url: https://github.com/SuperIkunFan/SuperIkunFan
   email: vszhub@gmail.com
