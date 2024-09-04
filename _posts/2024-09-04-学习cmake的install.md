@@ -42,8 +42,8 @@ find_package中的包名一致时，它便会进入到这个目录下读取各�
 
 假设我们所要提供给别人的库中，需要先编译的是mylib.c  
 ```C
-#include<stdio.h>
-#include"mylib.h"
+#include <stdio.h>
+#include "mylib.h"
 void hello()
 {
       printf("hello");
@@ -58,3 +58,25 @@ void hello();
 #endif
 ```
 那么就需要解决前面所提到的三个问题  
+
+### 如何构建一个目标  
+首先是每一个cmakelists都需要声明的内容，即：  
+版本最低要求以及项目名称  
+
+```cmake 
+cmake_minimum_required(VERSION xxx)
+
+project(mytestlib)
+
+```
+由于现代cmake中推荐以目标对象(target)的方式来管理，然后再使用target_xx 类的cmake命令进行目标对象的  
+其他的属性设置。而生成target的有许多：
+1、add_executable - 用于创建可执行文件。
+
+2、add_library - 用于创建静态库或共享库。
+
+3、add_custom_target - 用于创建一个自定义的目标，这个目标不生成输出文件，而是执行一组自定义命令。
+
+4、add_custom_command - 用于添加生成文件所需的自定义命令。
+
+本文主要聚焦于前两个命令  
