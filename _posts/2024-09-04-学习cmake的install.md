@@ -59,7 +59,7 @@ void hello();
 ```
 那么就需要解决前面所提到的三个问题  
 
-### 如何构建一个目标  
+### 问题一：如何构建一个目标  
 首先是每一个cmakelists都需要声明的内容，即：  
 版本最低要求以及项目名称  
 
@@ -79,4 +79,61 @@ project(mytestlib)
 
 4、add_custom_command - 用于添加生成文件所需的自定义命令。
 
-本文主要聚焦于前两个命令  
+本文主要聚焦于前两个命令，当添加完一个目标之后，那么我们target_xx类的命令给库或者是可执行文件相应的属性了。  
+```cmake 
+add_library(mylib mylib.c include/mylib.h)
+target_include_directories(mylib PUBLIC
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+    $<INSTALL_INTERFACE:include>)
+```
+这个中间涉及到了生成器的相关内容，它的主要目的是将目标构建阶段的头文件包含属性和目标的安装阶段的属性分开  
+
+### 问题二：告诉cmake，应该安装哪些内容  
+前面我们已经生成了一个静态库目标了。根据c/c++编译链接模型，别人使用我们所提供的库，最少需要两个部分：  
+1、头文件  
+2、静态库或者是动态库亦或者是可执行文件  
+
+此时就需要使用install命令，首先告诉cmake，我们所提供的库的头文件是什么，第二个是需要安装哪些内容： 
+```cmake 
+set_target_properties(mylib PROPERTIES PUBLIC_HEADER "include/mylib.h") 
+
+install(TARGETS mylib
+    EXPORT mylib-targets
+    PUBLIC_HEADER DESTINATION include
+    ARCHIVE DESTINATION lib
+    LIBRARY DESTINATION lib
+    RUNTIME DESTINATION bin)
+```
+首先需要给一个特定的库绑定它所相关的头文件，这个与是否安装无关，如果所安装的目标没有绑定头文件的话，那么在安装时，其include下  
+就没有库使用者所需要的头文件。  
+
+接下来解释一下install的一般格式  
+```cmake 
+install(<TYPE> files... DESTINATION <dir>
+        [PERMISSIONS permissions...]
+        [CONFIGURATIONS [Debug|Release|...]]
+        [COMPONENT <component>]
+        [OPTIONAL] [NAMELINK_ONLY|NAMELINK_SKIP])
+
+```
+可以看出这个命令是比较复杂的，其他的<TYPE>有以下几种：  
+``` 
+PROGRAMS：用于安装可执行文件。
+
+LIBRARY：用于安装库文件。
+
+ARCHIVE：用于安装静态库文件。
+
+RUNTIME：用于安装运行时文件（主要用于 Windows）。
+
+OBJECTS：用于安装对象文件。
+
+DIRECTORY：用于安装整个目录。
+
+FILES：用于安装单个或多个文件
+```
+这六种是为了不同的目的所解决的类型。
+
+此外有两个是为了补充TARGETS所提出来的，即PUBLIC_HEADER和EXPORT是为了帮助TARGERTS进行安装之后能够正常工作进行的操作
+后面的DESTINATION内容就是指定安装的路径，这个是必须指定的。其余的参数都是可选的，根据实际需要进行设定。  
+那么install中包含了两个必须设定的内容<type> xx DESTINATION <dir> [可选参数]  
