@@ -162,12 +162,45 @@ install(EXPORT mylib-targets
 第二种方式是使用CMakePackageConfigHelpers对包进行一定的配置  
 ```cmake 
 include(CMakePackageConfigHelpers)
-write_basic_package_version_file(
-  "${PROJECT_NAME}ConfigVersion.cmake"
-  VERSION ${PROJECT_VERSION}
-  COMPATIBILITY SameMajorVersion)
+
+# 配置和生成包配置文件
 configure_package_config_file(
   "${PROJECT_SOURCE_DIR}/cmake/${PROJECT_NAME}Config.cmake.in"
   "${PROJECT_BINARY_DIR}/${PROJECT_NAME}Config.cmake"
   INSTALL_DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/cmake/${PROJECT_NAME})
+
+# 生成版本文件
+write_basic_package_version_file(
+  "${PROJECT_NAME}ConfigVersion.cmake"
+  VERSION ${PROJECT_VERSION}
+  COMPATIBILITY SameMajorVersion)
+
+# 安装生成的配置文件和版本文件
+install(FILES
+    "${CMAKE_CURRENT_BINARY_DIR}/MyProjectConfig.cmake"
+    "${CMAKE_CURRENT_BINARY_DIR}/MyProjectConfigVersion.cmake"
+    DESTINATION lib/cmake/MyProject
+)
+
+# 安装导出的目标
+install(EXPORT MyProjectTargets
+    FILE MyProjectTargets.cmake
+    NAMESPACE MyProject::
+    DESTINATION lib/cmake/MyProject
+)
 ```
+其核心逻辑为：CMakePackageConfigHelpers根据Config.cmake.in模板文件生成相应的项目信息导出文件。这个模板文件定义了 CMake 在生成配置文件时应该包含和设置的内容  
+而一般的Config.cmake.in文件可能包含了以下内容：  
+```cmake
+@PACKAGE_INIT@
+
+include("${CMAKE_CURRENT_LIST_DIR}/ProjectTargets.cmake")
+check_required_components("@PROJECT_NAME@")
+```
+接下来挨个解释内容
+- `@PACKAGE_INIT@`是一个占位符，用于在使用 configure_package_config_file() 函数生成实际配置文件时替换成预定义的初始化代码。这个宏通常用于设置一些基础配置或做一些初始化操作，确保生成的配置文件可以正常工作。
+- `include("${CMAKE_CURRENT_LIST_DIR}/ProjectTargets.cmake")` 这行代码的作用是包含一个名为`ProjectTargets.cmake`的文件，该文件定义了项目的安装目标。从路径 `${CMAKE_CURRENT_LIST_DIR}/MyProjectTargets.cmake` 来看，`ProjectTargets.cmake` 文件相对于生成的 `Config.cmake`文件所在目录被存储，这个路径是动态的，可以适应不同的安装环境。它的目的是设置一些与项目相关的环境变量。  
+- `check_required_components` 辅助宏通过检查所有必需组件的 `<Package>_<Component>_FOUND` 变量确保找到所有请求的非可选组件。即使包没有任何组件，也应在包配置文件的末尾调用此宏。这样，CMake 可以确保下游项目没有指定任何不存在的组件。如果 `check_required_components` 失败，则 `<Package>_FOUND` 变量设置为 FALSE，并认为未找到包。`set_and_check()` 宏应该在配置文件中使用，而不是用于设置目录和文件位置的普通 set() 命令。如果引用的文件或目录不存在，宏将失败.  
+
+由于CMakePackageConfigHelpers并不是Cmake的内置模块，而是一个独立的模块文件。因此在使用之前需要先包含它，从而将所需要的宏以及函数都能够正确地引入到cmake脚本中。
+最常用的函数有两个，一个是`configure_package_config_file`, `write_basic_package_version_file`.
