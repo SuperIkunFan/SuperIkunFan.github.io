@@ -3,7 +3,7 @@ layout: post
 title: cmake 的install
 tags: mathjax
 math: true
-date: 2020-10-02 15:32 +0800
+date: 2024-09-04 15:32 +0800
 ---
 
 ## install命令  
@@ -35,10 +35,11 @@ date: 2020-10-02 15:32 +0800
 │ │     └── mylib-config-noconfig.cmake
 │ ├── libmylib.a
 ```
+
 其中install就是安装的目录，在cmake下存在着关于这个库的详细信息  
 cmake目录下存在着各个已经编译好的库目录，比如mylib就是我们编译好之后关于mylib的项目信息，主要由各类.cmake结尾的文件所组成，  
 当使用find_package(mylib)，并且指定了CMAKE_PREFIX_PATH这个变量，它就会挨个查找cmake目录下的下面的各个库信息，当目录名称和  
-find_package中的包名一致时，它便会进入到这个目录下读取各类.cmake结尾的文件内容，当然也存在着其他的方法，后续再写博客.
+find_package中的包名一致时，它便会进入到这个目录下读取各类.cmake结尾的文件内容，当然也存在着其他的方法，后续再写博客.当我们用find_package(my_library ...)这条命令时，它去`{CMAKE_INSTALL_PREFIX}/lib`目录下一个名为`my_library*`的文件夹中自动去寻找一个类似`my_library-config.cmake`的文件，而我们的安装命名就是符合这个规则的，`lib/my_library-[major].[minor] - ${main_lib_dest}`。所以现在我们需要提供`my_library-config.cmake `文件.  
 
 假设我们所要提供给别人的库中，需要先编译的是mylib.c  
 ```C
@@ -204,3 +205,52 @@ check_required_components("@PROJECT_NAME@")
 
 由于CMakePackageConfigHelpers并不是Cmake的内置模块，而是一个独立的模块文件。因此在使用之前需要先包含它，从而将所需要的宏以及函数都能够正确地引入到cmake脚本中。
 最常用的函数有两个，一个是`configure_package_config_file`, `write_basic_package_version_file`.
+
+`configure_package_config_file`语法：  
+```
+configure_package_config_file(<INPUT> <OUTPUT> [OPTIONS])
+<INPUT>: 输入模板文件的路径。
+<OUTPUT>: 输出文件的路径。
+[OPTIONS]: 可选项，主要包括目的地路径等
+
+``` 
+通常来说，使用模板文件作为输入，然后得到${PROJECT_NAME}Config.cmake文件，从而让cmake能够找到。
+
+`write_basic_package_version_file`语法：  
+```cmake
+write_basic_package_version_file(<filename> [options])
+<filename>: 生成的版本文件的路径。
+[options]: 可选项，通常包括版本号和兼容性策略。
+```
+一般来说最后都是`${PROJECT_NAME}ConfigVersion.cmake`这样的文件命名方式
+`VERSION ${PROJECT_VERSION}` 就是在project(mytestlib)的时候， 所设置的信息  
+COMPATIBILITY SameMajorVersion:  
+COMPATIBILITY 选项指定版本兼容性策略。常用的策略包括：  
+AnyNewerVersion: 任何新版本都兼容。  
+SameMajorVersion: 只有同一个大版本号的版本才兼容。  
+ExactVersion: 只接受完全相同的版本。  
+SameMajorVersion 表示要求相同的主版本号才能兼容。例如，如果版本是 1.2.3，那么 1.x.y 版本（如 1.4.0 或 1.2.5）都是兼容的，但 2.x.y 则不兼容。  
+
+在这个过程中主要生成了三个配置文件  
++ 配置文件（MyProjectConfig.cmake）:
+  它通常包含了查找依赖项、设置变量以及加载导出目标的逻辑。它负责告诉 CMake 接下来需要做什么，例如加载 MyProjectTargets.cmake 文件。所以它是必需的，因为它扮演了协调者的角色。
+
++ 版本文件（MyProjectConfigVersion.cmake）:
+  它包含版本兼容性检查的逻辑，确保所需的版本满足要求。  
+
++ 导出的目标文件（MyProjectTargets.cmake）:
+  它具体描述了如何使用该包内的目标，包括编译选项、链接库等信息  
+
+当用户在他们的 CMake 项目中使用 find_package(MyProject 1.2 REQUIRED) 时：
++ CMake 首先找到并加载 MyProjectConfig.cmake：如果找到并加载成功，接下来会执行       MyProjectConfig.cmake 中的内容。
++ 通常，这个文件会包含类似 include("${CMAKE_CURRENT_LIST_DIR}/MyProjectTargets.cmake") 的语句，以引入导出的目标文件。
++ CMake 加载 MyProjectConfigVersion.cmake：
+  用于检查版本兼容性。
+
++ CMake 从配置文件中找到导出的目标文件并加载：导入这些目标并将它们加入到用户的项目中  
+
+install(FILES ...) 和 install(EXPORT ...) 是互补的。配置文件提供了高层次的逻辑和版本控制，而导出的目标文件则提供了详细的目标定义。两者结合使用确保了包的完整性和易用性  
+
+## 参考文献  
+1. [cmake 生成供find_package使用的自定义模块](https://blog.csdn.net/ktigerhero3/article/details/83863226)
+2. [CMake库打包以及支持find_package](https://murphypei.github.io/blog/2018/11/cmake-install-find-package)
