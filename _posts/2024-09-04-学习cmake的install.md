@@ -38,4 +38,23 @@ date: 2020-10-02 15:32 +0800
 其中install就是安装的目录，在cmake下存在着关于这个库的详细信息  
 cmake目录下存在着各个已经编译好的库目录，比如mylib就是我们编译好之后关于mylib的项目信息，主要由各类.cmake结尾的文件所组成，  
 当使用find_package(mylib)，并且指定了CMAKE_PREFIX_PATH这个变量，它就会挨个查找cmake目录下的下面的各个库信息，当目录名称和  
-find_package中的包名一致时，它便会进入到这个目录下读取各类.cmake结尾的文件内容，当然也存在着其他的方法，后续再写博客  
+find_package中的包名一致时，它便会进入到这个目录下读取各类.cmake结尾的文件内容，当然也存在着其他的方法，后续再写博客.
+
+假设我们所要提供给别人的库中，需要先编译的是mylib.c  
+```C
+#include<stdio.h>
+#include"mylib.h"
+void hello()
+{
+      printf("hello");
+}
+```
+给予他人的头文件mylib.h, 内容为  
+```C
+#ifndef MYLIB_H
+#define MYLIB_H
+#include <stdio.h>
+void hello();
+#endif
+```
+那么就需要解决前面所提到的三个问题  
