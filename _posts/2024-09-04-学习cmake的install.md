@@ -14,4 +14,25 @@ date: 2020-10-02 15:32 +0800
 3、 以及他人使用这个目标时，我们能够提供给他们哪些内容  
 
 ### 一个简单的构建示例  
-
+假设拥有一个如下示例的源代码结构  
+```plaintext
+.
+├── CMakeLists.txt
+├── include
+│ └── mylib.h
+└── mylib.c
+```
+然后我们想要生成一个类似于linux下的源代码管理方式，即头文件放在include下，动态库以及静态库放在lib下，二进制可执行文件放在bin目录下  
+那么就如同如下结构：  
+```plaintext
+├── install
+│ ├── include
+│ │ └── mylib.h
+│ └── lib
+│ ├── cmake
+│ │ └── mylib
+│ │ ├── mylib-config.cmake
+│ │ └── mylib-config-noconfig.cmake
+│ ├── libmylib.a
+```
+其中install就是安装的目录，在cmake下存在着关于这个库的详细信息  
