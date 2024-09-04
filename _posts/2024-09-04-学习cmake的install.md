@@ -137,3 +137,35 @@ FILES：用于安装单个或多个文件
 此外有两个是为了补充TARGETS所提出来的，即PUBLIC_HEADER和EXPORT是为了帮助TARGERTS进行安装之后能够正常工作进行的操作
 后面的DESTINATION内容就是指定安装的路径，这个是必须指定的。其余的参数都是可选的，根据实际需要进行设定。  
 那么install中包含了两个必须设定的内容<type> xx DESTINATION <dir> [可选参数]  
+
+此时当我们设置好这些内容之后，cmake就知道了我们安装哪些具体的内容  
+
+### 问题三：以及他人使用这个目标时，我们能够提供给他们哪些内容  
+这个内容主要是为了它人使用find_package命令所准备的，如果库制作方不打算提供这种方式的话，那么就没有必要写  
+在问题二中，我们已经设置了安装属性，此时就需要利用信息生成一定的.cmake的信息，通过这些信息告诉库使用者这些相关信息  
+在哪里。使用的仍然是install命令。
+
+我所接触到的方式有两种范式。  
+第一种如下所示：  
+```cmake 
+install(EXPORT mylib-targets
+    NAMESPACE mylib::
+    FILE mylib-config.cmake
+    DESTINATION lib/cmake/mylib)
+```
+需要注意的一点是，在前面install目标时，需要设置TARGETS一个EXPORT属性，然后根据这些属性使用install命令指导生成.cmake文件信息  
+其中EXPORT是和前面install的目标所导出的名称是一致的，均为示例中的mylib-targets，第二个是NAMESPACE，这个是为了保护作用，然后  
+使用FILE类型，这个声明了文件名称，第四个是DESTINATION，这个表示所生成的.cmake文件放到哪里去。
+
+第二种方式是使用CMakePackageConfigHelpers对包进行一定的配置  
+```cmake 
+include(CMakePackageConfigHelpers)
+write_basic_package_version_file(
+  "${PROJECT_NAME}ConfigVersion.cmake"
+  VERSION ${PROJECT_VERSION}
+  COMPATIBILITY SameMajorVersion)
+configure_package_config_file(
+  "${PROJECT_SOURCE_DIR}/cmake/${PROJECT_NAME}Config.cmake.in"
+  "${PROJECT_BINARY_DIR}/${PROJECT_NAME}Config.cmake"
+  INSTALL_DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/cmake/${PROJECT_NAME})
+```
