@@ -1,6 +1,6 @@
 ---
 layout: post
-title: cmake 的install
+title: cmake的install命令详解
 tags: mathjax
 math: true
 date: 2024-09-04 15:32 +0800
