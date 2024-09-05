@@ -4,7 +4,7 @@ title: cmake 的install
 tags: mathjax
 math: true
 date: 2024-09-04 15:32 +0800
-tags: cmake
+tags: [cmake]
 toc: true
 ---
 
