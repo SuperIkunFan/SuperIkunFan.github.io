@@ -67,6 +67,19 @@ add_custom_command(OUTPUT output1 [output2 ...]
 其他的在上面已经说明了，值得一提的是BYPRODUCTS选项，这个表示命令的执行完毕之后的副产品，它并不会直接触发整个命令是否被执行。因此可以利用它表征命令执行的情况，包括什么时候执行，执行的结果是怎样等等。 
 
 ### 与目标绑定的触发方式  
+语法格式  
+```cmake
+add_custom_command(TARGET <target>
+                   PRE_BUILD | PRE_LINK | POST_BUILD
+                   COMMAND command1 [ARGS] [args1...]
+                   [COMMAND command2 [ARGS] [args2...] ...]
+                   [BYPRODUCTS [files...]]
+                   [WORKING_DIRECTORY dir]
+                   [COMMENT comment]
+                   [VERBATIM]
+                   [COMMAND_EXPAND_LISTS])
+```
+可以看到，它是和TARGET进行绑定，从而触发相应的事件发生的  
 与前一种方式不同的是，他是主动绑定到一个TARGET上，并且它还有一个概念是构建的执行时间点：
 * PRE_BUILD 预构建：在构建这个目标之前
 * PRE_LINK 链接前：执行需要在编译完成但链接未开始之前的任务，如生成或更新一些需要链接的库文件
@@ -81,3 +94,6 @@ add_custom_command(OUTPUT output1 [output2 ...]
 2. Target是由add_library,add_excutable等命令创建的。
 3. Target需要在定义该命令创建过。
 
+## 参考文献  
+1. [CMake深度解析：掌握add_custom_command，精通Makefile生成规则（一）](https://developer.aliyun.com/article/1465043)  
+2. [CMAKE官方](https://cmake.org/cmake/help/latest/command/add_custom_command.html)  
