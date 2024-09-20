@@ -9,8 +9,187 @@ toc: true
 ---
 
 ## install命令  
-### 前言
-当使用install命令进行安装时，主要分为了三个部分： 
+### 前言  
+首先说一下包管理会有哪些常见的需求  
+**主要需求**：
+能够使用库作者所提供的静态库、动态库、以及可执行文件即可  
+
+**第一个版本的解决方案**：
+第一步：库作者仅仅是提供一个库的和头文件即可，然后库使用者先将库编译完毕，然后把库和头文件安装到自己本地的位置。  
+第二步：库使用者使用Target_link_library和target_include_directory等使用库提供的库和头文件，此时需要加入库和头文件所在的绝对路径  
+
+**不足点**：
+- 针对整个包而言，没有描述整个包的相关信息，比如版本信息等，没有对包里面的多个库之间的关系进行关联，比如lib1需要lib2存在才可以正常工作。  
+- 针对使用者而言，每次需要使用绝对路径等方式，使用起来比较麻烦  
+- 针对使用者而言，当整个库日益庞大后，使用者需要较为清楚整个包的结构关系，然后自行管理使用过程。这对于库使用者而言是不太好的，因为他们并不熟悉整个库，而管理整个库的工作应该是库作者所应该做的。  
+而随着库的发展，其内容越来越多，信息越来越复杂，又衍生出了一些额外的需求或者是矛盾点：
+1. 当库使用者使用多个不同的库时，发现有些时候链接了不同库提供者的相同名字的库。  
+
+因此就提出说，让一个专业的管理软件来控制整个过程，把复杂多变的问题交给cmake，那么库作者和使用者只要熟悉使用cmake的框架或者解决方案时，就可以很快的使用。库制作者需要把自己整个项目的内容完完整整的告诉给cmake，使用cmake所提供的方案构建出整个包的内容。而库使用者只需要熟悉cmake的使用方案，那么就可以很快熟练使用整个库。各自只是关心各自的内容即可。  
+
+**cmake需要解决使用者的需求**：  
+1. 这个包能够很方便的提供给使用者，使用者使用某种方式就可以很快查找到包，再查找到包之后，然后使用这个包中的动态库、静态库、可执行文件等资源。  
+2. 使用者能够可以使用整个包的一部分，比如说，包的一个动态库。在cmake中，动态库和可执行文件这种均可以认为一个目标(Target)。  
+3. 使用者能够通过cmake编译生成一个完整的包，这个包包含了库和安装到自定义的位置。  
+
+**cmake需要解决的库开发者的需求**：
+1. 如何生成库的相关资源，例如动态库、静态库、头文件以及可执行文件等。
+2. 如何生成管理这个库的这些信息，让cmake知道如何给库使用者提供相应的内容。这些信息决定了这个库具有哪些功能（与库支持cmake管理相关的功能，而不是库所能提供的功能）  
+
+**cmake的解决方案**：
+
+**第一个需求：**
+_解决使用者的需求_：
+
+cmake提出使用find_package命令获取整个包的信息，然后使用者利用 Target_link_library和target_include_directory等方法包含或者是链接库和头文件。将库的管理信息交由库作者进行描述和生成。  
+* * *
+_解决库作者的需求_:
+
+find_package命令是获取整个包的配置信息，然后再将这个信息传递给使用者。  
+而find_package命令是通过搜索指定路径下的包配置文件，因此库作者为了实现这个功能，需要提供它。主要为三个文件：
++ PackageConfig.cmake  
++ Package-config.cmake  
++ findfoo.cmake  
+这三个文件提供其中一个就可以了，cmake默认的搜索先后是从上到下的顺序的，即：  
+> PackageConfig.cmake > Package-config.cmake > findfoo.cmake  
+
+因此，这三种配置文件就成了整个项目的入口文件了。  
+可以看到，find_package只要所写包配置文件正确，那么它就可以正确工作。但是，我们如果想要生成正确的，没有错误的配置文件，势必要非常了解cmake，这无形之中增加了很大的麻烦。因此有一种工作流是使用CMakePackageConfigHelpers帮助我们生成整个包的配置文件。  
+
+**工作流：**
+先使用CMakePackageConfigHelpers生成整个包的配置文件，然后再使用install安装相应的配置文件到指定位置。
+
+CMakePackageConfigHelpers是一个cmake拓展功能，一般情况下不加载，因此，为了让它能够工作，一般使用
+`include(CMakePackageConfigHelpers)`
+引入这个拓展包中的函数或者是宏。
+
+> 1. write_basic_package_version_file
+>    + 这个函数用于生成一个版本文件（<PackageName>ConfigVersion.cmake），它描述了包的版本信息，并可用于版本检查。
+>     + 这个版本文件允许 find_package() 命令在查找包时进行版本匹配.  
+> 2. configure_package_config_file():
+>    + 这个函数用于生成一个配置文件（<PackageName>Config.cmake），它包含对包相关的 CMake 变量、目标和查找路径的描述。
+>    + 这个配置文件帮助 CMake 项目在使用 find_package() 时正确配置所需的构建设置
+
+其中生成包的配置文件是主要，是整个包的框架，在整个框架中加入各个目标相关的配置文件内容。
+
+```cmake 
+include(CMakePackageConfigHelpers)
+
+# 配置和生成包配置文件
+configure_package_config_file(
+  "${PROJECT_SOURCE_DIR}/cmake/${PROJECT_NAME}Config.cmake.in"
+  "${PROJECT_BINARY_DIR}/${PROJECT_NAME}Config.cmake"
+  INSTALL_DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/cmake/${PROJECT_NAME})
+
+# 生成版本文件
+write_basic_package_version_file(
+  "${PROJECT_NAME}ConfigVersion.cmake"
+  VERSION ${PROJECT_VERSION}
+  COMPATIBILITY SameMajorVersion)
+
+# 安装生成的配置文件和版本文件
+install(FILES
+    "${CMAKE_CURRENT_BINARY_DIR}/MyProjectConfig.cmake"
+    "${CMAKE_CURRENT_BINARY_DIR}/MyProjectConfigVersion.cmake"
+    DESTINATION lib/cmake/MyProject
+)
+```
+在生成配置文件中，其核心逻辑为：CMakePackageConfigHelpers根据Config.cmake.in模板文件生成相应的项目信息导出文件。这个模板文件定义了 CMake 在生成配置文件时应该包含和设置的内容。  
+而一般的Config.cmake.in文件可能包含了以下内容：  
+```cmake
+@PACKAGE_INIT@
+
+include("${CMAKE_CURRENT_LIST_DIR}/ProjectTargets.cmake")
+check_required_components("@PROJECT_NAME@")
+```
+接下来挨个解释内容
+- `@PACKAGE_INIT@`是一个占位符，用于在使用 configure_package_config_file() 函数生成实际配置文件时替换成预定义的初始化代码。这个宏通常用于设置一些基础配置或做一些初始化操作，确保生成的配置文件可以正常工作。
+- `include("${CMAKE_CURRENT_LIST_DIR}/ProjectTargets.cmake")` 这行代码的作用是包含一个名为`ProjectTargets.cmake`的文件，该文件定义了项目的安装目标。从路径 `${CMAKE_CURRENT_LIST_DIR}/MyProjectTargets.cmake` 来看，`ProjectTargets.cmake` 文件相对于生成的 `Config.cmake`文件所在目录被存储，这个路径是动态的，可以适应不同的安装环境。它的目的是设置一些与项目相关的环境变量。  
+- `check_required_components` 辅助宏通过检查所有必需组件的 `<Package>_<Component>_FOUND` 变量确保找到所有请求的非可选组件。即使包没有任何组件，也应在包配置文件的末尾调用此宏。这样，CMake 可以确保下游项目没有指定任何不存在的组件。如果 `check_required_components` 失败，则 `<Package>_FOUND` 变量设置为 FALSE，并认为未找到包。`set_and_check()` 宏应该在配置文件中使用，而不是用于设置目录和文件位置的普通 set() 命令。如果引用的文件或目录不存在，宏将失败.  
+
+接下来解释两个引入的函数的工作原理：
+由于CMakePackageConfigHelpers并不是Cmake的内置模块，而是一个独立的模块文件。因此在使用之前需要先包含它，从而将所需要的宏以及函数都能够正确地引入到cmake脚本中。
+最常用的函数有两个，一个是`configure_package_config_file`, `write_basic_package_version_file`.
+
+`configure_package_config_file`语法：  
+```
+configure_package_config_file(<INPUT> <OUTPUT> [OPTIONS])
+<INPUT>: 输入模板文件的路径。
+<OUTPUT>: 输出文件的路径。
+[OPTIONS]: 可选项，主要包括目的地路径等
+``` 
+通常来说，使用模板文件作为输入，然后得到${PROJECT_NAME}Config.cmake文件，从而让cmake能够找到。
+
+`write_basic_package_version_file`语法：  
+```cmake
+write_basic_package_version_file(<filename> [options])
+<filename>: 生成的版本文件的路径。
+[options]: 可选项，通常包括版本号和兼容性策略。
+```
+一般来说最后都是`${PROJECT_NAME}ConfigVersion.cmake`这样的文件命名方式
+`VERSION ${PROJECT_VERSION}` 就是在project(mytestlib)的时候， 所设置的信息  
+COMPATIBILITY SameMajorVersion:  
+COMPATIBILITY 选项指定版本兼容性策略。常用的策略包括：  
+AnyNewerVersion: 任何新版本都兼容。  
+SameMajorVersion: 只有同一个大版本号的版本才兼容。  
+ExactVersion: 只接受完全相同的版本。  
+SameMajorVersion 表示要求相同的主版本号才能兼容。例如，如果版本是 1.2.3，那么 1.x.y 版本（如 1.4.0 或 1.2.5）都是兼容的，但 2.x.y 则不兼容。
+
+在这个过程中主要生成了两个配置文件  
++ 配置文件（MyProjectConfig.cmake）:
+  它通常包含了查找依赖项、设置变量以及加载导出目标的逻辑。它负责告诉 CMake 接下来需要做什么，例如加载 MyProjectTargets.cmake 文件。所以它是必需的，因为它扮演了协调者的角色。
+
++ 版本文件（MyProjectConfigVersion.cmake）:
+  它包含版本兼容性检查的逻辑，确保所需的版本满足要求。  
+
+当用户在他们的 CMake 项目中使用 find_package(MyProject 1.2 REQUIRED) 时：
++ CMake 首先找到并加载 MyProjectConfig.cmake：如果找到并加载成功，接下来会执行       MyProjectConfig.cmake 中的内容。
++ 通常，这个文件会包含类似 include("${CMAKE_CURRENT_LIST_DIR}/MyProjectTargets.cmake") 的语句，以引入导出的目标文件。
++ CMake 加载 MyProjectConfigVersion.cmake：
+  用于检查版本兼容性。
+
+按照前面说的，此时只是生成了配置文件，还需要安装package的配置文件  
+```cmake
+# 安装生成的配置文件和版本文件
+install(FILES
+    "${CMAKE_CURRENT_BINARY_DIR}/MyProjectConfig.cmake"
+    "${CMAKE_CURRENT_BINARY_DIR}/MyProjectConfigVersion.cmake"
+    DESTINATION lib/cmake/MyProject
+)
+```
+
+**第二个需求：**
+_解决使用者的需求_：
+实际上，使用者只需要知道有哪些静态库或者是动态库，然后直接链接整个库即可。然而，由于存在着动态库，静态库，接口库以及可能出现不同库之间存在着同名的库，因此cmake提出了namespace的概念，这样一般来说就极大概率的降低了链接存在着同名库的问题了。  
+
+_解决库作者的需求_:
+先说一下cmake中生成库的时候，使用的是面向对象的思想进行管理，亦即使用target的方式。那么每生成一个target，也就意味着库作者就需要提供这个target对象相关的信息，比如头文件在那里，动静态库在那里等等。之后cmake使用makefile等构建工具先生成一系列这类target相关的库资源，然后cmake为了提高个性化，库作者可以自行决定是否提供与target相关的配置文件。因此，库作者需要通过一定的方式生成这些配置文件。  
+为了简化操作，cmake提供了一种工作流：  
+先使用install(TARGETS)安装并导出目标，然后cmake就知道了配置这个target相关的必要信息了，然后再install(EXPORT)，生成并安装target相关的配置信息  
+
+1. 安装并导出TARGETS:  
+```CMAKE
+install(TARGETS myApp
+    EXPORT myAppTarget
+    PUBLIC_HEADER DESTINATION include
+    ARCHIVE DESTINATION lib
+    LIBRARY DESTINATION lib
+    RUNTIME DESTINATION bin)
+```
+`myapp`是通过添加命令的方式生成的target，然后设置导出的目标名称为myAppTarget，这个名称可自行定义，但是为了容易看懂，targetname+Target的方式。  
+2. 使用install命令，通过install(TARGET)标头，自动生成target.cmake文件并安装到指定的位置。
+```cmake
+install(EXPORT myAppTarget
+    NAMESPACE test2::
+    FILE myApp-targets.cmake
+    DESTINATION lib/cmake/test2)
+```
+在第二步中，myAppTarget是前面install TARGETS时所导出的名称；命名空间就是防止不同库之间相同静动态库名称的解决方案；FILE表示生成的配置文件名字；安装位置表示使用make install之后，这个会安装到哪个相对位置下。  
+3. 在整个packageConfig.cmake文件中，需要使用include所生成的target的配置文件，从而当find_package之后就可以成功读取与target相关的配置信息。
+* * *
+
+
+可以看出，cmake当使用install命令进行安装时，主要分为了三个部分： 
 1. 如何构建一个目标  
 2. 告诉cmake，应该安装目标的哪些内容  
 3. 以及他人使用这个目标时，我们能够提供给他们哪些内容  
@@ -192,7 +371,7 @@ install(EXPORT MyProjectTargets
     DESTINATION lib/cmake/MyProject
 )
 ```
-其核心逻辑为：CMakePackageConfigHelpers根据Config.cmake.in模板文件生成相应的项目信息导出文件。这个模板文件定义了 CMake 在生成配置文件时应该包含和设置的内容  
+其核心逻辑为：CMakePackageConfigHelpers根据Config.cmake.in模板文件生成相应的项目信息导出文件。这个模板文件定义了 CMake 在生成配置文件时应该包含和设置的内容。  
 而一般的Config.cmake.in文件可能包含了以下内容：  
 ```cmake
 @PACKAGE_INIT@
