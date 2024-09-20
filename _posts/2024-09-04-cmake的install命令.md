@@ -104,8 +104,13 @@ target_include_directories(MyExecutable PRIVATE
 >    + 这个函数用于生成一个配置文件（<PackageName>Config.cmake），它包含对包相关的 CMake 变量、目标和查找路径的描述。
 >    + 这个配置文件帮助 CMake 项目在使用 find_package() 时正确配置所需的构建设置
 
-其中生成包的配置文件是主要，是整个包的框架，在整个框架中加入各个目标相关的配置文件内容。
+那么生成的packageConfig.cmake的作用是什么呢？  
+它主要是提供了一个cmake的入口，将各个组件中的Target内容在这里组合起来，相当于一个部门的主要领导者。那么它是怎么管理的呢？
+它是通过include关于Target.cmake，从而引入包中各个组件的信息。更近一步，在整个包管理中会生成一定调用函数检查各个组件是否正确。  
 
+另外还生成了一个MyProjectConfigVersion.cmake文件，它的作用就是辅助packageConfig.cmake文件进行管理的，个人理解为相当于参谋长的位置  
+
+一个如下示例显示了生成和安装的过程  
 ```cmake 
 include(CMakePackageConfigHelpers)
 
@@ -128,7 +133,37 @@ install(FILES
     DESTINATION lib/cmake/MyProject
 )
 ```
-在生成配置文件中，其核心逻辑为：CMakePackageConfigHelpers根据Config.cmake.in模板文件生成相应的项目信息导出文件。这个模板文件定义了 CMake 在生成配置文件时应该包含和设置的内容。  
+在第一步中：其工作逻辑为：CMakePackageConfigHelpers根据Config.cmake.in模板文件生成相应的项目信息导出文件。这个模板文件定义了 CMake 在生成配置文件时应该包含和设置的内容。  
+需要搞清楚如下几个问题：
+1. 模板文件和一般的cmake文件的区别是什么呢？  
+区别就是有些变量是@var1@样式的，而configure_package_config_file() 函数类似于c语言的宏处理器，将宏替换为相应的内容即可。
+2. 哪些变量可以作为模板变量呢？  
+>  + cmake内置变量
+>  + cmakelists的自定义变量  
+>  + 通过pathvar 参数传入的变量  
+3. 达到什么效果呢？
+假设在CMakeLists.txt中定义了如下变量： 
+```cmake
+set(LIB_INSTALL_DIR "1")
+set(INCLUDE_INSTALL_DIR "5555")
+set(CMAKE_INSTALL_PREFIX "dsadsad")
+```
+在PackageConfig.cmake.in文件中有如下语句：
+```cmake
+set(MYPROJECT_LIB_DIR "@LIB_INSTALL_DIR@")
+set(MYPROJECT_INCLUDE_DIR "@INCLUDE_INSTALL_DIR@")
+
+message("CMAKE_INSTALL_PREFIX = @CMAKE_INSTALL_PREFIX@")
+```
+被configure_package_config_file函数处理完了之后的效果为：
+```cmake
+set(MYPROJECT_LIB_DIR "1")
+set(MYPROJECT_INCLUDE_DIR "5555")
+
+message("CMAKE_INSTALL_PREFIX = dsadsad")
+```
+可以看出，其作用效果就是宏处理器的文字替换效果。  
+
 而一般的Config.cmake.in文件可能包含了以下内容：  
 ```cmake
 @PACKAGE_INIT@
@@ -141,11 +176,6 @@ check_required_components("@PROJECT_NAME@")
 - `include("${CMAKE_CURRENT_LIST_DIR}/ProjectTargets.cmake")` 这行代码的作用是包含一个名为`ProjectTargets.cmake`的文件，该文件定义了项目的安装目标。从路径 `${CMAKE_CURRENT_LIST_DIR}/MyProjectTargets.cmake` 来看，`ProjectTargets.cmake` 文件相对于生成的 `Config.cmake`文件所在目录被存储，这个路径是动态的，可以适应不同的安装环境。它的目的是设置一些与项目相关的环境变量。  
 - `check_required_components` 辅助宏通过检查所有必需组件的 `<Package>_<Component>_FOUND` 变量确保找到所有请求的非可选组件。即使包没有任何组件，也应在包配置文件的末尾调用此宏。这样，CMake 可以确保下游项目没有指定任何不存在的组件。如果 `check_required_components` 失败，则 `<Package>_FOUND` 变量设置为 FALSE，并认为未找到包。`set_and_check()` 宏应该在配置文件中使用，而不是用于设置目录和文件位置的普通 set() 命令。如果引用的文件或目录不存在，宏将失败.  
 
-这涉及到了几个问题：
-1. 模板变量是什么？  
-其实它就是类似于c语言编译中的宏替换，当`configure_package_config_file`工作的时候，会把cmakelists中定义的变量传入到这里面，然后完成相应的宏替换。
-2. 那么，我可以设置哪些变量作为模板变量呢？
-cmake内置变量，以及在cmakelists中定义过的变量。
 
 接下来解释两个引入的函数的工作原理：
 由于CMakePackageConfigHelpers并不是Cmake的内置模块，而是一个独立的模块文件。因此在使用之前需要先包含它，从而将所需要的宏以及函数都能够正确地引入到cmake脚本中。
