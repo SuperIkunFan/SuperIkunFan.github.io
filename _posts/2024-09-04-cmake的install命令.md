@@ -37,20 +37,21 @@ toc: true
 1. 如何生成库的相关资源，例如动态库、静态库、头文件以及可执行文件等。
 2. 如何生成管理这个库的这些信息，让cmake知道如何给库使用者提供相应的内容。这些信息决定了这个库具有哪些功能（与库支持cmake管理相关的功能，而不是库所能提供的功能）  
 
-## 第二章 cmake的解决方案  
+## 第二章 第一个需求的各自工作内容  
 
-### 2.1 第一个需求的各自工作内容  
+### 2.1 工作流程解决的需求简介  
 
-#### 2.1.1 解决使用者的需求  
+#### 2.1.1 使用者责任    
 
 + cmake提出使用find_package命令获取整个包的信息，然后使用者利用 Target_link_library和target_include_directory等方法包含或者是链接库和头文件。
 + 将库的管理信息交由库作者进行描述和生成。  
+
 相对来说，库的使用者的工作较少：    
 + 设置包的路径，从而告诉cmake去哪里搜索    
 + 验证包的配置信息，验证是否符合自己的要求  
 + 提取出包中关于头文件，动静态库文件的路径  
 
-#### 2.1.2 解决库作者的需求  
+#### 2.1.2 库作者责任  
 
 find_package命令是获取整个包的配置信息，然后再将这个信息传递给使用者。  
 而find_package命令是通过搜索指定路径下的包配置文件，因此库作者为了实现这个功能，需要提供它。主要为三个文件：
@@ -63,7 +64,7 @@ find_package命令是获取整个包的配置信息，然后再将这个信息�
 因此，这三种配置文件就成了整个项目的入口文件了。  
 可以看到，find_package只要所写包配置文件正确，那么它就可以正确工作。  
 
-### 2.2 工作流  
+### 2.2 解决责任的工作流  
 一般来说，不论是库开发者，还是库的使用者，在使用cmake管理项目的时候，双方都需要遵守一定的规则。一般来说，这都是由cmake官方所指定的，我们只能使用它的功能，所以需要了解各自的工作流。  
 
 #### 2.2.1 库使用者的工作流  
@@ -237,11 +238,11 @@ install(FILES
 ```
 它的主要目的是将配置文件和库资源一起打包。  
 
-### 2.3 第二个需求的各自工作内容  
-_解决使用者的需求_：
+## 第三章 第二个需求的各自工作内容  
+### 3.1 解决使用者的责任  
 实际上，使用者只需要知道有哪些静态库或者是动态库，然后直接链接整个库即可。然而，由于存在着动态库，静态库，接口库以及可能出现不同库之间存在着同名的库，因此cmake提出了namespace的概念，这样一般来说就极大概率的降低了链接存在着同名库的问题了。  
 
-_解决库作者的需求_:
+### 3.2 解决库作者的责任  
 先说一下cmake中生成库的时候，使用的是面向对象的思想进行管理，亦即使用target的方式。那么每生成一个target，也就意味着库作者就需要提供这个target对象相关的信息，比如头文件在那里，动静态库在那里等等。之后cmake使用makefile等构建工具先生成一系列这类target相关的库资源，然后cmake为了提高个性化，库作者可以自行决定是否提供与target相关的配置文件。因此，库作者需要通过一定的方式生成这些配置文件。  
 为了简化操作，cmake提供了一种工作流：  
 先使用install(TARGETS)安装并导出目标，然后cmake就知道了配置这个target相关的必要信息了，然后再install(EXPORT)，生成并安装target相关的配置信息  
@@ -265,14 +266,13 @@ install(EXPORT myAppTarget
 ```
 在第二步中，myAppTarget是前面install TARGETS时所导出的名称；命名空间就是防止不同库之间相同静动态库名称的解决方案；FILE表示生成的配置文件名字；安装位置表示使用make install之后，这个会安装到哪个相对位置下。  
 3. 在整个packageConfig.cmake文件中，需要使用include所生成的target的配置文件，从而当find_package之后就可以成功读取与target相关的配置信息。
-* * *
 
-可以看出，cmake当使用install命令进行安装时，主要分为了三个部分： 
+## 第四章 一个简单的构建示例  
+在这个示例代码中我们要解决三个部分：
 1. 如何构建一个目标  
 2. 告诉cmake，应该安装目标的哪些内容  
 3. 以及他人使用这个目标时，我们能够提供给他们哪些内容  
 
-### 一个简单的构建示例  
 假设拥有一个如下示例的源代码结构  
 ```plaintext
 .
@@ -449,46 +449,6 @@ install(EXPORT MyProjectTargets
     DESTINATION lib/cmake/MyProject
 )
 ```
-其核心逻辑为：CMakePackageConfigHelpers根据Config.cmake.in模板文件生成相应的项目信息导出文件。这个模板文件定义了 CMake 在生成配置文件时应该包含和设置的内容。  
-而一般的Config.cmake.in文件可能包含了以下内容：  
-```cmake
-@PACKAGE_INIT@
-
-include("${CMAKE_CURRENT_LIST_DIR}/ProjectTargets.cmake")
-check_required_components("@PROJECT_NAME@")
-```
-接下来挨个解释内容
-- `@PACKAGE_INIT@`是一个占位符，用于在使用 configure_package_config_file() 函数生成实际配置文件时替换成预定义的初始化代码。这个宏通常用于设置一些基础配置或做一些初始化操作，确保生成的配置文件可以正常工作。
-- `include("${CMAKE_CURRENT_LIST_DIR}/ProjectTargets.cmake")` 这行代码的作用是包含一个名为`ProjectTargets.cmake`的文件，该文件定义了项目的安装目标。从路径 `${CMAKE_CURRENT_LIST_DIR}/MyProjectTargets.cmake` 来看，`ProjectTargets.cmake` 文件相对于生成的 `Config.cmake`文件所在目录被存储，这个路径是动态的，可以适应不同的安装环境。它的目的是设置一些与项目相关的环境变量。  
-- `check_required_components` 辅助宏通过检查所有必需组件的 `<Package>_<Component>_FOUND` 变量确保找到所有请求的非可选组件。即使包没有任何组件，也应在包配置文件的末尾调用此宏。这样，CMake 可以确保下游项目没有指定任何不存在的组件。如果 `check_required_components` 失败，则 `<Package>_FOUND` 变量设置为 FALSE，并认为未找到包。`set_and_check()` 宏应该在配置文件中使用，而不是用于设置目录和文件位置的普通 set() 命令。如果引用的文件或目录不存在，宏将失败.  
-
-由于CMakePackageConfigHelpers并不是Cmake的内置模块，而是一个独立的模块文件。因此在使用之前需要先包含它，从而将所需要的宏以及函数都能够正确地引入到cmake脚本中。
-最常用的函数有两个，一个是`configure_package_config_file`, `write_basic_package_version_file`.
-
-`configure_package_config_file`语法：  
-```
-configure_package_config_file(<INPUT> <OUTPUT> [OPTIONS])
-<INPUT>: 输入模板文件的路径。
-<OUTPUT>: 输出文件的路径。
-[OPTIONS]: 可选项，主要包括目的地路径等
-
-``` 
-通常来说，使用模板文件作为输入，然后得到${PROJECT_NAME}Config.cmake文件，从而让cmake能够找到。
-
-`write_basic_package_version_file`语法：  
-```cmake
-write_basic_package_version_file(<filename> [options])
-<filename>: 生成的版本文件的路径。
-[options]: 可选项，通常包括版本号和兼容性策略。
-```
-一般来说最后都是`${PROJECT_NAME}ConfigVersion.cmake`这样的文件命名方式
-`VERSION ${PROJECT_VERSION}` 就是在project(mytestlib)的时候， 所设置的信息  
-COMPATIBILITY SameMajorVersion:  
-COMPATIBILITY 选项指定版本兼容性策略。常用的策略包括：  
-AnyNewerVersion: 任何新版本都兼容。  
-SameMajorVersion: 只有同一个大版本号的版本才兼容。  
-ExactVersion: 只接受完全相同的版本。  
-SameMajorVersion 表示要求相同的主版本号才能兼容。例如，如果版本是 1.2.3，那么 1.x.y 版本（如 1.4.0 或 1.2.5）都是兼容的，但 2.x.y 则不兼容。  
 
 在这个过程中主要生成了三个配置文件  
 + 配置文件（MyProjectConfig.cmake）:
