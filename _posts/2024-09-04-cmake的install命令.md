@@ -39,12 +39,18 @@ toc: true
 
 ## 第二章 cmake的解决方案  
 
-### 2.1 第一个需求  
+### 2.1 第一个需求的各自工作内容  
+
 #### 2.1.1 解决使用者的需求  
 
-cmake提出使用find_package命令获取整个包的信息，然后使用者利用 Target_link_library和target_include_directory等方法包含或者是链接库和头文件。将库的管理信息交由库作者进行描述和生成。  
-* * *
-_解决库作者的需求_:
++ cmake提出使用find_package命令获取整个包的信息，然后使用者利用 Target_link_library和target_include_directory等方法包含或者是链接库和头文件。
++ 将库的管理信息交由库作者进行描述和生成。  
+相对来说，库的使用者的工作较少：    
++ 设置包的路径，从而告诉cmake去哪里搜索    
++ 验证包的配置信息，验证是否符合自己的要求  
++ 提取出包中关于头文件，动静态库文件的路径  
+
+#### 2.1.2 解决库作者的需求  
 
 find_package命令是获取整个包的配置信息，然后再将这个信息传递给使用者。  
 而find_package命令是通过搜索指定路径下的包配置文件，因此库作者为了实现这个功能，需要提供它。主要为三个文件：
@@ -55,15 +61,42 @@ find_package命令是获取整个包的配置信息，然后再将这个信息�
 > PackageConfig.cmake > Package-config.cmake > findfoo.cmake  
 
 因此，这三种配置文件就成了整个项目的入口文件了。  
-可以看到，find_package只要所写包配置文件正确，那么它就可以正确工作。但是，我们如果想要生成正确的，没有错误的配置文件，势必要非常了解cmake，这无形之中增加了很大的麻烦。因此有一种工作流是使用CMakePackageConfigHelpers帮助我们生成整个包的配置文件。  
+可以看到，find_package只要所写包配置文件正确，那么它就可以正确工作。  
 
-**工作流：**
-先使用CMakePackageConfigHelpers生成整个包的配置文件，然后再使用install安装相应的配置文件到指定位置。
+### 2.2 工作流  
+一般来说，不论是库开发者，还是库的使用者，在使用cmake管理项目的时候，双方都需要遵守一定的规则。一般来说，这都是由cmake官方所指定的，我们只能使用它的功能，所以需要了解各自的工作流。  
 
-CMakePackageConfigHelpers是一个cmake拓展功能，一般情况下不加载，因此，为了让它能够工作，一般使用
-`include(CMakePackageConfigHelpers)`
-引入这个拓展包中的函数或者是宏。
+#### 2.2.1 库使用者的工作流  
+一个简单的示例：
+```cmake
+cmake_minimum_required(VERSION 3.12)
+project(MyProject VERSION 1.0 LANGUAGES CXX)
 
+# 设置包的搜索路径
+set(CMAKE_PREFIX_PATH "/path/to/MyLibrary")
+
+# 找到 MyLibrary 包
+find_package(MyLibrary 1.0.0 REQUIRED)
+
+# 创建可执行文件
+add_executable(MyExecutable main.cpp)
+
+# 链接 MyLibrary
+target_link_libraries(MyExecutable PRIVATE MyLibrary::MyLibrary)
+
+# 添加 MyLibrary 提供的包含目录
+target_include_directories(MyExecutable PRIVATE
+    $<TARGET_PROPERTY:MyLibrary::MyLibrary,INTERFACE_INCLUDE_DIRECTORIES>)
+```
+
+#### 2.2.2 库制作者的工作流  
+根据前面所说，只要我们提供正确的配置文件往往比较难。我们如果想要生成正确的，没有错误的配置文件，势必要非常了解cmake，这无形之中增加了很大的麻烦。因此有一种工作流是使用CMakePackageConfigHelpers帮助我们生成整个包的配置文件。  
+
+1. 使用CMakePackageConfigHelpers生成整个包的配置文件。  
+2. 使用install将生成的包配置文件安装到指定位置。  
+
+>CMakePackageConfigHelpers是一个cmake拓展功能，一般情况下不加载，因此，为了让它能够工作，一般使用`include(CMakePackageConfigHelpers)`引入这个拓展包中的函数或者是宏。
+> 它主要包含了两个函数：
 > 1. write_basic_package_version_file
 >    + 这个函数用于生成一个版本文件（<PackageName>ConfigVersion.cmake），它描述了包的版本信息，并可用于版本检查。
 >     + 这个版本文件允许 find_package() 命令在查找包时进行版本匹配.  
