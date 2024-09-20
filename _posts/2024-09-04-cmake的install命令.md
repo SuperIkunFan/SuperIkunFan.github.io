@@ -9,12 +9,12 @@ toc: true
 ---
 
 ## install命令  
-### 前言  
+### 第一章 前言  
 首先说一下包管理会有哪些常见的需求  
-**主要需求**：
-能够使用库作者所提供的静态库、动态库、以及可执行文件即可  
+#### 1.1 主要需求  
+能够使用库作者所提供的静态库、动态库、以及可执行文件即可   
 
-**第一个版本的解决方案**：
+#### 1.2 第一个版本的解决方案：
 第一步：库作者仅仅是提供一个库的和头文件即可，然后库使用者先将库编译完毕，然后把库和头文件安装到自己本地的位置。  
 第二步：库使用者使用Target_link_library和target_include_directory等使用库提供的库和头文件，此时需要加入库和头文件所在的绝对路径  
 
@@ -107,6 +107,12 @@ check_required_components("@PROJECT_NAME@")
 - `include("${CMAKE_CURRENT_LIST_DIR}/ProjectTargets.cmake")` 这行代码的作用是包含一个名为`ProjectTargets.cmake`的文件，该文件定义了项目的安装目标。从路径 `${CMAKE_CURRENT_LIST_DIR}/MyProjectTargets.cmake` 来看，`ProjectTargets.cmake` 文件相对于生成的 `Config.cmake`文件所在目录被存储，这个路径是动态的，可以适应不同的安装环境。它的目的是设置一些与项目相关的环境变量。  
 - `check_required_components` 辅助宏通过检查所有必需组件的 `<Package>_<Component>_FOUND` 变量确保找到所有请求的非可选组件。即使包没有任何组件，也应在包配置文件的末尾调用此宏。这样，CMake 可以确保下游项目没有指定任何不存在的组件。如果 `check_required_components` 失败，则 `<Package>_FOUND` 变量设置为 FALSE，并认为未找到包。`set_and_check()` 宏应该在配置文件中使用，而不是用于设置目录和文件位置的普通 set() 命令。如果引用的文件或目录不存在，宏将失败.  
 
+这涉及到了几个问题：
+1. 模板变量是什么？  
+其实它就是类似于c语言编译中的宏替换，当`configure_package_config_file`工作的时候，会把cmakelists中定义的变量传入到这里面，然后完成相应的宏替换。
+2. 那么，我可以设置哪些变量作为模板变量呢？
+cmake内置变量，以及在cmakelists中定义过的变量。
+
 接下来解释两个引入的函数的工作原理：
 由于CMakePackageConfigHelpers并不是Cmake的内置模块，而是一个独立的模块文件。因此在使用之前需要先包含它，从而将所需要的宏以及函数都能够正确地引入到cmake脚本中。
 最常用的函数有两个，一个是`configure_package_config_file`, `write_basic_package_version_file`.
@@ -187,7 +193,6 @@ install(EXPORT myAppTarget
 在第二步中，myAppTarget是前面install TARGETS时所导出的名称；命名空间就是防止不同库之间相同静动态库名称的解决方案；FILE表示生成的配置文件名字；安装位置表示使用make install之后，这个会安装到哪个相对位置下。  
 3. 在整个packageConfig.cmake文件中，需要使用include所生成的target的配置文件，从而当find_package之后就可以成功读取与target相关的配置信息。
 * * *
-
 
 可以看出，cmake当使用install命令进行安装时，主要分为了三个部分： 
 1. 如何构建一个目标  
