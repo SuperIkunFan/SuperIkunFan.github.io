@@ -133,15 +133,44 @@ install(FILES
     DESTINATION lib/cmake/MyProject
 )
 ```
-在第一步中：其工作逻辑为：CMakePackageConfigHelpers根据Config.cmake.in模板文件生成相应的项目信息导出文件。这个模板文件定义了 CMake 在生成配置文件时应该包含和设置的内容。  
-需要搞清楚如下几个问题：
-1. 模板文件和一般的cmake文件的区别是什么呢？  
+##### 2.2.2.1 如何生成配置文件  
+在第一步中：其工作逻辑为：CMakePackageConfigHelpers提供了一些函数，主要使用`configure_package_config_file`和 `write_basic_package_version_file`这两个最常用的函数生成相应的配置文件。  
+
+**生成packageConfig.cmake**
+需要搞清楚如下几个问题：  
+1. 如何生成相应的PackageConfig.cmake 配置文件呢？  
+configure_package_config_file根据Config.cmake.in模板文件生成相应的项目信息导出文件，这个模板文件定义了CMake在生成配置文件时应该包含和设置的内容。  
+那么Config.cmake.in文件指导configure_package_config_file生成最终的配置文件。  
+
+首先了解一下语法：
+`configure_package_config_file`语法：  
+```
+configure_package_config_file(<INPUT> <OUTPUT> [OPTIONS])
+<INPUT>: 输入模板文件的路径。
+<OUTPUT>: 输出文件的路径。
+[OPTIONS]: 可选项，主要包括目的地路径等
+``` 
+通常来说，使用模板文件作为输入，然后得到${PROJECT_NAME}Config.cmake文件，该文件提供给cmake的find_package使用。  
+
+而一般的Config.cmake.in文件可能包含了以下内容：  
+```cmake
+@PACKAGE_INIT@
+
+include("${CMAKE_CURRENT_LIST_DIR}/ProjectTargets.cmake")
+check_required_components("@PROJECT_NAME@")
+```
+接下来挨个解释内容
+- `@PACKAGE_INIT@`是一个占位符，用于在使用 configure_package_config_file() 函数生成实际配置文件时替换成预定义的初始化代码。这个宏通常用于设置一些基础配置或做一些初始化操作，确保生成的配置文件可以正常工作。
+- `include("${CMAKE_CURRENT_LIST_DIR}/ProjectTargets.cmake")` 这行代码的作用是包含一个名为`ProjectTargets.cmake`的文件，该文件定义了项目的安装目标。从路径 `${CMAKE_CURRENT_LIST_DIR}/MyProjectTargets.cmake` 来看，`ProjectTargets.cmake` 文件相对于生成的 `Config.cmake`文件所在目录被存储，这个路径是动态的，可以适应不同的安装环境。它的目的是设置一些与项目相关的环境变量。  
+- `check_required_components` 辅助宏通过检查所有必需组件的 `<Package>_<Component>_FOUND` 变量确保找到所有请求的非可选组件。即使包没有任何组件，也应在包配置文件的末尾调用此宏。这样，CMake 可以确保下游项目没有指定任何不存在的组件。如果 `check_required_components` 失败，则 `<Package>_FOUND` 变量设置为 FALSE，并认为未找到包。`set_and_check()` 宏应该在配置文件中使用，而不是用于设置目录和文件位置的普通 set() 命令。如果引用的文件或目录不存在，宏将失败.  
+
+2. 模板文件和一般的cmake文件的区别是什么呢？  
 区别就是有些变量是@var1@样式的，而configure_package_config_file() 函数类似于c语言的宏处理器，将宏替换为相应的内容即可。
-2. 哪些变量可以作为模板变量呢？  
+3. 哪些变量可以作为模板变量呢？  
 >  + cmake内置变量
 >  + cmakelists的自定义变量  
 >  + 通过pathvar 参数传入的变量  
-3. 达到什么效果呢？
+4. 处理完之后所生成的配置文件的效果是什么呢？  
 假设在CMakeLists.txt中定义了如下变量： 
 ```cmake
 set(LIB_INSTALL_DIR "1")
@@ -162,34 +191,10 @@ set(MYPROJECT_INCLUDE_DIR "5555")
 
 message("CMAKE_INSTALL_PREFIX = dsadsad")
 ```
-可以看出，其作用效果就是宏处理器的文字替换效果。  
+可以看出，其作用效果就是宏处理器的文字替换效果。
 
-而一般的Config.cmake.in文件可能包含了以下内容：  
-```cmake
-@PACKAGE_INIT@
-
-include("${CMAKE_CURRENT_LIST_DIR}/ProjectTargets.cmake")
-check_required_components("@PROJECT_NAME@")
-```
-接下来挨个解释内容
-- `@PACKAGE_INIT@`是一个占位符，用于在使用 configure_package_config_file() 函数生成实际配置文件时替换成预定义的初始化代码。这个宏通常用于设置一些基础配置或做一些初始化操作，确保生成的配置文件可以正常工作。
-- `include("${CMAKE_CURRENT_LIST_DIR}/ProjectTargets.cmake")` 这行代码的作用是包含一个名为`ProjectTargets.cmake`的文件，该文件定义了项目的安装目标。从路径 `${CMAKE_CURRENT_LIST_DIR}/MyProjectTargets.cmake` 来看，`ProjectTargets.cmake` 文件相对于生成的 `Config.cmake`文件所在目录被存储，这个路径是动态的，可以适应不同的安装环境。它的目的是设置一些与项目相关的环境变量。  
-- `check_required_components` 辅助宏通过检查所有必需组件的 `<Package>_<Component>_FOUND` 变量确保找到所有请求的非可选组件。即使包没有任何组件，也应在包配置文件的末尾调用此宏。这样，CMake 可以确保下游项目没有指定任何不存在的组件。如果 `check_required_components` 失败，则 `<Package>_FOUND` 变量设置为 FALSE，并认为未找到包。`set_and_check()` 宏应该在配置文件中使用，而不是用于设置目录和文件位置的普通 set() 命令。如果引用的文件或目录不存在，宏将失败.  
-
-
-接下来解释两个引入的函数的工作原理：
-由于CMakePackageConfigHelpers并不是Cmake的内置模块，而是一个独立的模块文件。因此在使用之前需要先包含它，从而将所需要的宏以及函数都能够正确地引入到cmake脚本中。
-最常用的函数有两个，一个是`configure_package_config_file`, `write_basic_package_version_file`.
-
-`configure_package_config_file`语法：  
-```
-configure_package_config_file(<INPUT> <OUTPUT> [OPTIONS])
-<INPUT>: 输入模板文件的路径。
-<OUTPUT>: 输出文件的路径。
-[OPTIONS]: 可选项，主要包括目的地路径等
-``` 
-通常来说，使用模板文件作为输入，然后得到${PROJECT_NAME}Config.cmake文件，从而让cmake能够找到。
-
+**生成packageConfigVersion.cmake**  
+使用write_basic_package_version_file生成相应的内容，它不需要任何其他的文件，只需要在CMakeLists.txt文件中定义过与版本相关的内容就可以。  
 `write_basic_package_version_file`语法：  
 ```cmake
 write_basic_package_version_file(<filename> [options])
@@ -197,27 +202,30 @@ write_basic_package_version_file(<filename> [options])
 [options]: 可选项，通常包括版本号和兼容性策略。
 ```
 一般来说最后都是`${PROJECT_NAME}ConfigVersion.cmake`这样的文件命名方式
-`VERSION ${PROJECT_VERSION}` 就是在project(mytestlib)的时候， 所设置的信息  
-COMPATIBILITY SameMajorVersion:  
-COMPATIBILITY 选项指定版本兼容性策略。常用的策略包括：  
-AnyNewerVersion: 任何新版本都兼容。  
-SameMajorVersion: 只有同一个大版本号的版本才兼容。  
-ExactVersion: 只接受完全相同的版本。  
-SameMajorVersion 表示要求相同的主版本号才能兼容。例如，如果版本是 1.2.3，那么 1.x.y 版本（如 1.4.0 或 1.2.5）都是兼容的，但 2.x.y 则不兼容。
+`VERSION ${PROJECT_VERSION}` 就是在project(mytestlib)的时候，所设置的信息：  
++ COMPATIBILITY SameMajorVersion:  
++ COMPATIBILITY 选项指定版本兼容性策略。常用的策略包括：  
++ AnyNewerVersion: 任何新版本都兼容。  
++ SameMajorVersion: 只有同一个大版本号的版本才兼容。  
++ ExactVersion: 只接受完全相同的版本。  
++ SameMajorVersion 表示要求相同的主版本号才能兼容。例如，如果版本是 1.2.3，那么 1.x.y 版本（如 1.4.0 或 1.2.5）都是兼容的，但 2.x.y 则不兼容。
 
+**小结**
 在这个过程中主要生成了两个配置文件  
-+ 配置文件（MyProjectConfig.cmake）:
++ 配置文件（ProjectConfig.cmake）:
   它通常包含了查找依赖项、设置变量以及加载导出目标的逻辑。它负责告诉 CMake 接下来需要做什么，例如加载 MyProjectTargets.cmake 文件。所以它是必需的，因为它扮演了协调者的角色。
 
-+ 版本文件（MyProjectConfigVersion.cmake）:
++ 版本文件（ProjectConfigVersion.cmake）:
   它包含版本兼容性检查的逻辑，确保所需的版本满足要求。  
 
 当用户在他们的 CMake 项目中使用 find_package(MyProject 1.2 REQUIRED) 时：
-+ CMake 首先找到并加载 MyProjectConfig.cmake：如果找到并加载成功，接下来会执行       MyProjectConfig.cmake 中的内容。
++ CMake 首先找到并加载 MyProjectConfig.cmake：如果找到并加载成功，接下来会执行MyProjectConfig.cmake 中的内容。
 + 通常，这个文件会包含类似 include("${CMAKE_CURRENT_LIST_DIR}/MyProjectTargets.cmake") 的语句，以引入导出的目标文件。
 + CMake 加载 MyProjectConfigVersion.cmake：
   用于检查版本兼容性。
 
+
+##### 2.2.2.2 如何安装配置文件  
 按照前面说的，此时只是生成了配置文件，还需要安装package的配置文件  
 ```cmake
 # 安装生成的配置文件和版本文件
@@ -227,8 +235,9 @@ install(FILES
     DESTINATION lib/cmake/MyProject
 )
 ```
+它的主要目的是将配置文件和库资源一起打包。  
 
-**第二个需求：**
+### 2.3 第二个需求的各自工作内容  
 _解决使用者的需求_：
 实际上，使用者只需要知道有哪些静态库或者是动态库，然后直接链接整个库即可。然而，由于存在着动态库，静态库，接口库以及可能出现不同库之间存在着同名的库，因此cmake提出了namespace的概念，这样一般来说就极大概率的降低了链接存在着同名库的问题了。  
 
