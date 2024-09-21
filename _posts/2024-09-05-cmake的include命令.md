@@ -1,6 +1,6 @@
 ---
 layout: post
-title: cmake的set命令详解
+title: cmake的include命令详解
 date: 2024-09-05 15:32 +0800
 tags: [cmake]
 toc: true
