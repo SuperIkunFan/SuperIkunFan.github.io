@@ -11,6 +11,7 @@ toc: true
 + 场景一：我们并不关心一个功能是如何实现的，或者是某些协作者并不关心，他只关心接口能完成什么样的内容。  
 + 场景二：我们想要快速的理清这个cmake构建的过程，那么就可以将一部分内容放置于其他的文件中。  
 + 场景三：我们很有可能使用的是他人提供的或者是cmake官方提供的拓展，此时我们想要使用它的功能的话，就需要include这个模块或者是文件  
++ 场景四：我们很多时候把一些自己定义并且专门处理cmake定义的函数放在一个固定的目录下，例如cmake目录下。然后我们在include这个文件。这个时候需要将当前项目下cmake的目录告诉cmake，在这个目录下还存在着我自己定义的一些cmake命令，命名格式为fileName.cmake，再利用include命令引入。第一步就是list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)；然后再include(fileName)即可。
 
 ## 命令介绍  
 ```cmake
