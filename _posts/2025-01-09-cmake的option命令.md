@@ -1,13 +1,17 @@
 ---
 layout: post
 title: cmake的cmake的option命令详解
-date: 2025-01-09 13:08 +0800
+date: 2025-01-09 15:48 +0800
 tags: [cmake]
 toc: true
 ---
 
 ## 前言  
-当编译的资源和外界选择相关时，那么这个时候就需要用到选择。cmake中设置了option命令，它表示了可以设置默认cmake的布尔值（ON/OFF），通过这个来配置项目的编译。  
+当编译的库根据外部选择决定库的行为特征时，那么一种选择就是放在CMakeLists.txt进行设置说明。cmake提供option命令，它表示了可以设置默认cmake的布尔值（ON/OFF）。库的使用者只需要根据库作者的参考文件，不同修改库的文件，直接通过命令  
+```powershell
+cmake -DENABLE_VAR=ON 
+```
+即可影响这个库的option命令设置的ENABLE_VAR变量的值，从而控制整个库的行为。 
 
 ## 语法介绍  
 ```cmake
