@@ -245,9 +245,16 @@ install(FILES
 ### 3.2 解决库作者的责任  
 先说一下cmake中生成库的时候，使用的是面向对象的思想进行管理，亦即使用target的方式。那么每生成一个target，也就意味着库作者就需要提供这个target对象相关的信息，比如头文件在那里，动静态库在那里等等。之后cmake使用makefile等构建工具先生成一系列这类target相关的库资源，然后cmake为了提高个性化，库作者可以自行决定是否提供与target相关的配置文件。因此，库作者需要通过一定的方式生成这些配置文件。  
 为了简化操作，cmake提供了一种工作流：  
-先使用install(TARGETS)安装并导出目标，然后cmake就知道了配置这个target相关的必要信息了，然后再install(EXPORT)，生成并安装target相关的配置信息  
+第一步，一般而言，告诉cmake，一个target所需要的信息，然后再使用install(TARGETS)安装头文件、静态库或者是动态库，或者是可执行文件，我们在这里把它称为源文件衍生物。  
+第二步，使用install命令，将这些源文件衍生物安装到指定位置。  
+第三步，将target源文件衍生物和其他的相关信息生成一个配置文件，然后安装target相关的配置信息。  
 
-1. 安装并导出TARGETS:  
+1. 设置target的相关信息  
++ 设置target的哪些头文件是需要安装到指定位置的：  
+  + 使用set_target_properties命令指定target的头文件安装属性 PUBLIC_HEADER；INTERFACE_HEADER  
+  + 使用cmake的HEADER_SET概念，然后再安装  
++ 设置target的哪些源文件是需要编译的：  
+2. 安装并导出TARGETS:  
 ```CMAKE
 install(TARGETS myApp
     EXPORT myAppTarget
@@ -256,8 +263,8 @@ install(TARGETS myApp
     LIBRARY DESTINATION lib
     RUNTIME DESTINATION bin)
 ```
-`myapp`是通过添加命令的方式生成的target，然后设置导出的目标名称为myAppTarget，这个名称可自行定义，但是为了容易看懂，targetname+Target的方式。  
-2. 使用install命令，通过install(TARGET)标头，自动生成target.cmake文件并安装到指定的位置。
+`myapp`是通过添加命令的方式生成的target，然后设置导出的目标名称为myAppTarget，这个名称可自行定义，但是为了容易看懂，targetname+Target的方式。值得注意的是，这里加了一个参数，EXPORT。这个是必要的，这个主要是让cmake就知道了配置这个target相关的必要信息了，然后再install(EXPORT)。  
+3. 使用install命令，通过install(TARGET)标头，自动生成target.cmake文件并安装到指定的位置。
 ```cmake
 install(EXPORT myAppTarget
     NAMESPACE test2::
@@ -265,7 +272,7 @@ install(EXPORT myAppTarget
     DESTINATION lib/cmake/test2)
 ```
 在第二步中，myAppTarget是前面install TARGETS时所导出的名称；命名空间就是防止不同库之间相同静动态库名称的解决方案；FILE表示生成的配置文件名字；安装位置表示使用make install之后，这个会安装到哪个相对位置下。  
-3. 在整个packageConfig.cmake文件中，需要使用include所生成的target的配置文件，从而当find_package之后就可以成功读取与target相关的配置信息。
+4. 在整个packageConfig.cmake文件中，需要使用include所生成的target的配置文件，从而当find_package之后就可以成功读取与target相关的配置信息。
 
 ## 第四章 一个简单的构建示例  
 在这个示例代码中我们要解决三个部分：
