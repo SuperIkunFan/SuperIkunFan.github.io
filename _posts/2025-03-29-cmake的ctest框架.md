@@ -49,3 +49,5 @@ add_test(NAME project1 COMMAND "${CMAKE_BINARY_DIR}/${PROJECT_NAME} 1 2 3 4")
 1. cd到配置文件所在的目录，然后执行ctest命令。  
 2. 使用选项--test-dir 编译选项指定目录，然后ctest命令便会将详细的测试内容写入到CTestTestfile.cmake所在目录下会生成相应的结果。  
 
+# 附录  
+## 常用的ctest选项  
