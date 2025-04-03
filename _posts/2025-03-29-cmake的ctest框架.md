@@ -38,8 +38,10 @@ set(Src ${CMAKE_SOURCE_DIR}/main.cc)
 add_executable(${PROJECT_NAME} ${Src})
 
 enable_testing()
-add_test(NAME project1 COMMAND "${CMAKE_BINARY_DIR}/${PROJECT_NAME} 1 2 3 4")
-
+add_test(NAME project1 
+    COMMAND ${PROJECT_NAME} "1" "2" "3" 
+    WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
+)
 ```
 上面需要注意的是，使用引号将命令之后的内容包起来当作一整个命令。
 那么后两句cmake命令主要是生成一个CTestTestfile.cmake的配置文件，用于指导ctest如何进行单元测试。  
