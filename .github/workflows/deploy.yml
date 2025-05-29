@@ -22,8 +22,8 @@ jobs:
         run: mkdocs build --site-dir ./site
 
       - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
+        uses: actions/checkout@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./site
-          publish_branch: mkdocs-new-theme  # 部署到的目标分支（通常为 gh-pages 或 docs）
+          publish_branch: gh-pages  # 部署到的目标分支（通常为 gh-pages 或 docs）
