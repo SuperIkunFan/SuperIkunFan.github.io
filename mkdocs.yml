@@ -4,7 +4,8 @@ theme:
     material  # 核心配置：使用 Material 主题
   palette: #调色板
     - scheme: default
-      primary: black
+      primary: indigo
+      accent: pink
       toggle:
         icon: material/weather-night
         name: 暗色模式
@@ -17,12 +18,22 @@ theme:
     zh #表示在浏览器中显示当前页面的语言是什么，如果是en，那么像谷歌浏览器就可以翻译
 
   font:
-    text: Roboto     # 正文字体
-    code: Fira Code  # 代码字体
+    text: "Noto Sans SC"     # 正文字体
+    code: "Fira Code"  # 代码字体
   
   features:
     - navigation.tabs       # 启用顶部标签页
     - navigation.indexes    # 显示章节索引
+
+plugins:
+  - blog:
+      paths:
+        - path: 'cmake/'
+          sort: 'time'
+          newest_first: true
+        - path: 'cplusplus/'
+          sort: 'time'
+          newest_first: false
 
 # ---------------------配置数学公式相关内容--------------------------
 markdown_extensions:
