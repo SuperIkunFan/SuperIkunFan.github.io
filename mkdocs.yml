@@ -23,7 +23,11 @@ theme:
   features:
     - navigation.tabs       # 启用顶部标签页
     - navigation.indexes    # 显示章节索引
-  
+plugins:
+  - blog:
+      sort: 'time'
+      newest_first: true  # 默认降序（最新优先）
+
 # ---------------------配置数学公式相关内容--------------------------
 markdown_extensions:
   - pymdownx.arithmatex:
