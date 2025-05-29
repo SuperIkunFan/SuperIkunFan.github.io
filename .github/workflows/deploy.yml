@@ -26,4 +26,4 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./site
-          publish_branch: gh-pages  # 部署到的目标分支（通常为 gh-pages 或 docs）
+          publish_branch: mkdocs-new-theme  # 部署到的目标分支（通常为 gh-pages 或 docs）
