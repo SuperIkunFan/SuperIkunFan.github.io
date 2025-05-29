@@ -1,29 +1,22 @@
-name: Deploy MkDocs to GitHub Pages
-
+name: Deploy to GitHub Pages
 on:
   push:
-    branches: [ mkdocs-new-theme ]  # 监听的触发分支（根据你的实际分支名修改）
+    branches: [ "mkdocs-new-theme" ]  # 触发分支
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4  # 第一步：拉取代码
 
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: "3.x"
+      - name: Build with MkDocs    # 第二步：构建（示例）
+        run: |
+          pip install mkdocs
+          mkdocs build --site-dir ./site
 
-      - name: Install MkDocs
-        run: pip install mkdocs mkdocs-material  # 安装 MkDocs 和主题（可选）
-
-      - name: Build the site
-        run: mkdocs build --site-dir ./site
-
-      - name: Deploy to GitHub Pages
-        uses: actions/checkout@v4
+      - name: Deploy to GitHub Pages  # 第三步：部署
+        uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./site
-          publish_branch: gh-pages  # 部署到的目标分支（通常为 gh-pages 或 docs）
+          publish_branch: gh-pages
