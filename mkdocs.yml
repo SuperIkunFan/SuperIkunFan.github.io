@@ -26,14 +26,7 @@ theme:
     - navigation.indexes    # 显示章节索引
 
 plugins:
-  - blog:
-      paths:
-        - path: 'cmake/'
-          sort: 'time'
-          newest_first: true
-        - path: 'cplusplus/'
-          sort: 'time'
-          newest_first: false
+  - search
 
 # ---------------------配置数学公式相关内容--------------------------
 markdown_extensions:
