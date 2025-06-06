@@ -9,23 +9,25 @@
       
       
       
+        <link rel="prev" href="../2025-03-29-boost.test%E6%A1%86%E6%9E%B6/">
       
-        <link rel="next" href="cmake/2024-09-04-cmake%E7%9A%84install%E5%91%BD%E4%BB%A4/">
+      
+        <link rel="next" href="../../%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/2025-05-07-%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86%E4%B8%AD%E7%9A%84%E5%90%84%E7%A7%8D%E9%A2%91%E7%8E%87/">
       
       
-      <link rel="icon" href="assets/images/favicon.png">
+      <link rel="icon" href="../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.14">
     
     
       
-        <title>ikun爱学习</title>
+        <title>cmake的ctest框架 - ikun爱学习</title>
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/main.342714a4.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.342714a4.min.css">
       
         
-        <link rel="stylesheet" href="assets/stylesheets/palette.06af60db.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
       
       
 
@@ -44,7 +46,7 @@
       
     
     
-    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -84,7 +86,7 @@
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="页眉">
-    <a href="." title="ikun爱学习" class="md-header__button md-logo" aria-label="ikun爱学习" data-md-component="logo">
+    <a href="../.." title="ikun爱学习" class="md-header__button md-logo" aria-label="ikun爱学习" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -104,7 +106,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Home
+              cmake的ctest框架
             
           </span>
         </div>
@@ -201,11 +203,9 @@
   
   
   
-    
   
-  
-    <li class="md-tabs__item md-tabs__item--active">
-      <a href="." class="md-tabs__link">
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
         
   
   
@@ -226,7 +226,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="cmake/2024-09-04-cmake%E7%9A%84install%E5%91%BD%E4%BB%A4/" class="md-tabs__link">
+        <a href="../../cmake/2024-09-04-cmake%E7%9A%84install%E5%91%BD%E4%BB%A4/" class="md-tabs__link">
           
   
   
@@ -248,7 +248,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="cplusplus/2025-05-26-%E4%B8%80%E7%A7%8Dc%2B%2B%E5%B8%B8%E9%87%8F%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF/" class="md-tabs__link">
+        <a href="../../cplusplus/2025-05-26-%E4%B8%80%E7%A7%8Dc%2B%2B%E5%B8%B8%E9%87%8F%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF/" class="md-tabs__link">
           
   
   
@@ -266,11 +266,13 @@
   
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
-        <a href="%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/2025-03-29-boost.test%E6%A1%86%E6%9E%B6/" class="md-tabs__link">
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../2025-03-29-boost.test%E6%A1%86%E6%9E%B6/" class="md-tabs__link">
           
   
   
@@ -292,7 +294,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/2025-05-07-%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86%E4%B8%AD%E7%9A%84%E5%90%84%E7%A7%8D%E9%A2%91%E7%8E%87/" class="md-tabs__link">
+        <a href="../../%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/2025-05-07-%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86%E4%B8%AD%E7%9A%84%E5%90%84%E7%A7%8D%E9%A2%91%E7%8E%87/" class="md-tabs__link">
           
   
   
@@ -314,7 +316,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="%E7%B3%BB%E7%BB%9F%E8%84%9A%E6%9C%AC/2025-05-29-powershell%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/" class="md-tabs__link">
+        <a href="../../%E7%B3%BB%E7%BB%9F%E8%84%9A%E6%9C%AC/2025-05-29-powershell%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/" class="md-tabs__link">
           
   
   
@@ -339,9 +341,7 @@
           
             
               
-                
-              
-              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" hidden>
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
                     
@@ -352,7 +352,7 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="." title="ikun爱学习" class="md-nav__button md-logo" aria-label="ikun爱学习" data-md-component="logo">
+    <a href="../.." title="ikun爱学习" class="md-nav__button md-logo" aria-label="ikun爱学习" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -367,30 +367,10 @@
       
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    Home
-    
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="." class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
         
   
   
@@ -401,75 +381,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="目录">
-  
-  
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      目录
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      🛠️ 技术栈
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
-    <span class="md-ellipsis">
-      🔥 热门项目
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="🔥 热门项目">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1-cmake" class="md-nav__link">
-    <span class="md-ellipsis">
-      1. CMake实战教程
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#2-c11" class="md-nav__link">
-    <span class="md-ellipsis">
-      2. C++11特性解析
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_3" class="md-nav__link">
-    <span class="md-ellipsis">
-      📺 技术视频
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -544,7 +455,7 @@
   
   
     <li class="md-nav__item">
-      <a href="cmake/2024-09-04-cmake%E7%9A%84install%E5%91%BD%E4%BB%A4/" class="md-nav__link">
+      <a href="../../cmake/2024-09-04-cmake%E7%9A%84install%E5%91%BD%E4%BB%A4/" class="md-nav__link">
         
   
   
@@ -567,7 +478,7 @@
   
   
     <li class="md-nav__item">
-      <a href="cmake/2024-09-04-cmake%E7%9A%84%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%8F%82%E6%95%B0/" class="md-nav__link">
+      <a href="../../cmake/2024-09-04-cmake%E7%9A%84%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%8F%82%E6%95%B0/" class="md-nav__link">
         
   
   
@@ -590,7 +501,7 @@
   
   
     <li class="md-nav__item">
-      <a href="cmake/2024-09-05-cmake%E7%9A%84include%E5%91%BD%E4%BB%A4/" class="md-nav__link">
+      <a href="../../cmake/2024-09-05-cmake%E7%9A%84include%E5%91%BD%E4%BB%A4/" class="md-nav__link">
         
   
   
@@ -613,7 +524,7 @@
   
   
     <li class="md-nav__item">
-      <a href="cmake/2024-09-05-cmake%E7%9A%84list%E5%91%BD%E4%BB%A4/" class="md-nav__link">
+      <a href="../../cmake/2024-09-05-cmake%E7%9A%84list%E5%91%BD%E4%BB%A4/" class="md-nav__link">
         
   
   
@@ -636,7 +547,7 @@
   
   
     <li class="md-nav__item">
-      <a href="cmake/2024-09-05-cmake%E7%9A%84set%E5%91%BD%E4%BB%A4/" class="md-nav__link">
+      <a href="../../cmake/2024-09-05-cmake%E7%9A%84set%E5%91%BD%E4%BB%A4/" class="md-nav__link">
         
   
   
@@ -659,7 +570,7 @@
   
   
     <li class="md-nav__item">
-      <a href="cmake/2024-09-06-cmake%E7%9A%84add_custom_command%E5%91%BD%E4%BB%A4/" class="md-nav__link">
+      <a href="../../cmake/2024-09-06-cmake%E7%9A%84add_custom_command%E5%91%BD%E4%BB%A4/" class="md-nav__link">
         
   
   
@@ -682,7 +593,7 @@
   
   
     <li class="md-nav__item">
-      <a href="cmake/2025-01-09-cmake%E7%9A%84file%E5%91%BD%E4%BB%A4/" class="md-nav__link">
+      <a href="../../cmake/2025-01-09-cmake%E7%9A%84file%E5%91%BD%E4%BB%A4/" class="md-nav__link">
         
   
   
@@ -705,7 +616,7 @@
   
   
     <li class="md-nav__item">
-      <a href="cmake/2025-01-09-cmake%E7%9A%84option%E5%91%BD%E4%BB%A4/" class="md-nav__link">
+      <a href="../../cmake/2025-01-09-cmake%E7%9A%84option%E5%91%BD%E4%BB%A4/" class="md-nav__link">
         
   
   
@@ -728,7 +639,7 @@
   
   
     <li class="md-nav__item">
-      <a href="cmake/2025-01-15-cmake%E7%9A%84target%E6%A6%82%E5%BF%B5/" class="md-nav__link">
+      <a href="../../cmake/2025-01-15-cmake%E7%9A%84target%E6%A6%82%E5%BF%B5/" class="md-nav__link">
         
   
   
@@ -751,7 +662,7 @@
   
   
     <li class="md-nav__item">
-      <a href="cmake/2025-01-16-cmake%E7%9A%84%E6%80%BB%E4%BD%93%E8%AF%AD%E8%A8%80%E6%A6%82%E5%BF%B5/" class="md-nav__link">
+      <a href="../../cmake/2025-01-16-cmake%E7%9A%84%E6%80%BB%E4%BD%93%E8%AF%AD%E8%A8%80%E6%A6%82%E5%BF%B5/" class="md-nav__link">
         
   
   
@@ -826,7 +737,7 @@
   
   
     <li class="md-nav__item">
-      <a href="cplusplus/2025-05-26-%E4%B8%80%E7%A7%8Dc%2B%2B%E5%B8%B8%E9%87%8F%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF/" class="md-nav__link">
+      <a href="../../cplusplus/2025-05-26-%E4%B8%80%E7%A7%8Dc%2B%2B%E5%B8%B8%E9%87%8F%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF/" class="md-nav__link">
         
   
   
@@ -853,8 +764,10 @@
       
   
   
+    
   
   
+  
     
     
       
@@ -866,17 +779,20 @@
     
     
       
+        
+        
+      
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
         
           
-          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
             
   
   
@@ -889,7 +805,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_4">
             <span class="md-nav__icon md-icon"></span>
             单元测试
@@ -903,7 +819,7 @@
   
   
     <li class="md-nav__item">
-      <a href="%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/2025-03-29-boost.test%E6%A1%86%E6%9E%B6/" class="md-nav__link">
+      <a href="../2025-03-29-boost.test%E6%A1%86%E6%9E%B6/" class="md-nav__link">
         
   
   
@@ -923,10 +839,19 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/2025-03-29-cmake%E7%9A%84ctest%E6%A1%86%E6%9E%B6/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -937,6 +862,7 @@
   
 
       </a>
+      
     </li>
   
 
@@ -1005,7 +931,7 @@
   
   
     <li class="md-nav__item">
-      <a href="%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/2025-05-07-%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86%E4%B8%AD%E7%9A%84%E5%90%84%E7%A7%8D%E9%A2%91%E7%8E%87/" class="md-nav__link">
+      <a href="../../%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/2025-05-07-%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86%E4%B8%AD%E7%9A%84%E5%90%84%E7%A7%8D%E9%A2%91%E7%8E%87/" class="md-nav__link">
         
   
   
@@ -1028,7 +954,7 @@
   
   
     <li class="md-nav__item">
-      <a href="%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/2025-05-08-%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E4%B8%AD%E9%A2%91%E5%9F%9F%E6%BB%A4%E6%B3%A2%E5%99%A8%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" class="md-nav__link">
+      <a href="../../%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/2025-05-08-%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E4%B8%AD%E9%A2%91%E5%9F%9F%E6%BB%A4%E6%B3%A2%E5%99%A8%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" class="md-nav__link">
         
   
   
@@ -1051,7 +977,7 @@
   
   
     <li class="md-nav__item">
-      <a href="%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/2025-05-08-%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86%E4%B8%AD%E7%9A%84%E5%B7%B4%E7%89%B9%E6%B2%83%E6%96%AF%E6%BB%A4%E6%B3%A2%E5%99%A8/" class="md-nav__link">
+      <a href="../../%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/2025-05-08-%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86%E4%B8%AD%E7%9A%84%E5%B7%B4%E7%89%B9%E6%B2%83%E6%96%AF%E6%BB%A4%E6%B3%A2%E5%99%A8/" class="md-nav__link">
         
   
   
@@ -1126,7 +1052,7 @@
   
   
     <li class="md-nav__item">
-      <a href="%E7%B3%BB%E7%BB%9F%E8%84%9A%E6%9C%AC/2025-05-29-powershell%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/" class="md-nav__link">
+      <a href="../../%E7%B3%BB%E7%BB%9F%E8%84%9A%E6%9C%AC/2025-05-29-powershell%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/" class="md-nav__link">
         
   
   
@@ -1157,9 +1083,7 @@
             
             
               
-                
-              
-              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" hidden>
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
                     
@@ -1168,65 +1092,8 @@
   
   
   
+    
   
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      目录
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      🛠️ 技术栈
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
-    <span class="md-ellipsis">
-      🔥 热门项目
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="🔥 热门项目">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1-cmake" class="md-nav__link">
-    <span class="md-ellipsis">
-      1. CMake实战教程
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#2-c11" class="md-nav__link">
-    <span class="md-ellipsis">
-      2. C++11特性解析
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_3" class="md-nav__link">
-    <span class="md-ellipsis">
-      📺 技术视频
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
   
 </nav>
                   </div>
@@ -1239,165 +1106,50 @@
               <article class="md-content__inner md-typeset">
                 
                   
-  
 
 
 
+<h1 id="_1">前言</h1>
+<p>当我们写出代码之后，一般需要对它的正确性进行检验。当然我们可以自己写一个可执行文件，通过打印，然后看看结果是否满足自己的预期。但是我们也想利用程序进行自动判断程序是否正确；当我们执行测试之后，也想要将代码的哪里出问题，这样通过特定的打印，将输入输出，以及中间值记录到一个文件中，进行比对；当一种测试情况出问题之后，也想要继续的执行其他的代码，看看这些问题是否有问题。<br />
+针对以上这些测试的场景，就可以借助一些现有开发出来的代码来完成自己的需求。现代c++事实上基本采用cmake进行构建系统，因此有必要了解cmake出品的ctest框架。  </p>
+<h1 id="_2">整体流程</h1>
+<p>ctest框架整体分为两个部分，告诉cmake如何生成单元测试的可执行文件；第二部分，使用ctest命令来执行单元测试的可执行文件，其测试的总体情况会在终端上显示出来，而其他详细的测试结果会自动在执行目录下生成测试结果的详情。  </p>
+<h2 id="cmake">如何告诉cmake生成单元测试的可执行文件</h2>
+<p>整体上，ctest仍然通过cmakelists.txt文件进行构建，与常规的构建可执行文件并没有太多的区别。常规的cmakelists.txt如下：
+<div class="highlight"><pre><span></span><code><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span><span class="w"> </span><span class="s">xxx</span><span class="p">)</span>
 
-<style>
-  .header-container {
-    position: relative;
-    margin-bottom: 30px;
-  }
-  .title-span {
-    position: absolute;
-    top: 0;
-    right: 0;
-    background: rgba(76, 175, 80, 0.15);
-    padding: 8px 20px;
-    border-radius: 30px;
-    box-shadow: 0 4px 8px rgba(76, 175, 80, 0.2);
-  }
-  .avatar-container {
-    display: flex;
-    justify-content: center;
-    margin: 40px 0;
-  }
-</style>
+<span class="nb">project</span><span class="p">(</span><span class="s">project</span><span class="p">)</span>
 
-<div class="header-container">
-  <h1 style="text-align: center;">个人主页</h1>
-  <span class="title-span" style="color: #4CAF50;">⚡ ikun fan</span>
-</div>
+<span class="nb">set</span><span class="p">(</span><span class="s">Src</span><span class="w"> </span><span class="o">${</span><span class="nv">CMAKE_SOURCE_DIR</span><span class="o">}</span><span class="s">/main.cc</span><span class="p">)</span>
 
-<div class="avatar-container">
-  <img src="assets/a.jfif" width="180" 
-       style="border-radius:50%; border:3px solid #4CAF50; 
-              box-shadow: 0 8px 25px rgba(76, 175, 80, 0.4);">
-</div>
+<span class="nb">add_executable</span><span class="p">(</span><span class="o">${</span><span class="nv">PROJECT_NAME</span><span class="o">}</span><span class="w"> </span><span class="o">${</span><span class="nv">Src</span><span class="o">}</span><span class="p">)</span>
+</code></pre></div>
+如上，便可以生成一个可执行文件的cmakelist.txt文件写法。为了使用ctest，仅仅需要<br />
+1. enable_testing()
+2. add_test(NAME TARGETNAME COMMAND EXCUTEABLE ARG1 ARG2 ...)</p>
+<p>将这两个添加到CMakeLists.txt中后
+<div class="highlight"><pre><span></span><code><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span><span class="w"> </span><span class="s">xxx</span><span class="p">)</span>
 
-<div style="max-width: 700px; margin: 0 auto; padding: 25px; 
-            background: linear-gradient(135deg, rgba(76, 175, 80, 0.08), rgba(255, 255, 255, 0.8));
-            border-radius: 16px; box-shadow: 0 6px 20px rgba(0,0,0,0.08);">
-  <h3 style="text-align: center; color: #4CAF50; margin-top: 0; 
-             border-bottom: 2px dashed #4CAF50; padding-bottom: 10px;">
-    坤式精神档案
-  </h3>
+<span class="nb">project</span><span class="p">(</span><span class="s">project1</span><span class="p">)</span>
 
-  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0;">
-    <div style="background: #E8F5E9; padding: 15px; border-radius: 12px;">
-      <p style="margin: 0; font-weight: bold; color: #2E7D32;">🎤 音乐信仰</p>
-      <p style="margin: 8px 0 0; line-height: 1.6;">
-        单曲循环《Hug me》的朝圣者<br>
-        坤式旋律人体节拍器<br>
-        <span style="color: #FF5722">"只因你太美"</span>十级学者
-      </p>
-    </div>
+<span class="nb">set</span><span class="p">(</span><span class="s">Src</span><span class="w"> </span><span class="o">${</span><span class="nv">CMAKE_SOURCE_DIR</span><span class="o">}</span><span class="s">/main.cc</span><span class="p">)</span>
 
-    <div style="background: #E8F5E9; padding: 15px; border-radius: 12px;">
-      <p style="margin: 0; font-weight: bold; color: #2E7D32;">💃 灵魂共鸣</p>
-      <p style="margin: 8px 0 0; line-height: 1.6;">
-        舞台艺术的显微镜<br>
-        每个wave都值得反复品味<br>
-        应援打榜专业八级选手
-      </p>
-    </div>
-  </div>
+<span class="nb">add_executable</span><span class="p">(</span><span class="o">${</span><span class="nv">PROJECT_NAME</span><span class="o">}</span><span class="w"> </span><span class="o">${</span><span class="nv">Src</span><span class="o">}</span><span class="p">)</span>
 
-  <div style="text-align: center; margin-top: 25px; padding: 15px; 
-              background: rgba(76, 175, 80, 0.1); border-radius: 12px;">
-    <p style="font-size: 1.2em; margin: 0; line-height: 1.8;">
-      <span style="font-weight: bold; color: #4CAF50;">"练习生没有捷径"</span> 终身实践者<br>
-      在<span style="background: linear-gradient(45deg, #4CAF50, #2196F3); 
-                -webkit-background-clip: text; color: transparent; 
-                font-weight: bold;">唱跳rap篮球</span>的宇宙中<br>
-      追寻完美平衡的IKUN信徒
-    </p>
-  </div>
-</div>
-
-<div style="text-align: center; margin: 10px 0;">
-  <a href="https://space.bilibili.com/yourid" target="_blank">
-    <img src="https://img.shields.io/badge/B站-SuperIkunFan-FF69B4?logo=bilibili" alt="B站">
-  </a>
-  <a href="https://github.com/SuperIkunFan" target="_blank">
-    <img src="https://img.shields.io/badge/GitHub-SuperIkunFan-black?logo=github" alt="GitHub">
-  </a>
-  <a href="mailto:ikun@example.com">
-    <img src="https://img.shields.io/badge/Email-ikun@example.com-red?logo=gmail" alt="邮箱">
-  </a>
-</div>
-
-<h2 id="_1">🛠️ 技术栈</h2>
-<div class="grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem; margin: 2rem 0;">
-
-<div style="border: 1px solid #eaeaea; padding: 1rem; border-radius: 8px; background: #f5f5f5;">
-  <div style="display: flex; align-items: center; margin-bottom: 0.5rem;">
-    <!-- 使用Base64编码的芯片图标 -->
-    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj48cGF0aCBkPSJNNDY0IDE5Mkg0NDhWMTQ0QzQ0OCA2NC41IDM5OS41IDE2IDMyMCAxNkgxOTJDMTEyLjUgMTYgNjQgNjQuNSA2NCAxNDRWMjA0SDE2VjQ0OEg2NFY0OTZDNjQgNTA0LjUgNzEuNSA1MTIgODAgNTEySDE0NEMxNTIuNSA1MTIgMTYwIDUwNC41IDE2MCA0OTZWNDQ4SDM1MlY0OTZDMzUyIDUwNC41IDM1OS41IDUxMiAzNjggNTEySDQzMkM0NDAuNSA1MTIgNDQ4IDUwNC41IDQ0OCA0OTZWNDQ4SDQ5NlYxOTJINDY0Wk0xNjAgMjA0VjE0NEMxNjAgMTE3LjUgMTgxLjUgOTYgMjA4IDk2SDMwNEMzMzAuNSA5NiAzNTIgMTE3LjUgMzUyIDE0NFYyMDRIMTYwWiIgZmlsbD0iIzAwNDQ4MiIvPjwvc3ZnPg==" 
-         width=20 
-         style="margin-right:8px"
-         alt="芯片图标">
-    <strong style="font-size: 1.1em; color: #2c3e50;">嵌入式开发</strong>
-  </div>
-  <ul style="margin: 0; padding-left: 1.2rem; line-height: 1.6;">
-    <li><code>STM32/Cortex-M</code> 开发</li>
-    <li><code>FreeRTOS</code> 实时系统</li>
-    <li>硬件加速算法优化</li>
-  </ul>
-</div>
-
-<div style="border: 1px solid #eaeaea; padding: 1rem; border-radius: 8px;">
-  <div style="display: flex; align-items: center; margin-bottom: 0.5rem;">
-    <img src="https://raw.githubusercontent.com/isocpp/logos/master/cpp_logo.png" 
-         width=20 
-         style="margin-right:8px">
-    <strong style="font-size: 1.1em; color: #004482;">C++开发</strong>
-  </div>
-  <ul style="margin-top: 0; margin-bottom: 0; padding-left: 1.2rem;">
-    <li>C++11/17</li>
-    <li>CMake</li>
-    <li>模板元编程</li>
-  </ul>
-</div>
-
-<div style="border: 1px solid #eaeaea; padding: 1rem; border-radius: 8px; background: #f5f5f5; margin-top: 1rem;">
-  <div style="display: flex; align-items: center; margin-bottom: 0.5rem;">
-    <!-- 使用Base64编码的工具箱图标 -->
-    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj48cGF0aCBkPSJNMTg0LjUgNjRIMzI3LjVMMzUyIDg4LjVWMjA4SDQ0OFY0NDhINDY0VjQ5NkM0NjQgNTA0LjUgNDcxLjUgNTEyIDQ4MCA1MTJINTQ0QzU1Mi41IDUxMiA1NjAgNTA0LjUgNTYwIDQ5NlY0NDhINTk2VjIwOEg2OTJWODguNUw3MTYuNSA2NEg4NTZWMEgxODQuNVY2NFpNNDQ4IDQ0OFYyMjRINDk2VjQ0OEg0NDhaTTIxNiA0OFYxNkg0MjRWNjhIMzA0VjQ4SDIxNlpNNDAgMjI0SDg4VjQ0OEg0MFYyMjRaTTI0MCA0NDhWMjI0SDI4OFY0NDhIMjQwWk0zMzYgNDQ4VjIyNEgzODRWNDQ4SDMzNloiIGZpbGw9IiNlNDdlMWYiLz48L3N2Zz4=" 
-         width=20 
-         style="margin-right:8px"
-         alt="工具箱图标">
-    <strong style="font-size: 1.1em; color: #2c3e50;">工具链</strong>
-  </div>
-  <ul style="margin: 0; padding-left: 1.2rem; line-height: 1.6;">
-    <li><code>Git</code> 版本控制</li>
-    <li><code>VSCode</code> 开发环境</li>
-    <li><code>Docker</code> 容器化</li>
-  </ul>
-</div>
-
-</div>
-
-<h2 id="_2">🔥 热门项目</h2>
-<h3 id="1-cmake">1. <a href="cmake/2025-01-16-cmake%E7%9A%84%E6%80%BB%E4%BD%93%E8%AF%AD%E8%A8%80%E6%A6%82%E5%BF%B5/">CMake实战教程</a></h3>
-<p><img src="assets/cmake_logo.png" 
-     width=100 
-     style="float:right; margin-left:15px"></p>
-<ul>
-<li>现代CMake最佳实践</li>
-<li>多平台构建方案</li>
-<li>依赖管理技巧</li>
-</ul>
-<h3 id="2-c11">2. <a href="cplusplus/2025-05-26-%E4%B8%80%E7%A7%8Dc%2B%2B%E5%B8%B8%E9%87%8F%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF/">C++11特性解析</a></h3>
-<p><img src="https://isocpp.org/assets/images/cpp_logo.png" width=100 style="float:right; margin-left:15px"></p>
-<ul>
-<li>移动语义详解</li>
-<li>lambda表达式</li>
-<li>类型推导</li>
-</ul>
-<h2 id="_3">📺 技术视频</h2>
-<iframe ... sandbox="allow-same-origin allow-scripts"></iframe>
+<span class="nb">enable_testing</span><span class="p">()</span>
+<span class="nb">add_test</span><span class="p">(</span><span class="s">NAME</span><span class="w"> </span><span class="s">project1</span><span class="w"> </span>
+<span class="w">    </span><span class="s">COMMAND</span><span class="w"> </span><span class="o">${</span><span class="nv">PROJECT_NAME</span><span class="o">}</span><span class="w"> </span><span class="s2">&quot;1&quot;</span><span class="w"> </span><span class="s2">&quot;2&quot;</span><span class="w"> </span><span class="s2">&quot;3&quot;</span><span class="w"> </span>
+<span class="w">    </span><span class="s">WORKING_DIRECTORY</span><span class="w"> </span><span class="o">${</span><span class="nv">CMAKE_BINARY_DIR</span><span class="o">}</span>
+<span class="p">)</span>
+</code></pre></div>
+上面需要注意的是，使用引号将命令之后的内容包起来当作一整个命令。
+那么后两句cmake命令主要是生成一个CTestTestfile.cmake的配置文件，用于指导ctest如何进行单元测试。  </p>
+<h2 id="_3">如何运行单元测试呢</h2>
+<p>核心便是如何让ctest找到这个CTestTestfile.cmake，ctest命令根据这个配置文件执行响应的单元测试。那么就有两种方式：
+1. cd到配置文件所在的目录，然后执行ctest命令。<br />
+2. 使用选项--test-dir 编译选项指定目录，然后ctest命令便会将详细的测试内容写入到CTestTestfile.cmake所在目录下会生成相应的结果。  </p>
+<h1 id="_4">附录</h1>
+<h2 id="ctest">常用的ctest选项</h2>
 
 
 
@@ -1410,8 +1162,6 @@
 
 
 
-
-  
 
 
 
@@ -1451,10 +1201,10 @@
     
     
       
-      <script id="__config" type="application/json">{"base": ".", "features": ["navigation.tabs", "navigation.indexes", "content.code.annotate", "content.code.copy"], "search": "assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+      <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.indexes", "content.code.annotate", "content.code.copy"], "search": "../../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
     
     
-      <script src="assets/javascripts/bundle.13a4f30d.min.js"></script>
+      <script src="../../assets/javascripts/bundle.13a4f30d.min.js"></script>
       
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       
