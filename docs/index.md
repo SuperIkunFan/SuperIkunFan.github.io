@@ -152,7 +152,7 @@ hide:
 - 多平台构建方案
 - 依赖管理技巧
 
-### 2. [C++11特性解析](cplusplus/c11.md)
+### 2. [C++11特性解析](cplusplus/2025-05-26-一种c++常量注入技术.md)
 <img src="https://isocpp.org/assets/images/cpp_logo.png" width=100 style="float:right; margin-left:15px">
 
 - 移动语义详解
