@@ -143,7 +143,7 @@ hide:
 
 ## 🔥 热门项目
 
-### 1. [CMake实战教程](cmake/test1.md)
+### 1. [CMake实战教程](cmake/2025-01-16-cmake的总体语言概念.md)
 <img src="assets/cmake_logo.png" 
      width=100 
      style="float:right; margin-left:15px">
