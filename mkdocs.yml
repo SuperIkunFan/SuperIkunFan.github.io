@@ -5,7 +5,7 @@ theme:
   palette: #调色板
     - scheme: default
       primary: indigo
-      accent: pink
+      accent: blue
       toggle:
         icon: material/weather-night
         name: 暗色模式
@@ -24,6 +24,8 @@ theme:
   features:
     - navigation.tabs       # 启用顶部标签页
     - navigation.indexes    # 显示章节索引
+    - content.code.annotate # 启动代码标注
+    - content.code.copy     # 启动代码复制
 
 plugins:
   - search
@@ -32,7 +34,12 @@ plugins:
 markdown_extensions:
   - pymdownx.arithmatex:
       generic: true
-
+  - pymdownx.superfences:
+      custom_fences:
+      - name: mermaid
+        class: mermaid
+        format: !!python/name:pymdownx.superfences.fence_code_format
 extra_javascript:
   - https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js
+  - https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js #启动mermaid
 # ---------------------end--------------------------
