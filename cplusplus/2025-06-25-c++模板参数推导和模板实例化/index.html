@@ -12,7 +12,7 @@
         <link rel="prev" href="../2025-05-26-%E4%B8%80%E7%A7%8Dc%2B%2B%E5%B8%B8%E9%87%8F%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF/">
       
       
-        <link rel="next" href="../../%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/2025-03-28-cmake%E7%9A%84ctest%E6%A1%86%E6%9E%B6/">
+        <link rel="next" href="../2025-06-26-c%2B%2B%E6%A0%87%E7%AD%BE%E6%B4%BE%E5%8F%91%E6%8A%80%E6%9C%AF--%E4%BB%A5geometry%E6%B3%9B%E5%9E%8B%E4%B8%BA%E4%BE%8B/">
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
@@ -41,8 +41,8 @@
         
         
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans+SC:300,300i,400,400i,700,700i%7CFira+Code:400,400i,700,700i&display=fallback">
-        <style>:root{--md-text-font:"Noto Sans SC";--md-code-font:"Fira Code"}</style>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans,+Noto+Sans+SC:300,300i,400,400i,700,700i%7CFira+Code,+monospace:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Noto Sans, Noto Sans SC";--md-code-font:"Fira Code, monospace"}</style>
       
     
     
@@ -700,6 +700,8 @@
       
         
       
+        
+      
     
     
     
@@ -825,7 +827,34 @@
           <li class="md-nav__item">
   <a href="#11" class="md-nav__link">
     <span class="md-ellipsis">
-      1.1 模板的工作过程
+      1.1 模板种类
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.2 主模板和特化模板
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.3 模板形参
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.4 编译器对模板的处理流程
     </span>
   </a>
   
@@ -951,6 +980,29 @@
   
 </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2025-06-26-c%2B%2B%E6%A0%87%E7%AD%BE%E6%B4%BE%E5%8F%91%E6%8A%80%E6%9C%AF--%E4%BB%A5geometry%E6%B3%9B%E5%9E%8B%E4%B8%BA%E4%BE%8B/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    c++标签派发技术--以geometry泛型为例
+    
+  </span>
+  
+
+      </a>
     </li>
   
 
@@ -1300,7 +1352,34 @@
           <li class="md-nav__item">
   <a href="#11" class="md-nav__link">
     <span class="md-ellipsis">
-      1.1 模板的工作过程
+      1.1 模板种类
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.2 主模板和特化模板
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.3 模板形参
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.4 编译器对模板的处理流程
     </span>
   </a>
   
@@ -1441,73 +1520,178 @@
   <h1>c++模板参数推导和模板实例化</h1>
 
 <h2 id="_1">一、前言</h2>
-<p>模板是为了通用化而进行的一项c++语言特性。但是很多时候，由于模板过于发散，以至于我们对模板必须要实现一定的约束，通过这些约束来减少错误的过程。</p>
-<p>模板中有三类，一个是函数模板，一个是类模板，变量模板。</p>
-<p>模板参数分为类型模板形参和非类型模板形参。</p>
-<p>类型模板形参分为四种：
-+ 特化参数：在偏特化中被固定为具体类型或值的参数
-+ 通用参数：在偏特化中重新声明为模板参数的参数 
-+ 推导参数：通过模式匹配推导出的参数。
-+ 默认参数：使用=获取的到的参数，默认参数只能出现在主模板中，偏特化版本不能重新定义或修改默认参数，偏特化版本必须保持与主模板相同的参数数量。</p>
-<p>当使用前面三类模板时，就需要手动填入或者是编译器自动根据变量实参来推导出模板实参。然后再根据部分得到的模板实参来推导整个模板中所需要的模板实参。
-<div class="highlight"><pre><span></span><code>flowchart TD
-    A[模板类型] --&gt; B[函数模板]
-    A --&gt; C[类模板]
-    A --&gt; D[变量模板]
+<p>模板是C++语言中为实现通用化编程而提供的一项重要特性。然而在实际应用中，由于模板的灵活性过高，往往需要对其施加适当的约束条件。这些约束能够有效减少因模板过度泛化而导致的编程错误。</p>
+<h3 id="11">1.1 模板种类</h3>
+<p>c++中按模板种类有三种：</p>
+<ul>
+<li><strong>函数模板</strong>
+    <div class="highlight"><pre><span></span><code><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
+<span class="kt">void</span><span class="w"> </span><span class="n">swap</span><span class="p">(</span><span class="n">T</span><span class="o">&amp;</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">T</span><span class="o">&amp;</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">T</span><span class="w"> </span><span class="n">tmp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">;</span>
+<span class="w">    </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">b</span><span class="p">;</span>
+<span class="w">    </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tmp</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></li>
+<li><strong>类模板</strong>
+    <div class="highlight"><pre><span></span><code><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">Size</span><span class="o">&gt;</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Array</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">T</span><span class="w"> </span><span class="n">data</span><span class="p">[</span><span class="n">Size</span><span class="p">];</span>
+<span class="w">    </span><span class="c1">// ...通用实现</span>
+<span class="p">};</span>
+</code></pre></div></li>
+<li><strong>变量模板</strong>
+    <div class="highlight"><pre><span></span><code><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
+<span class="k">constexpr</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="n">e</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">T</span><span class="p">(</span><span class="mf">2.718281828459045</span><span class="p">);</span>
+</code></pre></div></li>
+</ul>
+<h3 id="12">1.2 主模板和特化模板</h3>
+<p>在1.1节的例子中，这些模板对任何类型实参都可以使用，但是实际上会存在有些类型不能使用这个模板，用了就会出问题。这个时候，我们希望对有一些类型单独处理，要么是针对这些类型重新定义实现，要么是只要求满足条件的类型才可以使用这个模板，或者是两者都使用。本文对这些类型的要求统称为约束。</p>
+<p>如果单独处理某些类型，c++提供了特化模板（包含偏特化和全特化模板），而这两者都是在一个主模板上定义的。如前面定义的模板</p>
+<div class="highlight"><pre><span></span><code><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
+<span class="kt">void</span><span class="w"> </span><span class="n">swap</span><span class="p">(</span><span class="n">T</span><span class="o">&amp;</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">T</span><span class="o">&amp;</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">T</span><span class="w"> </span><span class="n">tmp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">;</span>
+<span class="w">    </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">b</span><span class="p">;</span>
+<span class="w">    </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tmp</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>此时它是主模板。如何对其特化，就是对其模板形参在参数列表中加上限定，然后它就可以称为特化版本。分为两种，全特化和偏特化</p>
+<ul>
+<li>
+<p>全特化模板，指为模板的所有参数提供具体类型或值，生成一个完全定制的版本。全特化会覆盖主模板的通用实现，针对特定参数组合提供专属行为</p>
+<p><div class="highlight"><pre><span></span><code><span class="k">template</span><span class="w"> </span><span class="o">&lt;&gt;</span>
+<span class="kt">void</span><span class="w"> </span><span class="n">swap</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">T</span><span class="w"> </span><span class="n">tmp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">;</span>
+<span class="w">    </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">b</span><span class="p">;</span>
+<span class="w">    </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tmp</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
++ 偏特例化模板，将模板的部分参数提供具体类型或约束条件，生成一个针对特定类型组合的定制版本。偏特化保留了部分泛化能力，同时针对特定模式（如指针、引用、固定值等）优化实现。值得注意的是，函数模板不支持偏特化模板。感性的来说，就是对主模板有进一步的约束条件，它就可以被称为偏特化模板。
+<div class="highlight"><pre><span></span><code><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">N</span><span class="o">&gt;</span><span class="w">  </span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Array</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="n">data</span><span class="p">[</span><span class="n">N</span><span class="p">];</span><span class="w"> </span><span class="p">};</span><span class="w">  </span>
 
-    B --&gt; E[模板参数类型]
-    C --&gt; E
-    D --&gt; E
+<span class="c1">// 偏特化1：固定N=10，保留T泛型  </span>
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span><span class="w">  </span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Array</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">  </span>
+<span class="w">    </span><span class="n">T</span><span class="w"> </span><span class="n">data</span><span class="p">[</span><span class="mi">10</span><span class="p">];</span><span class="w">  </span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">init</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="cm">/* 针对size=10的优化 */</span><span class="w"> </span><span class="p">}</span><span class="w">  </span>
+<span class="p">};</span><span class="w">  </span>
 
-    E --&gt; F[类型模板形参]
-    E --&gt; G[非类型模板形参]
-
-    F --&gt; H[使用模板时]
-    G --&gt; H
-
-    H --&gt; I{模板实参确定方式}
-    I --&gt; J[手动填入]
-    I --&gt; K[编译器自动推导]
-
-    J --&gt; L[根据部分模板实参]
-    K --&gt; L
-
-    L --&gt; M[推导整个模板所需实参]
+<span class="c1">// 偏特化2：针对指针类型  </span>
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">N</span><span class="o">&gt;</span><span class="w">  </span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Array</span><span class="o">&lt;</span><span class="n">T</span><span class="o">*</span><span class="p">,</span><span class="w"> </span><span class="n">N</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">  </span>
+<span class="w">    </span><span class="n">T</span><span class="o">*</span><span class="w"> </span><span class="n">data</span><span class="p">[</span><span class="n">N</span><span class="p">];</span><span class="w">  </span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">clear</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="cm">/* 指针专用清理逻辑 */</span><span class="w"> </span><span class="p">}</span><span class="w">  </span>
+<span class="p">};</span><span class="w">  </span>
 </code></pre></div></p>
-<h3 id="11">1.1 模板的工作过程</h3>
-<p>模板实参推导到模板实例化的过程可以总结为以下步骤：</p>
+</li>
+</ul>
+<h3 id="13">1.3 模板形参</h3>
+<p>模板与非模板的区别就是增加了一个类型变量，被称为模型形参，主要分为两类：</p>
+<ul>
+<li>
+<p>非类型模板形参</p>
+<ul>
+<li>它主要是像int、std::size_t这种整形参数介绍，具体可参考<a href="../2025-05-26-%E4%B8%80%E7%A7%8Dc%2B%2B%E5%B8%B8%E9%87%8F%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF/">c++常量注入技术</a>的内容<blockquote>
+<p>C++标准规定非类型模板参数可以是以下类型：</p>
 <ol>
 <li>
-<p>模板实参推导：</p>
-<ul>
-<li>编译器根据函数调用时提供的实参类型，推导出模板参数的类型</li>
-<li>只考虑函数参数列表中出现的模板参数</li>
-<li>遵循类型匹配和转换规则</li>
-<li>显式指定模板实参：</li>
+<p>整型常量（包括枚举值）
+<div class="highlight"><pre><span></span><code><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="kt">int</span><span class="w"> </span><span class="n">Size</span><span class="o">&gt;</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">Buffer</span><span class="w"> </span><span class="p">{};</span>
+</code></pre></div></p>
+</li>
+<li>
+<p>指针/引用（指向具有静态存储期的对象）
+<div class="highlight"><pre><span></span><code><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">Str</span><span class="o">&gt;</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">Logger</span><span class="w"> </span><span class="p">{};</span>
+</code></pre></div></p>
+</li>
+<li>
+<p>C++20起支持的类类型（必须是字面类型）
+<div class="highlight"><pre><span></span><code><span class="k">struct</span><span class="w"> </span><span class="nc">Config</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">size</span><span class="p">;</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">debug</span><span class="p">;</span><span class="w"> </span><span class="p">};</span>
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="n">Config</span><span class="w"> </span><span class="n">C</span><span class="o">&gt;</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">Widget</span><span class="w"> </span><span class="p">{};</span>
+</code></pre></div></p>
+</li>
+<li>
+<p><code>std::nullptr_t</code>类型
+<div class="highlight"><pre><span></span><code><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">nullptr_t</span><span class="w"> </span><span class="n">P</span><span class="o">&gt;</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">Nullable</span><span class="w"> </span><span class="p">{};</span>
+</code></pre></div></p>
+</li>
+</ol>
+</blockquote>
+</li>
 </ul>
 </li>
 <li>
-<p>当推导不充分或需要特定类型时，可以显式指定模板参数</p>
+<p>类型模板形参</p>
 <ul>
-<li>显式指定的参数优先于推导结果</li>
+<li>通用参数：T（可匹配任意类型），可用于主模板、偏特化模板中</li>
+<li>特化参数：在偏特化中被固定为具体类型或值的参数，仅用于特化模板中</li>
+<li>推导参数：通过模式匹配推导出的参数。</li>
+<li>默认参数：使用=获取的到的参数，默认参数只能出现在主模板中，偏特化版本不能重新定义或修改默认参数，偏特化版本必须保持与主模板相同的参数数量。</li>
 </ul>
 </li>
-<li>模板实例化：<ul>
-<li>根据推导或显式指定的模板参数生成具体的函数/类定义</li>
-<li>编译器生成模板特化的代码</li>
-<li>实例化发生在首次使用模板的位置</li>
+</ul>
+<p>模板被使用时，既需要填入不是其实参不是类型的实参，也需要模板实参，即参数为类型。比如模板函数，它只是想要对类型没有关系，实际工作时还是需要入参。因为有的时候，在使用模板的地方如果可以通过上下文推断模板实参，那么编译器就可以自动为用户填入模板实参，有的地方推导不出来，那么就需要用户手动指定。综上，c++提供了两种方式来确定被使用的地方，其模板实参。</p>
+<ul>
+<li><strong>用户直接指定模板实参</strong><ul>
+<li>例如：std::vector<int> vec;</li>
 </ul>
 </li>
-<li>代码生成：<ul>
-<li>编译器用具体类型替换模板参数</li>
-<li>生成可执行的目标代码</li>
+<li><strong>编译器通过非类型实参进行推导</strong><ul>
+<li>例如：std::vector vec{1, 2}; //因为传入的初始化列表中，单个元素的类型为int，其类型参数被推导为int。</li>
 </ul>
 </li>
-</ol>
-<p>那么整体上来说分为两个阶段，第一个阶段是通过各种方式来获取模板所需要的实际模板实参和类型实参，第二阶段是根据实际参数来实例化模板。</p>
-<p>那么以上面的内容为例，当我们想要对模板进行约束时可以在模板参数推导阶段进行约束，也可以在实例化的过程中进行约束。由于c++标准中有替换失败不是错误这一条准则在，往往是在模板参数推导阶段进行约束。而在第二阶段，模板实例化时，因为其实例化失败就直接导致编译失败，往往很少使用。</p>
-<p>根据前面的内容，假设我们想要对这个类型具有一定的要求，首先要对这个类型进行感知，将感知到的这个类型进行模板参数推导，无论感知到的模板实参是手动填入的实参还是编译器自动根据实际变量来推导出的模板实参，都是获取到了这个模板参数。那么我们如何对这个参数进行约束呢？根据前面的内容，c++会自动对其他的依赖于感知到的模板参数自动进行推导，因此我们可以利用自动推导，然后加入一定的约束关系。</p>
-<p>举一个例子</p>
+</ul>
+<p>前面说到，类型模板形参中的推导参数，它可直接或者是间接由通用模板参数推导得到，因此，为了实现前面说到的模板约束，也可以通过它来约束模板的使用条件。当类型实参不满足条件时，就可以让它推导失败，从而约束了模板。</p>
+<h3 id="14">1.4 编译器对模板的处理流程</h3>
+<p>使用模板后，编译器主要的处理流程如下：</p>
+<pre class="mermaid"><code>flowchart TD
+    %% ===== 模板定义阶段 =====
+    A[模板定义] --&gt; B{模板类型}
+    B --&gt; C[函数模板]
+    B --&gt; D[类模板]
+    B --&gt; E[变量模板]
+
+    C --&gt; F[模板参数]
+    D --&gt; F
+    E --&gt; F
+
+    F --&gt; G[类型模板形参]
+    F --&gt; H[非类型模板形参]
+
+    G --&gt; I[通用参数]
+    G --&gt; J[特化参数]
+    G --&gt; K[推导参数]
+    G --&gt; L[默认参数]
+
+    %% ===== 模板使用阶段 =====
+    G --&gt; M[模板使用场景]
+    H --&gt; M
+
+    M --&gt; N{实参确定方式}
+    N --&gt; O[显式指定]
+    N --&gt; P[隐式推导]
+
+    O --&gt; Q["• 用户直接填写参数&lt;br&gt;• 例: std::array&lt;int,5&gt;"]
+    P --&gt; R["• 编译器推导类型参数&lt;br&gt;• 规则:&lt;br&gt;   - 仅考虑函数参数列表&lt;br&gt;   - 遵循类型匹配规则"]
+
+    %% ===== 实例化阶段 =====
+    Q --&gt; S[模板实例化]
+    R --&gt; S
+
+    S --&gt; T["1. 生成具体函数/类定义&lt;br&gt;2. 首次使用时实例化&lt;br&gt;3. 参数替换规则:&lt;br&gt;   • 通用参数→具体类型&lt;br&gt;   • 特化参数→固定值&lt;br&gt;   • 推导参数→匹配结果"]
+
+    T --&gt; U[生成目标代码]
+
+    %% ===== 补充关系 =====
+    O -.-&gt;|"显式参数优先"| R
+    R --&gt;|"推导失败时"| V["形成约束"]
+
+    L -.-&gt;|"默认参数不可&lt;br&gt;在特化中修改"| F
+    J -.-&gt;|"特化参数数量&lt;br&gt;需匹配主模板"| F</code></pre>
+<p>分为两个阶段一个是定义模板阶段，一个是使用模板阶段。
+使用模板时，编译器对这个模板的处理也分为两个阶段，第一个阶段是通过各种方式来获取模板所需要的实际模板实参和类型实参，第二阶段是根据实际参数来实例化模板。</p>
+<p>根据它的工作特性，似乎设计模板时，可以在两者间任选一个阶段实现错误，但是实际上却不是。由于c++标准中有替换失败不是错误这一条准则，即sfinae准则，此时推导失败的话，编译器会忽略这个模板，而是选择其他模板或者是可选实现来让整个编译通过。但是一般选择实例化阶段，就直接报错了。试想一下，仅仅只是一个模板不匹配，然后就没办法继续编译了，明明可能用户还有其他的可选实现，但是这个时候编译器报错拒绝工作流额，想一下也没有人愿意用这个模板吧。</p>
+<p>怎么使用推导参数来达到约束，举一个例子</p>
 <div class="highlight"><pre><span></span><code><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="w"> </span><span class="nc">T</span><span class="p">,</span><span class="w"> </span><span class="k">typename</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">enable_if_t</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">is_integral_v</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&gt;&gt;</span>
 <span class="kt">int</span><span class="w"> </span><span class="n">func</span><span class="p">(</span><span class="n">T</span><span class="w"> </span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
@@ -1524,14 +1708,15 @@
 </code></pre></div>
 此时c++编译器就会选择到这个函数的定义，而不会是之前的模板函数的定义。</p>
 <h2 id="_2">二、模板参数确定</h2>
-<p>前面说到了，一般的套路是，先在调用的地方利用一些手段，获取到模板实参<span class="arithmatex">\(T_{enviroment}\)</span>，然后我们想要对<span class="arithmatex">\(T_{enviroment}\)</span>进行约束，那么就通过模板参数推导的手段推导出<span class="arithmatex">\(T_{decltype}\)</span>，在推导<span class="arithmatex">\(T_{decltype}\)</span>过程中加上约束。看起来，这怎么像函数呢，输入一个模板参数，再输出一个模板参数。那么是否可以按照下面的等式理解</p>
+<p>前面说到了，一般的套路是，先在调用的地方利用一些手段，获取到通用模板实参<span class="arithmatex">\(T_{enviroment}\)</span>，然后我们想要对<span class="arithmatex">\(T_{enviroment}\)</span>进行约束，那么就通过模板参数推导的手段推导出推导实参<span class="arithmatex">\(T_{decltype}\)</span>，在推导<span class="arithmatex">\(T_{decltype}\)</span>过程中加上约束。看起来，这很像函数啊。输入一个模板参数，再输出一个模板参数。那么是否可以按照下面的等式理解</p>
 <div class="arithmatex">\[
 T_{decltype} = f(T_{enviroment})
 \]</div>
 <p>那么前面的约束又如何按照函数的方式来理解呢？先来想想函数是怎么加约束的，一般最常见的就是定义域吧，如何log函数要求定义域要大于零，因此我们也可以按照这种方式理解。回到模板参数推导中，当<span class="arithmatex">\(T_{enviroment}\)</span>满足这个函数的定义域时，那么就可以推导成功了。那么怎么构造这个函数呢？这个就是所谓的模板元编程了。</p>
 <p>不过再搞懂函数具体定义之前，即如何构造出对这个输入值的要求之前，我们需要了解c++中是如何获取到<span class="arithmatex">\(T_{enviroment}\)</span>的。</p>
 <h3 id="21">2.1 如何获取模板函数的自变量？</h3>
-<p>第一种：用户手动指定
+<p>前面提到过，有两种方式，但是可以一起公用。
+第一种：用户手动指定
 <div class="highlight"><pre><span></span><code><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
 <span class="kt">int</span><span class="w"> </span><span class="n">func</span><span class="p">(</span><span class="n">T</span><span class="w"> </span><span class="n">v</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
@@ -1683,9 +1868,14 @@ T_{decltype} = f(T_{enviroment})
 </li>
 </ol>
 <h3 id="24">2.4 自变量可行性检验</h3>
-<p>问题背景以及问题定义：c++模板是支持偏特例化和全特例化的，其中偏特例化是针对类模板和变量模板的。因此，由于偏特例化的存在，就出现多个模板，而可能存在这个偏特例化对模板形参的要求和主模板的要求不一致，或者是，不同偏特例化的模板之间的要求是不一样的，那到底是按照哪一个模板构造的检验函数来推导呢？即到底是用主模板的，还是使用偏特化模板的呢？还是所有都用呢？如果所有都用，那么到底是先用偏特例化的模板还是主模板的呢？</p>
-<p>答案是模板形参推导首先基于主模板的声明进行，按照主模板生成的函数约束推导出类型，然后在调用位置处，生成实际的各个模板实参，而不会使用这个模板下的特化版本来生成模板参数。也就是说，模板形参推导阶段仅依赖主模板的声明，偏特化仅在推导完成后参与重载决议。根据这个规则，如果主模板的一些检验不通过，所有基于这个主模板特化的模板都会被抛弃。</p>
+<p><strong>问题背景以及问题定义</strong>：</p>
+<p>c++模板是支持偏特例化和全特例化的，全特例化还好说，还有一个偏特例化呢。因为它的存在，就出现多个模板，而可能存在这个偏特例化对模板形参的要求和主模板的要求不一致，或者是，不同偏特例化的模板之间的要求是不一样的，那到底是按照哪一个模板构造的检验函数来推导呢？即到底是用主模板的，还是使用偏特化模板的呢？还是所有都用呢？如果所有都用，那么到底是先用偏特例化的模板还是主模板的呢？</p>
+<p><strong>答案：依赖主模板声明确定类型实参。</strong></p>
+<p>模板形参推导首先基于主模板的声明进行，按照主模板生成的函数约束推导出类型，然后在调用位置处，生成实际的各个模板实参，而不会使用这个模板下的特化版本来生成模板参数。也就是说，模板形参推导阶段仅依赖主模板的声明，偏特化仅在推导完成后参与重载决议。根据这个规则，如果主模板的一些检验不通过，所有基于这个主模板特化的模板都会被抛弃。</p>
+<blockquote>
 <p>个人猜测这样设计的原因，这是有逻辑要求在，主模板一般是最低要求了，而特化版本是针对某一类型的更高要求，如果连最低要求都无法通过，那么特化版本就可以直接抛弃了。</p>
+</blockquote>
+<p>以下是测试代码来验证说法</p>
 <div class="highlight"><pre><span></span><code><span class="c1">// 主模板（仅对浮点数启用）</span>
 <span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="p">,</span><span class="w"> </span><span class="k">typename</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">enable_if_t</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">is_floating_point_v</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&gt;&gt;</span>
 <span class="k">struct</span><span class="w"> </span><span class="nc">Widget</span><span class="w"> </span><span class="p">{</span>
@@ -1704,142 +1894,11 @@ T_{decltype} = f(T_{enviroment})
 <span class="p">}</span>
 </code></pre></div>
 <p>这段代码就编译不通过，因为基于Widget的特化模板版本都被弃用了，从而编译失败。</p>
-<p>一种较为常见的模板元处理技术就是标签派发，它的方案就是利用主模板萃取出模板参数，然后偏特例化来实现精准匹配
-<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
-<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;type_traits&gt;</span>
-<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;vector&gt;</span>
-<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;list&gt;</span>
-
-<span class="c1">// 1. 定义标签类型</span>
-<span class="k">namespace</span><span class="w"> </span><span class="nn">geometry</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="k">namespace</span><span class="w"> </span><span class="nn">traits</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="c1">// 主标签</span>
-<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">geometry_tag</span><span class="w"> </span><span class="p">{};</span>
-
-<span class="w">        </span><span class="c1">// 具体几何类型标签</span>
-<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">point_tag</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">geometry_tag</span><span class="w"> </span><span class="p">{};</span>
-<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">line_tag</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">geometry_tag</span><span class="w"> </span><span class="p">{};</span>
-<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">polygon_tag</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">geometry_tag</span><span class="w"> </span><span class="p">{};</span>
-<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">multi_point_tag</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">geometry_tag</span><span class="w"> </span><span class="p">{};</span>
-<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">multi_line_tag</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">geometry_tag</span><span class="w"> </span><span class="p">{};</span>
-<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">multi_polygon_tag</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">geometry_tag</span><span class="w"> </span><span class="p">{};</span>
-<span class="w">    </span><span class="p">}</span>
-
-<span class="w">    </span><span class="c1">// 2. 定义特征类模板（主模板）</span>
-<span class="w">    </span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">Geometry</span><span class="o">&gt;</span>
-<span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">tag</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="c1">// 默认情况下没有标签</span>
-<span class="w">        </span><span class="c1">// 用户需要为他们的几何类型特化这个特征类</span>
-<span class="w">    </span><span class="p">};</span>
-
-<span class="w">    </span><span class="c1">// 3. 定义一些几何类型</span>
-<span class="w">    </span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
-<span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">Point</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="n">T</span><span class="w"> </span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">;</span>
-<span class="w">    </span><span class="p">};</span>
-
-<span class="w">    </span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
-<span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">Line</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="n">Point</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="w"> </span><span class="n">start</span><span class="p">,</span><span class="w"> </span><span class="n">end</span><span class="p">;</span>
-<span class="w">    </span><span class="p">};</span>
-
-<span class="w">    </span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
-<span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">Polygon</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Point</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">outer</span><span class="p">;</span>
-<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Point</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&gt;&gt;</span><span class="w"> </span><span class="n">inners</span><span class="p">;</span>
-<span class="w">    </span><span class="p">};</span>
-
-<span class="w">    </span><span class="c1">// 4. 为几何类型特化标签特征</span>
-<span class="w">    </span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
-<span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">tag</span><span class="o">&lt;</span><span class="n">Point</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="k">using</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">traits</span><span class="o">::</span><span class="n">point_tag</span><span class="p">;</span>
-<span class="w">    </span><span class="p">};</span>
-
-<span class="w">    </span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
-<span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">tag</span><span class="o">&lt;</span><span class="n">Line</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="k">using</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">traits</span><span class="o">::</span><span class="n">line_tag</span><span class="p">;</span>
-<span class="w">    </span><span class="p">};</span>
-
-<span class="w">    </span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
-<span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">tag</span><span class="o">&lt;</span><span class="n">Polygon</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="k">using</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">traits</span><span class="o">::</span><span class="n">polygon_tag</span><span class="p">;</span>
-<span class="w">    </span><span class="p">};</span>
-
-<span class="w">    </span><span class="c1">// 5. 辅助类型提取</span>
-<span class="w">    </span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">Geometry</span><span class="o">&gt;</span>
-<span class="w">    </span><span class="k">using</span><span class="w"> </span><span class="n">tag_t</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">typename</span><span class="w"> </span><span class="nc">tag</span><span class="o">&lt;</span><span class="n">Geometry</span><span class="o">&gt;::</span><span class="n">type</span><span class="p">;</span>
-
-<span class="w">    </span><span class="c1">// 6. 实现算法（使用标签派发）</span>
-<span class="w">    </span><span class="k">namespace</span><span class="w"> </span><span class="nn">dispatch</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="c1">// 默认实现（主模板）</span>
-<span class="w">        </span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">Geometry</span><span class="p">,</span><span class="w"> </span><span class="k">typename</span><span class="w"> </span><span class="nc">Tag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tag_t</span><span class="o">&lt;</span><span class="n">Geometry</span><span class="o">&gt;&gt;</span>
-<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">area</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="k">static</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="nf">apply</span><span class="p">(</span><span class="n">Geometry</span><span class="w"> </span><span class="k">const</span><span class="o">&amp;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                </span><span class="c1">// 默认实现（可能抛出异常或静态断言）</span>
-<span class="w">                </span><span class="k">static_assert</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">Geometry</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span>
-<span class="w">                    </span><span class="s">&quot;Not implemented for this geometry type&quot;</span><span class="p">);</span>
-<span class="w">                </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
-<span class="w">            </span><span class="p">}</span>
-<span class="w">        </span><span class="p">};</span>
-
-<span class="w">        </span><span class="c1">// 点特化</span>
-<span class="w">        </span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">Geometry</span><span class="o">&gt;</span>
-<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">area</span><span class="o">&lt;</span><span class="n">Geometry</span><span class="p">,</span><span class="w"> </span><span class="n">traits</span><span class="o">::</span><span class="n">point_tag</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="k">static</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="nf">apply</span><span class="p">(</span><span class="n">Geometry</span><span class="w"> </span><span class="k">const</span><span class="o">&amp;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                </span><span class="k">return</span><span class="w"> </span><span class="mf">0.0</span><span class="p">;</span><span class="w"> </span><span class="c1">// 点的面积为0</span>
-<span class="w">            </span><span class="p">}</span>
-<span class="w">        </span><span class="p">};</span>
-
-<span class="w">        </span><span class="c1">// 线特化</span>
-<span class="w">        </span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">Geometry</span><span class="o">&gt;</span>
-<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">area</span><span class="o">&lt;</span><span class="n">Geometry</span><span class="p">,</span><span class="w"> </span><span class="n">traits</span><span class="o">::</span><span class="n">line_tag</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="k">static</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="nf">apply</span><span class="p">(</span><span class="n">Geometry</span><span class="w"> </span><span class="k">const</span><span class="o">&amp;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                </span><span class="k">return</span><span class="w"> </span><span class="mf">0.0</span><span class="p">;</span><span class="w"> </span><span class="c1">// 线的面积为0</span>
-<span class="w">            </span><span class="p">}</span>
-<span class="w">        </span><span class="p">};</span>
-
-<span class="w">        </span><span class="c1">// 多边形特化</span>
-<span class="w">        </span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">Geometry</span><span class="o">&gt;</span>
-<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">area</span><span class="o">&lt;</span><span class="n">Geometry</span><span class="p">,</span><span class="w"> </span><span class="n">traits</span><span class="o">::</span><span class="n">polygon_tag</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="k">static</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="nf">apply</span><span class="p">(</span><span class="n">Geometry</span><span class="w"> </span><span class="k">const</span><span class="o">&amp;</span><span class="w"> </span><span class="n">geom</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                </span><span class="c1">// 简化版多边形面积计算（实际Boost.Geometry有更复杂的实现）</span>
-<span class="w">                </span><span class="kt">double</span><span class="w"> </span><span class="n">sum</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="p">;</span>
-<span class="w">                </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">size_t</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">geom</span><span class="p">.</span><span class="n">outer</span><span class="p">.</span><span class="n">size</span><span class="p">();</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="n">geom</span><span class="p">.</span><span class="n">outer</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
-<span class="w">                    </span><span class="n">sum</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="p">(</span><span class="n">geom</span><span class="p">.</span><span class="n">outer</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">geom</span><span class="p">.</span><span class="n">outer</span><span class="p">[</span><span class="n">j</span><span class="p">].</span><span class="n">y</span><span class="w"> </span><span class="o">-</span><span class="w"> </span>
-<span class="w">                            </span><span class="n">geom</span><span class="p">.</span><span class="n">outer</span><span class="p">[</span><span class="n">j</span><span class="p">].</span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">geom</span><span class="p">.</span><span class="n">outer</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">y</span><span class="p">);</span>
-<span class="w">                </span><span class="p">}</span>
-<span class="w">                </span><span class="k">return</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">abs</span><span class="p">(</span><span class="n">sum</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mf">2.0</span><span class="p">;</span>
-<span class="w">            </span><span class="p">}</span>
-<span class="w">        </span><span class="p">};</span>
-<span class="w">    </span><span class="p">}</span>
-
-<span class="w">    </span><span class="c1">// 7. 用户接口函数</span>
-<span class="w">    </span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">Geometry</span><span class="o">&gt;</span>
-<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">area</span><span class="p">(</span><span class="n">Geometry</span><span class="w"> </span><span class="k">const</span><span class="o">&amp;</span><span class="w"> </span><span class="n">geom</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">dispatch</span><span class="o">::</span><span class="n">area</span><span class="o">&lt;</span><span class="n">Geometry</span><span class="o">&gt;::</span><span class="n">apply</span><span class="p">(</span><span class="n">geom</span><span class="p">);</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="p">}</span>
-
-<span class="kt">int</span><span class="w"> </span><span class="n">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">geometry</span><span class="p">;</span>
-
-<span class="w">    </span><span class="n">Point</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="w"> </span><span class="n">p</span><span class="p">{</span><span class="mf">1.0</span><span class="p">,</span><span class="w"> </span><span class="mf">2.0</span><span class="p">};</span>
-<span class="w">    </span><span class="n">Line</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="w"> </span><span class="n">l</span><span class="p">{{</span><span class="mf">0.0</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0</span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="mf">1.0</span><span class="p">,</span><span class="w"> </span><span class="mf">1.0</span><span class="p">}};</span>
-<span class="w">    </span><span class="n">Polygon</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="w"> </span><span class="n">poly</span><span class="p">{</span>
-<span class="w">        </span><span class="p">{{</span><span class="mf">0.0</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0</span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="mf">1.0</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0</span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="mf">1.0</span><span class="p">,</span><span class="w"> </span><span class="mf">1.0</span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="mf">0.0</span><span class="p">,</span><span class="w"> </span><span class="mf">1.0</span><span class="p">}},</span><span class="w"> </span><span class="c1">// 外环</span>
-<span class="w">        </span><span class="p">{}</span><span class="w"> </span><span class="c1">// 内环</span>
-<span class="w">    </span><span class="p">};</span>
-
-<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Point area: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">area</span><span class="p">(</span><span class="n">p</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
-<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Line area: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">area</span><span class="p">(</span><span class="n">l</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
-<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Polygon area: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">area</span><span class="p">(</span><span class="n">poly</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
-
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div></p>
+<p>一种较为常见的模板元处理技术就是标签派发，它的方案就是利用主模板萃取出模板参数，然后偏特例化来实现精准匹配</p>
 <h2 id="_3">三、模板实例化</h2>
-<p>模板不是具体的代码，它需要借助于编译器自动生成定义之后，然后才能进行编译。那么编译器如何进行实例化呢？前面我们知道，编译器先在调用模板的地方先确定出了模板参数，那么处理晚这个函数之后，如果这个函数被调用了，那么后续它会递归的生成所有依赖的模板函数，这个叫做模板的延迟实例化。模板的实例化过程是"最特化匹配"规则决定的。它的具体实例化过程如下：</p>
+<p>模板不是具体的代码，它需要借助于编译器自动生成定义之后，然后才能进行编译。那么编译器如何进行实例化呢？</p>
+<p>前面我们知道，编译器先在调用模板的地方先确定出了模板参数，那么处理这个函数之后，如果这个函数被调用了，那么后续它会递归的生成所有依赖的模板函数，这个叫做模板的延迟实例化。模板的实例化过程是"最特化匹配"规则决定的。</p>
+<p>它的具体实例化过程如下：</p>
 <ol>
 <li>
 <p>编译器会收集当前调用中的所有特化版本，并对所有收集到的特化版本进行排序。</p>
