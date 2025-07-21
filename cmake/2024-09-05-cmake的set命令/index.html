@@ -602,34 +602,34 @@
         <li class="md-nav__item">
   <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
-      前言
+      一、前言
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#setvariable-value" class="md-nav__link">
+  <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
-      最常见的格式 set(&lt;variable&gt; &lt;value&gt;)
+      二、常规变量
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#setvariable-value-parent_scope" class="md-nav__link">
+  <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
-      强调作用域的格式 set(&lt;variable&gt; &lt;value&gt;... PARENT_SCOPE)
+      三、强调作用域的变量
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#setvariable-value-cache-type-docstring-force" class="md-nav__link">
+  <a href="#_4" class="md-nav__link">
     <span class="md-ellipsis">
-      设置变量并且存储到文件中去 set(&lt;variable&gt; &lt;value&gt;... [CACHE &lt;type&gt; &lt;docstring&gt; [FORCE]])
+      四、强调需要存储到文件中的变量
     </span>
   </a>
   
@@ -1316,34 +1316,34 @@
         <li class="md-nav__item">
   <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
-      前言
+      一、前言
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#setvariable-value" class="md-nav__link">
+  <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
-      最常见的格式 set(&lt;variable&gt; &lt;value&gt;)
+      二、常规变量
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#setvariable-value-parent_scope" class="md-nav__link">
+  <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
-      强调作用域的格式 set(&lt;variable&gt; &lt;value&gt;... PARENT_SCOPE)
+      三、强调作用域的变量
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#setvariable-value-cache-type-docstring-force" class="md-nav__link">
+  <a href="#_4" class="md-nav__link">
     <span class="md-ellipsis">
-      设置变量并且存储到文件中去 set(&lt;variable&gt; &lt;value&gt;... [CACHE &lt;type&gt; &lt;docstring&gt; [FORCE]])
+      四、强调需要存储到文件中的变量
     </span>
   </a>
   
@@ -1367,23 +1367,30 @@
 
   <h1>cmake的set命令详解</h1>
 
-<h2 id="_1">前言</h2>
-<p>在cmake中，设置一个变量常见的方式就是使用set命令，它的语法格式为：<br />
-+ <code>set(&lt;variable&gt; &lt;value&gt;... [CACHE &lt;type&gt; &lt;docstring&gt; [FORCE]])</code> # 增强模式
-+ <code>set(&lt;variable&gt; &lt;value&gt;... PARENT_SCOPE)</code> # 强调作用域
-+ <code>set(&lt;variable&gt; &lt;value&gt;)</code> # 最常见的设置值 </p>
-<h2 id="setvariable-value">最常见的格式 <code>set(&lt;variable&gt; &lt;value&gt;)</code></h2>
+<h2 id="_1">一、前言</h2>
+<p>在cmake中，设置一个变量常见的方式就是使用set命令，它的语法格式为：  </p>
+<ul>
+<li><code>set(&lt;variable&gt; &lt;value&gt;... [CACHE &lt;type&gt; &lt;docstring&gt; [FORCE]])</code> # 增强模式</li>
+<li><code>set(&lt;variable&gt; &lt;value&gt;... PARENT_SCOPE)</code> # 强调作用域</li>
+<li><code>set(&lt;variable&gt; &lt;value&gt;)</code> # 最常见的设置值 </li>
+</ul>
+<h2 id="_2">二、常规变量</h2>
+<p>格式为：</p>
+<p><code>set(&lt;variable&gt; &lt;value&gt;)</code>  </p>
 <p>在日常使用中最常见的格式，就是将一个值设置给一个变量。 </p>
-<p><div class="highlight"><pre><span></span><code><span class="nb">set</span><span class="p">(</span><span class="s">VAR_NAME</span><span class="w"> </span><span class="s2">&quot;value&quot;</span><span class="p">)</span><span class="w"> </span><span class="c">#给一个变量名设置一个值</span>
+<div class="highlight"><pre><span></span><code><span class="nb">set</span><span class="p">(</span><span class="s">VAR_NAME</span><span class="w"> </span><span class="s2">&quot;value&quot;</span><span class="p">)</span><span class="w"> </span><span class="c">#给一个变量名设置一个值</span>
 </code></pre></div>
-这一种方式就只是单纯给一个变量设置一个值  </p>
-<p><div class="highlight"><pre><span></span><code>set(VAR_NAME &quot;value1&quot; &quot;value2&quot; &quot;value3&quot;) # 给一个变量设置多个值
+<p>这一种方式就只是单纯给一个变量设置一个值  </p>
+<div class="highlight"><pre><span></span><code><span class="nb">set</span><span class="p">(</span><span class="s">VAR_NAME</span><span class="w"> </span><span class="s2">&quot;value1&quot;</span><span class="w"> </span><span class="s2">&quot;value2&quot;</span><span class="w"> </span><span class="s2">&quot;value3&quot;</span><span class="p">)</span><span class="w"> </span><span class="c"># 给一个变量设置多个值</span>
 </code></pre></div>
-这一种也没什么好说的，但是可以使用变量展开的方式来实现变量追加的功能  <br />
-<code>set(VAR_NAME ${VAR_NAME} "value4")</code><br />
-一般来说我们可以使用list命令达到同样的效果  </p>
-<h2 id="setvariable-value-parent_scope">强调作用域的格式 <code>set(&lt;variable&gt; &lt;value&gt;... PARENT_SCOPE)</code></h2>
-<p>这种格式一般是将设置的变量名放到上一级的作用域中去，如<br />
+<p>这一种也没什么好说的，但是可以使用变量展开的方式来实现变量追加的功能    </p>
+<div class="highlight"><pre><span></span><code><span class="nb">set</span><span class="p">(</span><span class="s">VAR_NAME</span><span class="w"> </span><span class="o">${</span><span class="nv">VAR_NAME</span><span class="o">}</span><span class="w"> </span><span class="s2">&quot;value4&quot;</span><span class="p">)</span>
+</code></pre></div>
+<p>一般来说我们可以使用list命令达到同样的效果  </p>
+<h2 id="_3">三、强调作用域的变量</h2>
+<p>格式为：</p>
+<p><code>set(&lt;variable&gt; &lt;value&gt;... PARENT_SCOPE)</code></p>
+<p>这种格式一般是将设置的变量名放到上一级的作用域中去，如：</p>
 <div class="highlight"><pre><span></span><code><span class="nb">function</span><span class="p">(</span><span class="s">set_parent_scope_var</span><span class="p">)</span>
 <span class="w">    </span><span class="nb">set</span><span class="p">(</span><span class="s">VAR_NAME</span><span class="w"> </span><span class="s2">&quot;value&quot;</span><span class="w"> </span><span class="s">PARENT_SCOPE</span><span class="p">)</span>
 <span class="nb">endfunction</span><span class="p">()</span>
@@ -1391,19 +1398,28 @@
 <span class="nb">set_parent_scope_var</span><span class="p">()</span>
 <span class="nb">message</span><span class="p">(</span><span class="s">STATUS</span><span class="w"> </span><span class="s2">&quot;VAR_NAME: ${VAR_NAME}&quot;</span><span class="p">)</span>
 </code></pre></div>
-这样就将VAR_NAME这个变量作用域提升到上一级中，但一般不推荐这样做，因为这不太符合局部变量作用域的一般设计思想  </p>
-<h2 id="setvariable-value-cache-type-docstring-force">设置变量并且存储到文件中去 <code>set(&lt;variable&gt; &lt;value&gt;... [CACHE &lt;type&gt; &lt;docstring&gt; [FORCE]])</code></h2>
-<p>它的主要目的是将变量的值存储到CMakeCache.txt文件中去，这样当编译完成之后，可以检查设置的变量是否符合自己的期望<br />
+<p>这样就将VAR_NAME这个变量作用域提升到上一级中，但一般不推荐这样做，因为这不太符合局部变量作用域的一般设计思想  </p>
+<h2 id="_4">四、强调需要存储到文件中的变量</h2>
+<p>格式为</p>
+<p><code>set(&lt;variable&gt; &lt;value&gt;... [CACHE &lt;type&gt; &lt;docstring&gt; [FORCE]])</code>  </p>
+<p>它的主要目的是将变量的值存储到CMakeCache.txt文件中去，这样当编译完成之后，可以检查设置的变量是否符合自己的期望</p>
 <div class="highlight"><pre><span></span><code><span class="nb">set</span><span class="p">(</span><span class="s">VAR_NAME</span><span class="w"> </span><span class="s2">&quot;value&quot;</span><span class="w"> </span><span class="s">CACHE</span><span class="w"> </span><span class="s">STRING</span><span class="w"> </span><span class="s2">&quot;Description of the variable&quot;</span><span class="p">)</span>
 </code></pre></div>
-+ CACHE表示这个变量会存储下来<br />
-+ <type> 表示类型，这个会在CMakeCache.txt中提示，上面就会写VAR_NAME:STRING="value"，其他的有:
-    - BOOL 布尔类型<br />
-    - INTERNAL 表示内部使用的隐藏变量，不显示在 ccmake 或 cmake-gui 中<br />
-    - FILEPATH 表示文件路径类型<br />
-    - STRING 表示常规字符串类型  </p>
+<p>它的作用效果：</p>
 <ul>
-<li><docstring>主要是cmake变量编译时的输出提示  </li>
+<li>CACHE表示这个变量会存储下来  </li>
+<li>
+<p><type> 表示类型，这个会在CMakeCache.txt中提示，上面就会写VAR_NAME:STRING="value"，其他的有:</p>
+<ul>
+<li>BOOL 布尔类型  </li>
+<li>INTERNAL 表示内部使用的隐藏变量，不显示在 ccmake 或 cmake-gui 中  </li>
+<li>FILEPATH 表示文件路径类型  </li>
+<li>STRING 表示常规字符串类型  </li>
+</ul>
+</li>
+<li>
+<p><docstring>主要是cmake变量编译时的输出提示</p>
+</li>
 <li>[FORCE]可选参数，表示是否强制覆盖  </li>
 </ul>
 

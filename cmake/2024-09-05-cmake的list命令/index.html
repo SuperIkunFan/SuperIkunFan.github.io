@@ -579,7 +579,7 @@
         <li class="md-nav__item">
   <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
-      前言
+      一、 前言
     </span>
   </a>
   
@@ -588,7 +588,7 @@
         <li class="md-nav__item">
   <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
-      命令格式
+      二、命令格式
     </span>
   </a>
   
@@ -1298,7 +1298,7 @@
         <li class="md-nav__item">
   <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
-      前言
+      一、 前言
     </span>
   </a>
   
@@ -1307,7 +1307,7 @@
         <li class="md-nav__item">
   <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
-      命令格式
+      二、命令格式
     </span>
   </a>
   
@@ -1331,71 +1331,149 @@
 
   <h1>cmake的list命令详解</h1>
 
-<h2 id="_1">前言</h2>
-<p>主要解决的如下需求：<br />
-+ 管理多个元素：CMake 列表是一种在单个变量中存储多个元素的方式。这对于需要管理和操作一组相关项的场景非常有用，例如一组文件、目录、编译标志或者其他配置项
-+ list 命令允许你动态地向列表中添加或移除元素。这使得在配置项目时更加灵活，可以根据不同的条件或者配置选项来修改列表的内容<br />
-+ list 命令提供了查找和获取列表中特定元素的方法，使得可以对列表内容进行详细的操作和检查<br />
-+ 列表的内容需要在配置过程中动态生成。  </p>
-<h2 id="_2">命令格式</h2>
-<p><div class="highlight"><pre><span></span><code><span class="nb">list</span><span class="p">(</span><span class="s">&lt;command&gt;</span><span class="w"> </span><span class="s">&lt;list&gt;</span><span class="w"> </span><span class="s">[&lt;args&gt;...]</span><span class="p">)</span>
+<h2 id="_1">一、 前言</h2>
+<p>主要解决的如下需求：  </p>
+<ul>
+<li>管理多个元素：CMake 列表是一种在单个变量中存储多个元素的方式。这对于需要管理和操作一组相关项的场景非常有用，例如一组文件、目录、编译标志或者其他配置项</li>
+<li>list 命令允许你动态地向列表中添加或移除元素。这使得在配置项目时更加灵活，可以根据不同的条件或者配置选项来修改列表的内容  </li>
+<li>list 命令提供了查找和获取列表中特定元素的方法，使得可以对列表内容进行详细的操作和检查  </li>
+<li>列表的内容需要在配置过程中动态生成。  </li>
+</ul>
+<h2 id="_2">二、命令格式</h2>
+<div class="highlight"><pre><span></span><code><span class="nb">list</span><span class="p">(</span><span class="s">&lt;command&gt;</span><span class="w"> </span><span class="s">&lt;list&gt;</span><span class="w"> </span><span class="s">[&lt;args&gt;...]</span><span class="p">)</span>
 </code></pre></div>
-该命令取决于参数<code>&lt;command&gt;</code>，其具有不同的效果；<code>&lt;list&gt;</code>就是被操作的列表名，其后为传入的参数。  </p>
+<p>该命令取决于参数<code>&lt;command&gt;</code>，其具有不同的效果；<code>&lt;list&gt;</code>就是被操作的列表名，其后为传入的参数。  </p>
 <ol>
 <li>
-<p>APPEND 命令：向一个列表添加一个或多个元素<br />
-<code>list(APPEND &lt;list&gt; &lt;element&gt; [&lt;element&gt;...])</code><br />
-  举例：
-  <code>list(APPEND myList A B C)</code>
-  myList 现在是 "A;B;C"</p>
+<p><strong>APPEND 命令</strong>：向一个列表添加一个或多个元素  </p>
+<ul>
+<li>格式：  <ul>
+<li><code>list(APPEND &lt;list&gt; &lt;element&gt; [&lt;element&gt;...])</code>  </li>
+</ul>
+</li>
+<li>举例：  <ul>
+<li><code>list(APPEND myList A B C)</code>，此时，myList现在是 "A;B;C"  </li>
+</ul>
+</li>
+</ul>
 </li>
 <li>
-<p>INSERT 命令：在列表的指定位置插入一个或多个元素
-  <code>list(INSERT &lt;list&gt; &lt;index&gt; &lt;element&gt; [&lt;element&gt;...])</code>
-  举例：
-  <code>list(INSERT myList 1 X Y)</code>
-  myList 现在是 "A;X;Y;B;C"  </p>
+<p><strong>INSERT 命令</strong>：在列表的指定位置插入一个或多个元素  </p>
+<ul>
+<li>格式：  <ul>
+<li><code>list(INSERT &lt;list&gt; &lt;index&gt; &lt;element&gt; [&lt;element&gt;...])</code>  </li>
+</ul>
 </li>
-<li>REMOVE_ITEM 命令：从列表中移除指定的元素。
-  <code>list(REMOVE_ITEM &lt;list&gt; &lt;element&gt; [&lt;element&gt;...])</code>
-  举例：
-  <code>list(REMOVE_ITEM myList B)</code>
-  myList 现在是 "A;X;Y;C"</li>
-<li>REMOVE_AT 命令：删除列表中指定位置的元素。
-  <code>list(REMOVE_AT &lt;list&gt; &lt;index&gt; [&lt;index&gt;...])</code>
-  举例：
-  <code>list(REMOVE_AT myList 2)</code>
-  myList 现在是 "A;X;C"</li>
-<li>REMOVE_DUPLICATES命令： 删除列表中的重复元素。
-  <code>list(REMOVE_DUPLICATES &lt;list&gt;)</code>
-  举例：
-  <code>list(REMOVE_DUPLICATES myList)</code>
-  假设 myList 是 "A;B;A;C;B"，现在是 "A;B;C"</li>
-<li>LENGTH 命令： 获取列表的长度。
-  <code>list(LENGTH &lt;list&gt; &lt;output_variable&gt;)</code>
-  示例：
-  <code>list(LENGTH myList myListLength)</code><br />
-  将列表长度存储在myListLength中  </li>
-<li>GET 命令： 获取列表中指定位置的元素
-  <code>list(GET &lt;list&gt; &lt;index&gt; &lt;output_variable&gt; [&lt;index&gt; &lt;output_variable&gt;...])</code>
-  示例：
-  <code>list(GET myList 1 myElement)</code>
-  myElement 现在是 "X"</li>
-<li>FIND 命令：查找指定元素在列表中的位置。
-  <code>list(FIND &lt;list&gt; &lt;value&gt; &lt;output_variable&gt;)</code>
-  示例：
-  <code>list(FIND myList X myElementIndex)</code>
-  myElementIndex 现在是 1</li>
-<li>SUBLIST 命令：获取列表的子列表。
-  <code>list(SUBLIST &lt;list&gt; &lt;start&gt; &lt;length&gt; &lt;output_variable&gt;)</code>
-  示例：
-  <code>list(SUBLIST myList 1 2 mySublist)</code>
-  mySublist 现在是 "X;C"</li>
-<li>REVERSE 命令：反转列表。
-  <code>list(REVERSE &lt;list&gt;)</code>
-  示例：
-  <code>list(REVERSE myList)</code>
-  myList 现在是 "C;X;A"</li>
+<li>举例：  <ul>
+<li><code>list(INSERT myList 1 X Y)</code>，myList 现在是 "A;X;Y;B;C"  </li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>REMOVE_ITEM 命令</strong>：从列表中移除指定的元素  </p>
+<ul>
+<li>格式：  <ul>
+<li><code>list(REMOVE_ITEM &lt;list&gt; &lt;element&gt; [&lt;element&gt;...])</code>  </li>
+</ul>
+</li>
+<li>举例：  <ul>
+<li><code>list(REMOVE_ITEM myList B)</code>，此时 myList 变为 "A;X;Y;C"  </li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>REMOVE_AT 命令</strong>：删除列表中指定位置的元素  </p>
+<ul>
+<li>格式：  <ul>
+<li><code>list(REMOVE_AT &lt;list&gt; &lt;index&gt; [&lt;index&gt;...])</code>  </li>
+</ul>
+</li>
+<li>举例：  <ul>
+<li><code>list(REMOVE_AT myList 2)</code>，此时 myList 变为 "A;X;C"  </li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>REMOVE_DUPLICATES 命令</strong>：删除列表中的重复元素  </p>
+<ul>
+<li>格式：  <ul>
+<li><code>list(REMOVE_DUPLICATES &lt;list&gt;)</code>  </li>
+</ul>
+</li>
+<li>举例：  <ul>
+<li>假设 <code>myList</code> 是 "A;B;A;C;B"，执行后变为 "A;B;C"  </li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>LENGTH 命令</strong>：获取列表的长度  </p>
+<ul>
+<li>格式：  <ul>
+<li><code>list(LENGTH &lt;list&gt; &lt;output_variable&gt;)</code>  </li>
+</ul>
+</li>
+<li>举例：  <ul>
+<li><code>list(LENGTH myList myListLength)</code>，将列表长度存储在 <code>myListLength</code> 变量中  </li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>GET 命令</strong>：获取列表中指定位置的元素  </p>
+<ul>
+<li>格式：  <ul>
+<li><code>list(GET &lt;list&gt; &lt;index&gt; &lt;output_variable&gt; [&lt;index&gt; &lt;output_variable&gt;...])</code>  </li>
+</ul>
+</li>
+<li>举例：  <ul>
+<li><code>list(GET myList 1 myElement)</code>，此时 <code>myElement</code> 的值为 "X"  </li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>FIND 命令</strong>：查找指定元素在列表中的位置  </p>
+<ul>
+<li>格式：  <ul>
+<li><code>list(FIND &lt;list&gt; &lt;value&gt; &lt;output_variable&gt;)</code>  </li>
+</ul>
+</li>
+<li>举例：  <ul>
+<li><code>list(FIND myList X myElementIndex)</code>，此时 <code>myElementIndex</code> 的值为 1  </li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>SUBLIST 命令</strong>：获取列表的子列表  </p>
+<ul>
+<li>格式：  <ul>
+<li><code>list(SUBLIST &lt;list&gt; &lt;start&gt; &lt;length&gt; &lt;output_variable&gt;)</code>  </li>
+</ul>
+</li>
+<li>举例：  <ul>
+<li><code>list(SUBLIST myList 1 2 mySublist)</code>，此时 <code>mySublist</code> 的值为 "X;C"  </li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>REVERSE 命令</strong>：反转列表  </p>
+<ul>
+<li>格式：  <ul>
+<li><code>list(REVERSE &lt;list&gt;)</code>  </li>
+</ul>
+</li>
+<li>举例：  <ul>
+<li><code>list(REVERSE myList)</code>，此时 myList 变为 "C;X;A"</li>
+</ul>
+</li>
+</ul>
+</li>
 </ol>
 
 
