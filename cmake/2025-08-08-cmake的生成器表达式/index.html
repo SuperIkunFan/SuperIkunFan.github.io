@@ -9,10 +9,10 @@
       
       
       
-        <link rel="prev" href="../2024-09-05-cmake%E7%9A%84list%E5%91%BD%E4%BB%A4/">
+        <link rel="prev" href="../2025-08-04-cmake%E7%9A%84preset%E5%8A%9F%E8%83%BD/">
       
       
-        <link rel="next" href="../2024-09-06-cmake%E7%9A%84add_custom_command%E5%91%BD%E4%BB%A4/">
+        <link rel="next" href="../../cplusplus/2025-05-26-%E4%B8%80%E7%A7%8Dc%2B%2B%E5%B8%B8%E9%87%8F%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF/">
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
@@ -20,7 +20,7 @@
     
     
       
-        <title>cmake的set命令详解 - ikun爱学习</title>
+        <title>cmake的生成器表达式 - ikun爱学习</title>
       
     
     
@@ -106,7 +106,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              cmake的set命令详解
+              cmake的生成器表达式
             
           </span>
         </div>
@@ -555,30 +555,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    cmake的set命令详解
-    
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../2024-09-05-cmake%E7%9A%84set%E5%91%BD%E4%BB%A4/" class="md-nav__link">
         
   
   
@@ -589,60 +569,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="目录">
-  
-  
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      目录
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      一、前言
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
-    <span class="md-ellipsis">
-      二、常规变量
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_3" class="md-nav__link">
-    <span class="md-ellipsis">
-      三、强调作用域的变量
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_4" class="md-nav__link">
-    <span class="md-ellipsis">
-      四、强调需要存储到文件中的变量
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -813,10 +739,30 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../2025-08-08-cmake%E7%9A%84%E7%94%9F%E6%88%90%E5%99%A8%E8%A1%A8%E8%BE%BE%E5%BC%8F/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    cmake的生成器表达式
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -827,6 +773,84 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      一、前言
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      二、编写语法
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="二、编写语法">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.1 基本格式
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.2 空白符处理
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#debug" class="md-nav__link">
+    <span class="md-ellipsis">
+      三、debug方式
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      四、常见形式
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1400,7 +1424,40 @@
         <li class="md-nav__item">
   <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
-      二、常规变量
+      二、编写语法
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="二、编写语法">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.1 基本格式
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.2 空白符处理
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#debug" class="md-nav__link">
+    <span class="md-ellipsis">
+      三、debug方式
     </span>
   </a>
   
@@ -1409,16 +1466,7 @@
         <li class="md-nav__item">
   <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
-      三、强调作用域的变量
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_4" class="md-nav__link">
-    <span class="md-ellipsis">
-      四、强调需要存储到文件中的变量
+      四、常见形式
     </span>
   </a>
   
@@ -1440,63 +1488,170 @@
 
 
 
-  <h1>cmake的set命令详解</h1>
+  <h1>cmake的生成器表达式</h1>
 
 <h2 id="_1">一、前言</h2>
-<p>在cmake中，设置一个变量常见的方式就是使用set命令，它的语法格式为：  </p>
+<p>生成器表达式是cmake提出支持一个多编译配置的功能。先看看cmake官方给它的定义：</p>
+<blockquote>
+<p>Generator expressions are evaluated during build system generation to produce information specific to each build configuration  </p>
+<p>翻译：生成器表达式在生成构建系统时进行求值，以生成与每个构建配置相关的信息</p>
+</blockquote>
+<p>仅从这句话很难看出它解决了什么问题。首先看cmake一般编译工作流:</p>
+<pre class="mermaid"><code>flowchart TD
+    A(["配置阶段:&lt;/br&gt;生成后端的make或者是ninja所需文件"]) --"cmake -B build"--&gt; B
+    B["构建阶段:&lt;/br&gt;后端执行编译命令"] --"cmake --build build"--&gt;C
+    C["得到可执行文件"]
+</code></pre>
+<p>那么如何在构建阶段达到不同参数进行不同的编译呢？</p>
+<p>最快想到的是通过设置变量来解决，即在 CMakeLists.txt 中将其定义为构建阶段的变量。矛盾点在于在配置阶段，变量已经完成了字符串替换，到构建阶段时它不再是变量了。例如set(var "rrr")，CMAKE_SOURCE_DIR等等。</p>
+<p>因此需要提出一种新的方式，在cmakelists.txt中区别与常规的变量，来达到build阶段的多种编译。</p>
+<p>那么为什么会存在build阶段的多种配置呢？当一个项目同时需要 Debug 和 Release 等多种模式时，只需进行一次配置，随后可根据需要执行不同类型的构建。此时某些平台（如 Visual Studio 或 Xcode）支持这种机制，它可以降低项目的配置阶段开销。</p>
+<h2 id="_2">二、编写语法</h2>
+<h3 id="21">2.1 基本格式</h3>
+<p>当cmake识别到如下形式时，它会认为是一个正则表达式。</p>
+<div class="highlight"><pre><span></span><code><span class="err">$&lt;...&gt;</span>
+</code></pre></div>
+<h3 id="22">2.2 空白符处理</h3>
+<p>先看cmake官方的解释：</p>
+<blockquote>
+<p>生成器表达式通常在命令参数之后进行解析。
+如果生成器表达式包含空格、换行符、分号或其他可能被解释为命令参数分隔符的字符，则在将该表达式传递给命令时，应将其整体用引号括起来。否则，该表达式可能会被拆分，从而导致无法再被识别为生成器表达式。</p>
+</blockquote>
+<p>第一句话的意思如下：</p>
 <ul>
-<li><code>set(&lt;variable&gt; &lt;value&gt;... [CACHE &lt;type&gt; &lt;docstring&gt; [FORCE]])</code> # 增强模式</li>
-<li><code>set(&lt;variable&gt; &lt;value&gt;... PARENT_SCOPE)</code> # 强调作用域</li>
-<li><code>set(&lt;variable&gt; &lt;value&gt;)</code> # 最常见的设置值 </li>
-</ul>
-<h2 id="_2">二、常规变量</h2>
-<p>格式为：</p>
-<p><code>set(&lt;variable&gt; &lt;value&gt;)</code>  </p>
-<p>在日常使用中最常见的格式，就是将一个值设置给一个变量。 </p>
-<div class="highlight"><pre><span></span><code><span class="nb">set</span><span class="p">(</span><span class="s">VAR_NAME</span><span class="w"> </span><span class="s2">&quot;value&quot;</span><span class="p">)</span><span class="w"> </span><span class="c">#给一个变量名设置一个值</span>
-</code></pre></div>
-<p>这一种方式就只是单纯给一个变量设置一个值  </p>
-<div class="highlight"><pre><span></span><code><span class="nb">set</span><span class="p">(</span><span class="s">VAR_NAME</span><span class="w"> </span><span class="s2">&quot;value1&quot;</span><span class="w"> </span><span class="s2">&quot;value2&quot;</span><span class="w"> </span><span class="s2">&quot;value3&quot;</span><span class="p">)</span><span class="w"> </span><span class="c"># 给一个变量设置多个值</span>
-</code></pre></div>
-<p>这一种也没什么好说的，但是可以使用变量展开的方式来实现变量追加的功能    </p>
-<div class="highlight"><pre><span></span><code><span class="nb">set</span><span class="p">(</span><span class="s">VAR_NAME</span><span class="w"> </span><span class="o">${</span><span class="nv">VAR_NAME</span><span class="o">}</span><span class="w"> </span><span class="s2">&quot;value4&quot;</span><span class="p">)</span>
-</code></pre></div>
-<p>一般来说我们可以使用list命令达到同样的效果  </p>
-<h2 id="_3">三、强调作用域的变量</h2>
-<p>格式为：</p>
-<p><code>set(&lt;variable&gt; &lt;value&gt;... PARENT_SCOPE)</code></p>
-<p>这种格式一般是将设置的变量名放到上一级的作用域中去，如：</p>
-<div class="highlight"><pre><span></span><code><span class="nb">function</span><span class="p">(</span><span class="s">set_parent_scope_var</span><span class="p">)</span>
-<span class="w">    </span><span class="nb">set</span><span class="p">(</span><span class="s">VAR_NAME</span><span class="w"> </span><span class="s2">&quot;value&quot;</span><span class="w"> </span><span class="s">PARENT_SCOPE</span><span class="p">)</span>
-<span class="nb">endfunction</span><span class="p">()</span>
-
-<span class="nb">set_parent_scope_var</span><span class="p">()</span>
-<span class="nb">message</span><span class="p">(</span><span class="s">STATUS</span><span class="w"> </span><span class="s2">&quot;VAR_NAME: ${VAR_NAME}&quot;</span><span class="p">)</span>
-</code></pre></div>
-<p>这样就将VAR_NAME这个变量作用域提升到上一级中，但一般不推荐这样做，因为这不太符合局部变量作用域的一般设计思想  </p>
-<h2 id="_4">四、强调需要存储到文件中的变量</h2>
-<p>格式为</p>
-<p><code>set(&lt;variable&gt; &lt;value&gt;... [CACHE &lt;type&gt; &lt;docstring&gt; [FORCE]])</code>  </p>
-<p>它的主要目的是将变量的值存储到CMakeCache.txt文件中去，这样当编译完成之后，可以检查设置的变量是否符合自己的期望</p>
-<div class="highlight"><pre><span></span><code><span class="nb">set</span><span class="p">(</span><span class="s">VAR_NAME</span><span class="w"> </span><span class="s2">&quot;value&quot;</span><span class="w"> </span><span class="s">CACHE</span><span class="w"> </span><span class="s">STRING</span><span class="w"> </span><span class="s2">&quot;Description of the variable&quot;</span><span class="p">)</span>
-</code></pre></div>
-<p>它的作用效果：</p>
-<ul>
-<li>CACHE表示这个变量会存储下来  </li>
 <li>
-<p><type> 表示类型，这个会在CMakeCache.txt中提示，上面就会写VAR_NAME:STRING="value"，其他的有:</p>
+<p>解析时机：生成器表达式（Generator Expressions）是在 CMake 生成构建系统（如 Makefile、Visual Studio 项目文件等）的阶段进行解析和求值的，也就是运行 cmake 或 cmake --configure 时，而不是在 cmake --build 阶段。</p>
+</li>
+<li>
+<p>“命令参数之后”：指的是在 CMake 处理某个命令（如 add_executable、target_link_libraries）时，先解析该命令的普通参数，然后再对其中可能包含的生成器表达式进行识别和处理。</p>
+</li>
+<li>
+<p>举例说明：<br />
+    <div class="highlight"><pre><span></span><code><span class="nb">target_compile_definitions</span><span class="p">(</span><span class="s">myexe</span><span class="w"> </span><span class="s">PRIVATE</span><span class="w"> </span><span class="o">$&lt;</span><span class="nv">$&lt;CONFIG:Debug</span><span class="o">&gt;</span><span class="s">:DEBUG&gt;</span><span class="p">)</span>
+</code></pre></div>
+    在处理 target_compile_definitions 命令时，CMake 首先识别命令的各个参数（myexe, PRIVATE, 以及后面的表达式），然后对 <span class="arithmatex">\(&lt;\)</span><CONFIG:Debug>:DEBUG&gt; 这个生成器表达式进行解析。如果这个表达式包含空格或分号，就必须用引号括起来，否则会被错误地拆分成多个参数。</p>
+</li>
+<li>
+<p>总结：<br />
+    “生成器表达式通常在命令参数之后进行解析” 指的是在 CMake 配置阶段（运行 cmake 时），处理 CMakeLists.txt 中的命令时，先解析普通参数，再解析其中的生成器表达式。</p>
+</li>
+</ul>
+<p>那么怎样会被认为是正确的呢？从一个例子出发，看看有哪些错误</p>
+<ol>
+<li>
+<p>version1：生成器表达式中使用空格而没有加引号：</p>
+<div class="highlight"><pre><span></span><code><span class="nb">add_custom_target</span><span class="p">(</span><span class="s">run_some_tool</span>
+<span class="w">    </span><span class="s">COMMAND</span><span class="w"> </span><span class="s">some_tool</span><span class="w"> </span><span class="s">-I</span><span class="o">$&lt;</span><span class="nv">JOIN:$&lt;TARGET_PROPERTY:tgt,INCLUDE_DIRECTORIES</span><span class="o">&gt;</span><span class="s">,</span><span class="w"> </span><span class="s">-I&gt;</span>
+<span class="w">    </span><span class="s">VERBATIM</span>
+<span class="p">)</span>
+</code></pre></div>
 <ul>
-<li>BOOL 布尔类型  </li>
-<li>INTERNAL 表示内部使用的隐藏变量，不显示在 ccmake 或 cmake-gui 中  </li>
-<li>FILEPATH 表示文件路径类型  </li>
-<li>STRING 表示常规字符串类型  </li>
+<li>生成器表达式中包含空格：<br />
+    表达式 <code>$&lt;JOIN:$&lt;TARGET_PROPERTY:tgt,INCLUDE_DIRECTORIES&gt;, -I&gt;</code> 中使用了 , -I&gt; 作为分隔符，其中包含一个空格。<br />
+    这个空格在 CMake 解析 COMMAND 参数时，会被当作命令行参数的分隔符，导致整个表达式被错误地拆分成多个部分。</li>
+<li>生成器表达式被破坏:<br />
+    由于空格导致解析出错，CMake 无法将 <code>$&lt;JOIN:...&gt;</code> 完整识别为一个生成器表达式。
+    结果是，该表达式不会被正确求值，可能导致构建失败或传给工具的参数不正确。</li>
+<li>即使使用了 VERBATIM，也无法修复此问题：<br />
+    VERBATIM 选项可以改善构建系统对命令行参数的转义和引用处理（特别是在 Windows 上），但它不能解决 CMake 在配置阶段解析命令参数时的分割问题。<br />
+    在 CMake 生成构建文件时，就已经因为空格把表达式拆开了，此时 VERBATIM 还没起作用。</li>
 </ul>
 </li>
 <li>
-<p><docstring>主要是cmake变量编译时的输出提示</p>
+<p>version2：使用空格但是加了引号：</p>
+<div class="highlight"><pre><span></span><code><span class="nb">add_custom_target</span><span class="p">(</span><span class="s">run_some_tool</span>
+<span class="s">COMMAND</span><span class="w"> </span><span class="s">some_tool</span><span class="w"> </span><span class="s2">&quot;-I$&lt;JOIN:$&lt;TARGET_PROPERTY:tgt,INCLUDE_DIRECTORIES&gt;, -I&gt;&quot;</span>
+<span class="s">VERBATIM</span>
+<span class="p">)</span>
+</code></pre></div>
+<ul>
+<li>比之前好，但仍然不够健壮。引号防止了空格导致表达式被拆分，但工具最终会将展开后的整个值当作一个单一参数接收。</li>
+<li>
+<p>虽然表达式能正确展开，比如展开成：</p>
+<div class="highlight"><pre><span></span><code>-I/path/to/include -I/usr/local/include -I../src
+</code></pre></div>
 </li>
-<li>[FORCE]可选参数，表示是否强制覆盖  </li>
+<li>
+<p>但由于整个表达式被用引号括起来了，CMake 会把这整个展开后的字符串视为一个命令行参数。结果是some_tool 接收到的是一个参数：</p>
+<div class="highlight"><pre><span></span><code>&quot;-I/path/to/include -I/usr/local/include -I../src&quot;
+</code></pre></div>
+<p>而不是期望的多个独立参数：</p>
+<p>"-I/path/to/include" "-I/usr/local/include" "-I../src"</p>
+</li>
+<li>
+<p>很多命令行工具（如编译器、代码生成工具等）无法正确解析这种合并的参数，特别是当它们期望每个 -I 是一个独立选项时。</p>
+</li>
 </ul>
+</li>
+<li>
+<p>version3：将空格变成分号</p>
+<div class="highlight"><pre><span></span><code><span class="nb">add_custom_target</span><span class="p">(</span><span class="s">run_some_tool</span>
+<span class="w">    </span><span class="s">COMMAND</span><span class="w"> </span><span class="s">some_tool</span><span class="w"> </span><span class="s2">&quot;-I$&lt;JOIN:$&lt;TARGET_PROPERTY:tgt,INCLUDE_DIRECTORIES&gt;,;-I&gt;&quot;</span>
+<span class="w">    </span><span class="s">COMMAND_EXPAND_LISTS</span>
+<span class="w">    </span><span class="s">VERBATIM</span>
+<span class="p">)</span>
+</code></pre></div>
+<ul>
+<li>几乎正确了。使用分号分隔参数并加上 COMMAND_EXPAND_LISTS 选项，意味着包含空格的路径也能被正确处理；给整个表达式加引号确保了它能被识别为生成器表达式。</li>
+<li>但如果目标属性为空，我们会得到一个孤零零的 -I，后面没有任何内容。</li>
+</ul>
+</li>
+<li>
+<p>version4:使用条件正则表达式</p>
+<div class="highlight"><pre><span></span><code>add_custom_target(run_some_tool
+    COMMAND some_tool $&lt;$&lt;BOOL:$&lt;TARGET_PROPERTY:tgt,INCLUDE_DIRECTORIES&gt;&gt;:-I$&lt;JOIN:$&lt;TARGET_PROPERTY:tgt,INCLUDE_DIRECTORIES&gt;,;-I&gt;&gt;
+    COMMAND_EXPAND_LISTS
+    VERBATIM
+)
+</code></pre></div>
+</li>
+</ol>
+<p>那么能否直接使用变量来表示一整个生成器表达式呢？cmake官方给了一个示例</p>
+<div class="highlight"><pre><span></span><code><span class="nb">set</span><span class="p">(</span><span class="s">prop</span><span class="w"> </span><span class="s2">&quot;$&lt;TARGET_PROPERTY:tgt,INCLUDE_DIRECTORIES&gt;&quot;</span><span class="p">)</span>
+<span class="nb">add_custom_target</span><span class="p">(</span><span class="s">run_some_tool</span>
+<span class="w">  </span><span class="s">COMMAND</span><span class="w"> </span><span class="s">some_tool</span><span class="w"> </span><span class="s2">&quot;$&lt;$&lt;BOOL:${prop}&gt;:-I$&lt;JOIN:${prop},;-I&gt;&gt;&quot;</span>
+<span class="w">  </span><span class="s">COMMAND_EXPAND_LISTS</span>
+<span class="w">  </span><span class="s">VERBATIM</span>
+<span class="p">)</span>
+</code></pre></div>
+<p>最后它会变成</p>
+<div class="highlight"><pre><span></span><code><span class="nb">add_custom_target</span><span class="p">(</span><span class="s">run_some_tool</span>
+<span class="w">  </span><span class="s">COMMAND</span><span class="w"> </span><span class="s">some_tool</span><span class="w"> </span><span class="s2">&quot;$&lt;LIST:TRANSFORM,$&lt;TARGET_PROPERTY:tgt,INCLUDE_DIRECTORIES&gt;,PREPEND,-I&gt;&quot;</span>
+<span class="w">  </span><span class="s">COMMAND_EXPAND_LISTS</span>
+<span class="w">  </span><span class="s">VERBATIM</span>
+<span class="p">)</span>
+</code></pre></div>
+<p>另外一个常见的错误是嫌参数太长就换行处理</p>
+<div class="highlight"><pre><span></span><code><span class="nb">target_compile_definitions</span><span class="p">(</span><span class="s">tgt</span><span class="w"> </span><span class="s">PRIVATE</span>
+<span class="w">  </span><span class="err">$</span><span class="s">&lt;</span><span class="err">$</span><span class="s">&lt;AND:</span>
+<span class="w">      </span><span class="o">$&lt;</span><span class="nv">CXX_COMPILER_ID:GNU</span><span class="o">&gt;</span><span class="s">,</span>
+<span class="w">      </span><span class="o">$&lt;</span><span class="nv">VERSION_GREATER_EQUAL:$&lt;CXX_COMPILER_VERSION</span><span class="o">&gt;</span><span class="s">,5&gt;</span>
+<span class="w">    </span><span class="s">&gt;:HAVE_5_OR_LATER&gt;</span>
+<span class="p">)</span>
+</code></pre></div>
+<p>最好如下书写</p>
+<div class="highlight"><pre><span></span><code><span class="nb">set</span><span class="p">(</span><span class="s">is_gnu</span><span class="w"> </span><span class="s2">&quot;$&lt;CXX_COMPILER_ID:GNU&gt;&quot;</span><span class="p">)</span>
+<span class="nb">set</span><span class="p">(</span><span class="s">v5_or_later</span><span class="w"> </span><span class="s2">&quot;$&lt;VERSION_GREATER_EQUAL:$&lt;CXX_COMPILER_VERSION&gt;,5&gt;&quot;</span><span class="p">)</span>
+<span class="nb">set</span><span class="p">(</span><span class="s">meet_requirements</span><span class="w"> </span><span class="s2">&quot;$&lt;AND:${is_gnu},${v5_or_later}&gt;&quot;</span><span class="p">)</span>
+<span class="nb">target_compile_definitions</span><span class="p">(</span><span class="s">tgt</span><span class="w"> </span><span class="s">PRIVATE</span>
+<span class="w">  </span><span class="s2">&quot;$&lt;${meet_requirements}:HAVE_5_OR_LATER&gt;&quot;</span>
+<span class="p">)</span>
+</code></pre></div>
+<h2 id="debug">三、debug方式</h2>
+<p>使用常规的message方式实在configure阶段，这种方式失效。cmake提供了两种方式</p>
+<ol>
+<li>
+<p>使用add_custom_target</p>
+<div class="highlight"><pre><span></span><code><span class="nb">add_custom_target</span><span class="p">(</span><span class="s">genexdebug</span><span class="w"> </span><span class="s">COMMAND</span><span class="w"> </span><span class="o">${</span><span class="nv">CMAKE_COMMAND</span><span class="o">}</span><span class="w"> </span><span class="s">-E</span><span class="w"> </span><span class="s">echo</span><span class="w"> </span><span class="s2">&quot;$&lt;...&gt;&quot;</span><span class="p">)</span>
+</code></pre></div>
+</li>
+<li>
+<p>使用file</p>
+<div class="highlight"><pre><span></span><code>file(GENERATE OUTPUT filename CONTENT &quot;$&lt;...&gt;&quot;)
+</code></pre></div>
+</li>
+</ol>
+<h2 id="_3">四、常见形式</h2>
 
 
 
