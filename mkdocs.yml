@@ -22,10 +22,13 @@ theme:
     code: "Fira Code, monospace"     # 添加monospace作为回退
   
   features:
-    - navigation.tabs       # 启用顶部标签页
-    - navigation.indexes    # 显示章节索引
-    - content.code.annotate # 启动代码标注
-    - content.code.copy     # 启动代码复制
+    - navigation.instant     # 提供侧边栏开关
+    - navigation.tabs        # 更好地组织导航
+    - toc.integrate          # 提供 TOC 开关
+    - content.code.copy
+    - content.code.annotate
+    - navigation.top
+    - search.highlight
 
 plugins:
   - search
@@ -43,4 +46,5 @@ extra_javascript:
   - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
   - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-ams.js  # 关键：加载 amsmath 扩展
   - https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js #启动mermaid
+  - assets/javascripts/focus-mode.js
 # ---------------------end--------------------------
