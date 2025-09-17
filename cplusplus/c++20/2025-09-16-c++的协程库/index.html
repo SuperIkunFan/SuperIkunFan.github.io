@@ -1,0 +1,2926 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../2025-08-19-c%2B%2B%E7%9A%84format%E5%BA%93/">
+      
+      
+        <link rel="next" href="../../../%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/2025-03-28-cmake%E7%9A%84ctest%E6%A1%86%E6%9E%B6/">
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.20">
+    
+    
+      
+        <title>协程库 - ikun爱学习</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.e53b48f4.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans,+Noto+Sans+SC:300,300i,400,400i,700,700i%7CFira+Code,+monospace:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Noto Sans, Noto Sans SC";--md-code-font:"Fira Code, monospace"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../../.." title="ikun爱学习" class="md-header__button md-logo" aria-label="ikun爱学习" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            ikun爱学习
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              协程库
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="blue"  aria-label="暗色模式"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="暗色模式" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="亮色模式"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="亮色模式" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../cmake/2024-09-04-cmake%E7%9A%84install%E5%91%BD%E4%BB%A4/" class="md-tabs__link">
+          
+  
+  
+  Cmake
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../2025-05-26-%E4%B8%80%E7%A7%8Dc%2B%2B%E5%B8%B8%E9%87%8F%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF/" class="md-tabs__link">
+          
+  
+  
+  Cplusplus
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/2025-03-28-cmake%E7%9A%84ctest%E6%A1%86%E6%9E%B6/" class="md-tabs__link">
+          
+  
+  
+  单元测试
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6/2025-09-16-clangd%E7%9A%84vscode%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B/" class="md-tabs__link">
+          
+  
+  
+  常用软件
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/2025-05-07-%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86%E4%B8%AD%E7%9A%84%E5%90%84%E7%A7%8D%E9%A2%91%E7%8E%87/" class="md-tabs__link">
+          
+  
+  
+  数字信号处理
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/2025-08-26-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84R_tree%28%E4%B8%80%29/" class="md-tabs__link">
+          
+  
+  
+  数据结构
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../%E7%B3%BB%E7%BB%9F%E8%84%9A%E6%9C%AC/2025-05-29-powershell%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/" class="md-tabs__link">
+          
+  
+  
+  系统脚本
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="ikun爱学习" class="md-nav__button md-logo" aria-label="ikun爱学习" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    ikun爱学习
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Cmake
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Cmake
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../cmake/2024-09-04-cmake%E7%9A%84install%E5%91%BD%E4%BB%A4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    cmake的install命令详解
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../cmake/2024-09-04-cmake%E7%9A%84%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%8F%82%E6%95%B0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    cmake的命令行参数
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../cmake/2024-09-05-cmake%E7%9A%84include%E5%91%BD%E4%BB%A4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    cmake的include命令详解
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../cmake/2024-09-05-cmake%E7%9A%84list%E5%91%BD%E4%BB%A4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    cmake的list命令详解
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../cmake/2024-09-05-cmake%E7%9A%84set%E5%91%BD%E4%BB%A4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    cmake的set命令详解
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../cmake/2024-09-06-cmake%E7%9A%84add_custom_command%E5%91%BD%E4%BB%A4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    cmake的add_custom_command命令详解
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../cmake/2025-01-09-cmake%E7%9A%84file%E5%91%BD%E4%BB%A4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    cmake的cmake的file命令详解
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../cmake/2025-01-09-cmake%E7%9A%84option%E5%91%BD%E4%BB%A4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    cmake的cmake的option命令详解
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../cmake/2025-01-15-cmake%E7%9A%84target%E6%A6%82%E5%BF%B5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    cmake的cmake的target概念
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../cmake/2025-01-16-cmake%E7%9A%84%E6%80%BB%E4%BD%93%E8%AF%AD%E8%A8%80%E6%A6%82%E5%BF%B5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    cmake的cmake的总体语言概念
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../cmake/2025-07-09-cmake%E7%9A%84%E5%89%8D%E7%BD%AE%E7%9F%A5%E8%AF%86gcc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    cmake的前置知识--gcc
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../cmake/2025-08-04-cmake%E7%9A%84preset%E5%8A%9F%E8%83%BD/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    cmake的preset功能
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../cmake/2025-08-08-cmake%E7%9A%84%E7%94%9F%E6%88%90%E5%99%A8%E8%A1%A8%E8%BE%BE%E5%BC%8F/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    cmake的生成器表达式
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    Cplusplus
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Cplusplus
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2025-05-26-%E4%B8%80%E7%A7%8Dc%2B%2B%E5%B8%B8%E9%87%8F%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    基于非类型模板形参的编译期常量注入技术
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2025-06-25-c%2B%2B%E6%A8%A1%E6%9D%BF%E5%8F%82%E6%95%B0%E6%8E%A8%E5%AF%BC%E5%92%8C%E6%A8%A1%E6%9D%BF%E5%AE%9E%E4%BE%8B%E5%8C%96/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    c++模板参数推导和模板实例化
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2025-06-26-c%2B%2B%E6%A0%87%E7%AD%BE%E6%B4%BE%E5%8F%91%E6%8A%80%E6%9C%AF--%E4%BB%A5geometry%E6%B3%9B%E5%9E%8B%E4%B8%BA%E4%BE%8B/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    c++标签派发技术--以geometry泛型为例
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2025-07-10-c%2B%2B%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96%E6%96%B9%E5%BC%8F%E4%BB%A5%E5%8F%8A%E5%88%9D%E5%A7%8B%E5%8C%96%E5%88%97%E8%A1%A8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    c++的初始化方式以及初始化列表
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2025-07-11-c%2B%2B%E7%9A%84%E5%8F%AF%E5%8F%98%E5%8F%82%E6%95%B0%E6%A8%A1%E6%9D%BF/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    c++的可变参数模板
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2025-07-15-c%2B%2B%E7%9A%84%E5%B9%B3%E5%87%A1%E7%B1%BB%E5%92%8C%E6%A0%87%E5%87%86%E5%B8%83%E5%B1%80%E7%B1%BB/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    c++的平凡类和标准布局类
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2025-08-18-c%2B%2B%E7%9A%84%E5%B8%B8%E9%87%8F%E6%BC%94%E5%8F%98/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    c++的常量演变
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2025-09-10-c%2B%2B%E7%9A%84%E7%B1%BB%E5%A4%96%E7%B1%BB%E5%9E%8B%E8%A7%A3%E6%9E%90%E8%A7%84%E5%88%99/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    c++的类外类型解析规则
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_9" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3_9" id="__nav_3_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    C++20
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_9_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_9">
+            <span class="md-nav__icon md-icon"></span>
+            C++20
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2025-08-19-c%2B%2B%E7%9A%84format%E5%BA%93/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    format库
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    协程库
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    协程库
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      一、前言
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="一、前言">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.1 传统异步回调解决方案
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      二、无栈协程
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="二、无栈协程">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.1 初识协程
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.2 示例代码
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.3 模块构成
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#promise_type" class="md-nav__link">
+    <span class="md-ellipsis">
+      三、协程组件——promise_type
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="三、协程组件——promise_type">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-promise_type" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.1 promise_type控制器作用
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#return-object" class="md-nav__link">
+    <span class="md-ellipsis">
+      四、协程返回对象（Return Object）：协程的“代理”
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="四、协程返回对象（Return Object）：协程的“代理”">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.1 构造过程
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.2 职责
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#coroutine-frame" class="md-nav__link">
+    <span class="md-ellipsis">
+      五、协程帧（Coroutine Frame）：协程的“身体”
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="五、协程帧（Coroutine Frame）：协程的“身体”">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-coroutine-frame" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.1 协程帧（Coroutine Frame）定义
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.2 协程桢概念的必要性
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-promise_type" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.3 协程帧的内存分配与 promise_type 的存储要求
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stdcoroutine_handle" class="md-nav__link">
+    <span class="md-ellipsis">
+      六、 协程操作句柄（std::coroutine_handle）：协程的“遥控器”
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#awaiter" class="md-nav__link">
+    <span class="md-ellipsis">
+      七、awaiter 对象
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="七、awaiter 对象">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71-awaiter" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.1 什么是 awaiter 对象？
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72-awaiter" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.2 awaiter 对象的接口要求
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#73" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.3 与协程返回对象的关系
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#74-awaiter" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.4 awaiter 的典型实现模式
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#75-awaiter" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.5 awaiter 的设计要点
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#76-promise_type" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.6 与 promise_type 的协作
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#77" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.7 实际应用示例
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      八、流程解析
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    单元测试
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            单元测试
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/2025-03-28-cmake%E7%9A%84ctest%E6%A1%86%E6%9E%B6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    cmake的ctest框架
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/2025-03-29-boost.test%E6%A1%86%E6%9E%B6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    boost的单元测试框架
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    常用软件
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            常用软件
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6/2025-09-16-clangd%E7%9A%84vscode%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    clangd的配置
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    数字信号处理
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            数字信号处理
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/2025-05-07-%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86%E4%B8%AD%E7%9A%84%E5%90%84%E7%A7%8D%E9%A2%91%E7%8E%87/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    数字信号中的各种频率
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/2025-05-08-%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E4%B8%AD%E9%A2%91%E5%9F%9F%E6%BB%A4%E6%B3%A2%E5%99%A8%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    频域滤波器基础知识
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/2025-05-08-%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86%E4%B8%AD%E7%9A%84%E5%B7%B4%E7%89%B9%E6%B2%83%E6%96%AF%E6%BB%A4%E6%B3%A2%E5%99%A8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    巴特沃斯滤波器
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    数据结构
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            数据结构
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/2025-08-26-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84R_tree%28%E4%B8%80%29/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    数据结构R_Tree（一）理论算法
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/2025-08-29-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84R_tree%28%E4%BA%8C%29/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    数据结构R_Tree（二）设计实现
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    系统脚本
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            系统脚本
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E7%B3%BB%E7%BB%9F%E8%84%9A%E6%9C%AC/2025-05-29-powershell%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    powershell快速入门
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E7%B3%BB%E7%BB%9F%E8%84%9A%E6%9C%AC/2025-08-06-wsl%E5%B8%B8%E7%94%A8%E5%86%85%E5%AE%B9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    wsl2常用内容
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+  <h1>协程库</h1>
+
+<h2 id="_1">一、前言</h2>
+<p>在现代软件系统中，尤其是高并发、异步 I/O、事件驱动等场景下，传统的同步编程模型面临严峻挑战。硬件发展出现了如何特征：</p>
+<ol>
+<li>
+<p>cpu单核频率提升速度越来越受限，cpu厂商越来越强调多核。</p>
+</li>
+<li>
+<p>IO操作的速度相较于单核cpu本身的速度慢很多。</p>
+</li>
+<li>
+<p>高并发的需求越来越大。</p>
+</li>
+</ol>
+<p>第三条是场景需求，前两条是硬件限制。因此为了提高并发量，异步IO的设计要求变得越来越强烈。</p>
+<h3 id="11">1.1 传统异步回调解决方案</h3>
+<p>在现代高性能系统中，异步 I/O 是实现高并发、低延迟的关键技术。传统的异步编程模型通常依赖 线程池 + 回调函数（Callback） 的方式来处理耗时操作（如文件读写、网络请求、数据库查询等）。</p>
+<p>核心思想是主线程不直接执行耗时任务；而是将任务封装为函数对象（回调），提交给线程池；线程池中的工作线程执行任务；任务完成后，通过预设的回调通知主线程或继续后续逻辑；主线程通过某种机制（如共享状态、future、事件循环）获取执行结果。</p>
+<p>当业务逻辑变得复杂，尤其是涉及多级嵌套、分支选择、条件执行时，回调层层嵌套，导致：</p>
+<ol>
+<li>代码难以阅读和维护；</li>
+<li>错误处理困难；</li>
+<li>局部变量生命周期管理复杂；</li>
+<li>调试困难；</li>
+<li>无法使用 return、try/catch 等自然控制流。</li>
+</ol>
+<p>如下面模拟一部数据路查询：</p>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;string&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;functional&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;thread&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;future&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;memory&gt;</span>
+
+<span class="c1">// 模拟线程池</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">ThreadPool</span><span class="w"> </span><span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="w">    </span><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">F</span><span class="o">&gt;</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="n">submit</span><span class="p">(</span><span class="n">F</span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">func</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="kr">thread</span><span class="w"> </span><span class="nf">t</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">forward</span><span class="o">&lt;</span><span class="n">F</span><span class="o">&gt;</span><span class="p">(</span><span class="n">func</span><span class="p">));</span>
+<span class="w">        </span><span class="n">t</span><span class="p">.</span><span class="n">detach</span><span class="p">();</span><span class="w"> </span><span class="c1">// 简化模型，不管理线程生命周期</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">};</span>
+
+<span class="c1">// 全局线程池实例</span>
+<span class="n">ThreadPool</span><span class="w"> </span><span class="n">g_thread_pool</span><span class="p">;</span>
+
+<span class="c1">// 模拟异步数据库查询</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">async_query_db</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">sql</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">function</span><span class="o">&lt;</span><span class="kt">void</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">)</span><span class="o">&gt;</span><span class="w"> </span><span class="n">callback</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">g_thread_pool</span><span class="p">.</span><span class="n">submit</span><span class="p">([</span><span class="n">sql</span><span class="p">,</span><span class="w"> </span><span class="n">callback</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">callback</span><span class="p">)]()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">this_thread</span><span class="o">::</span><span class="n">sleep_for</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">seconds</span><span class="p">(</span><span class="mi">1</span><span class="p">));</span><span class="w"> </span><span class="c1">// 模拟 I/O 延迟</span>
+<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;data_from_db: &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">sql</span><span class="p">;</span>
+<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;[DB] 查询完成: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="w">        </span><span class="n">callback</span><span class="p">(</span><span class="n">result</span><span class="p">);</span><span class="w"> </span><span class="c1">// 回调通知</span>
+<span class="w">    </span><span class="p">});</span>
+<span class="p">}</span>
+
+<span class="c1">// 模拟异步缓存查询</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">async_get_cache</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">key</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">function</span><span class="o">&lt;</span><span class="kt">void</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">)</span><span class="o">&gt;</span><span class="w"> </span><span class="n">callback</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">g_thread_pool</span><span class="p">.</span><span class="n">submit</span><span class="p">([</span><span class="n">key</span><span class="p">,</span><span class="w"> </span><span class="n">callback</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">callback</span><span class="p">)]()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">this_thread</span><span class="o">::</span><span class="n">sleep_for</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">milliseconds</span><span class="p">(</span><span class="mi">300</span><span class="p">));</span>
+<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;cache_hit: &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">key</span><span class="p">;</span>
+<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;[Cache] 获取成功: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="w">        </span><span class="n">callback</span><span class="p">(</span><span class="n">result</span><span class="p">);</span>
+<span class="w">    </span><span class="p">});</span>
+<span class="p">}</span>
+
+<span class="c1">// 模拟异步发送响应</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">async_send_response</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">response</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">function</span><span class="o">&lt;</span><span class="kt">void</span><span class="p">()</span><span class="o">&gt;</span><span class="w"> </span><span class="n">on_done</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">g_thread_pool</span><span class="p">.</span><span class="n">submit</span><span class="p">([</span><span class="n">response</span><span class="p">,</span><span class="w"> </span><span class="n">on_done</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">on_done</span><span class="p">)]()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">this_thread</span><span class="o">::</span><span class="n">sleep_for</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">milliseconds</span><span class="p">(</span><span class="mi">100</span><span class="p">));</span>
+<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;[Network] 响应已发送: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">response</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">on_done</span><span class="p">)</span><span class="w"> </span><span class="n">on_done</span><span class="p">();</span>
+<span class="w">    </span><span class="p">});</span>
+<span class="p">}</span>
+
+<span class="c1">// 主要业务逻辑：处理用户请求</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">handle_user_request</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">user_id</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;开始处理用户请求: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">user_id</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">// 第一步：先查缓存</span>
+<span class="w">    </span><span class="n">async_get_cache</span><span class="p">(</span><span class="s">&quot;user:&quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">user_id</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="n">user_id</span><span class="p">](</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">cache_result</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">cache_result</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="s">&quot;hit&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">::</span><span class="n">npos</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="c1">// 缓存命中：直接发送响应</span>
+<span class="w">            </span><span class="n">async_send_response</span><span class="p">(</span><span class="s">&quot;Response: &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">cache_result</span><span class="p">,</span><span class="w"> </span><span class="p">[]</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;请求处理完成（缓存路径）&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="w">            </span><span class="p">});</span>
+<span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="c1">// 缓存未命中：查数据库</span>
+<span class="w">            </span><span class="n">async_query_db</span><span class="p">(</span><span class="s">&quot;SELECT * FROM users WHERE id = &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">user_id</span><span class="p">,</span><span class="w"> </span>
+<span class="w">            </span><span class="p">[</span><span class="n">user_id</span><span class="p">](</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">db_result</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="c1">// 数据库查完，再写入缓存（模拟）</span>
+<span class="w">                </span><span class="n">async_get_cache</span><span class="p">(</span><span class="s">&quot;user:&quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">user_id</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&quot;_write&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="n">db_result</span><span class="p">](</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                    </span><span class="c1">// 最后发送响应</span>
+<span class="w">                    </span><span class="n">async_send_response</span><span class="p">(</span><span class="s">&quot;Response: &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">db_result</span><span class="p">,</span><span class="w"> </span><span class="p">[]</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                        </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;请求处理完成（数据库路径）&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="w">                    </span><span class="p">});</span>
+<span class="w">                </span><span class="p">});</span>
+<span class="w">            </span><span class="p">});</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">});</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>它的问题是什么呢？</p>
+<p>上述代码虽然功能正确，但存在以下问题：</p>
+<ol>
+<li>嵌套层级深：三层嵌套回调，逻辑分散；</li>
+<li>控制流不清晰：if (cache hit) 和 else 分支在不同回调中；</li>
+<li>错误处理困难：没有异常传播机制，每个回调都要单独处理错误；</li>
+<li>变量捕获复杂：user_id 需要层层传递；</li>
+<li>调试困难：堆栈断裂，无法像同步代码一样单步调试。</li>
+</ol>
+<p>那么能否实现<b>“高并发 + 顺序式编程体验”</b>抽象概念呢？</p>
+<p>那么核心诉求为：</p>
+<ul>
+<li>✅ 可暂停与恢复：函数执行到某点可暂停，稍后从该点继续；</li>
+<li>✅ 轻量级：创建成本远低于线程；</li>
+<li>✅ 顺序式语法：代码看起来像同步，实则异步执行；</li>
+<li>✅ 资源高效：不阻塞线程，支持数万级并发任务。</li>
+</ul>
+<h2 id="_2">二、无栈协程</h2>
+<p>c++提出了无栈协程概念。至于有栈无栈的优缺点，本文不涉及，毕竟无栈协程都进标准了，说明其还是有一定的优越性。</p>
+<h3 id="21">2.1 初识协程</h3>
+<p>为了实现无栈协程，C++20 引入了五个关键抽象部分：</p>
+<ol>
+<li>协程返回对象</li>
+<li>协程桢</li>
+<li>promise_type 对象</li>
+<li>promise_handle 对象</li>
+<li>awaiter 对象</li>
+</ol>
+<p>设计如此多模块的主要原因在于，协程本质上是在模拟一种用户态的线程。</p>
+<p>这涉及协程使用者如何进行异步操作和获取结果这两个核心关注点；协程实现者如何构造出形式上类似同步代码的异步逻辑；以及编译器如何将协程转换为对应的二进制代码。</p>
+<p>在前面提到，一种常见的异步解决方案是：</p>
+<ul>
+<li>主线程将 I/O 任务提交给线程池；</li>
+<li>随后主线程继续执行其他操作；</li>
+<li>之后主线程通过主动查询，或由线程池以某种方式通知，得知任务完成；</li>
+<li>最后主线程获取执行结果。</li>
+</ul>
+<p>根据上面的过程，来明确协程使用者，协程实现者以及编译器各自关心的内容。</p>
+<p>对于协程使用者而言有如下问题：</p>
+<ol>
+<li>
+<p>怎么提交异步任务？</p>
+</li>
+<li>
+<p>怎么获取协程的执行结果？</p>
+</li>
+</ol>
+<p>对于协程实现者而言有如下问题：</p>
+<ol>
+<li>
+<p>在将协程使用者提交的任务提交到线程池之后，如何暂停当前“仿同步”的代码，然后返回，从而交还线程的控制权。</p>
+</li>
+<li>
+<p>当线程池完成任务之后，如何恢复任务，然后执行后续的任务。</p>
+</li>
+</ol>
+<p>而对于编译器而言：</p>
+<ol>
+<li>提供哪些功能，能够既满足协程使用者的需求，又能够满足协程实现者的需求。</li>
+</ol>
+<p>对于c++编译器而言，首先满足协程使用者的需求：</p>
+<ul>
+<li>
+<p>协程使用者通过调用一种特殊的函数，从而提交异步任务。</p>
+</li>
+<li>
+<p>协程使用者接受这种特殊的函数的返回值，调用特定的方法来获取异步任务的结果。</p>
+</li>
+</ul>
+<p>然后对于协程实现者而言，编译器提供了三个运算符来完成同步代码异步化：</p>
+<ul>
+<li>
+<p>co_await</p>
+</li>
+<li>
+<p>co_return</p>
+</li>
+<li>
+<p>co_yield</p>
+</li>
+</ul>
+<h3 id="22">2.2 示例代码</h3>
+<p>由于协程各个部分联系比较紧密，难以通过分开拆解各自内容，先看一段代码，通过整体来感受下协程是如何执行的，然后再看各个部分的意义以及工作方式。</p>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;coroutine&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;coroutine&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+
+<span class="c1">// 自定义 awaiter：第一次不挂起，第二次挂起</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">suspend_later_awaiter</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">should_suspend</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span><span class="w"> </span><span class="c1">// 第一次 ready=true，之后变为 false 并开始挂起</span>
+
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="nf">await_ready</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">should_suspend</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;awaiter: 第一次 await_ready() 返回 true，不挂起</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+<span class="w">            </span><span class="n">should_suspend</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span><span class="w"> </span><span class="c1">// 不挂起</span>
+<span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;awaiter: 第二次 await_ready() 返回 false，准备挂起</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span><span class="w"> </span><span class="c1">// 挂起</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">await_suspend</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">coroutine_handle</span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">handle</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;awaiter: 协程被挂起，稍后恢复...</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+<span class="w">        </span><span class="c1">// 立即恢复（模拟异步操作完成）</span>
+<span class="w">        </span><span class="n">handle</span><span class="p">.</span><span class="n">resume</span><span class="p">();</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">await_resume</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;awaiter: 恢复执行</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">};</span>
+
+<span class="c1">// 1. 定义返回类型 task&lt;int&gt;</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">task</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">promise_type</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">value</span><span class="p">;</span>
+<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">suspend_always</span><span class="w"> </span><span class="nf">initial_suspend</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="p">{};</span><span class="w"> </span><span class="p">}</span>
+<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">suspend_always</span><span class="w"> </span><span class="nf">final_suspend</span><span class="p">()</span><span class="w"> </span><span class="k">noexcept</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="p">{};</span><span class="w"> </span><span class="p">}</span>
+<span class="w">        </span><span class="n">task</span><span class="w"> </span><span class="nf">get_return_object</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">task</span><span class="p">{</span><span class="k">this</span><span class="p">};</span><span class="w"> </span><span class="p">}</span>
+<span class="w">        </span><span class="kt">void</span><span class="w"> </span><span class="nf">return_value</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">v</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">v</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="w">        </span><span class="kt">void</span><span class="w"> </span><span class="nf">unhandled_exception</span><span class="p">()</span><span class="w"> </span><span class="p">{}</span>
+<span class="w">    </span><span class="p">};</span>
+
+<span class="w">    </span><span class="n">promise_type</span><span class="o">*</span><span class="w"> </span><span class="n">p</span><span class="p">;</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">coroutine_handle</span><span class="o">&lt;</span><span class="n">promise_type</span><span class="o">&gt;</span><span class="w"> </span><span class="n">handle</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">coroutine_handle</span><span class="o">&lt;</span><span class="n">promise_type</span><span class="o">&gt;::</span><span class="n">from_promise</span><span class="p">(</span><span class="o">*</span><span class="n">p</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">result</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">handle</span><span class="p">().</span><span class="n">resume</span><span class="p">();</span><span class="w"> </span><span class="c1">// 恢复协程直到完成</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">p</span><span class="o">-&gt;</span><span class="n">value</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="o">~</span><span class="n">task</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">handle</span><span class="p">())</span><span class="w"> </span><span class="n">handle</span><span class="p">().</span><span class="n">destroy</span><span class="p">();</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">};</span>
+
+<span class="c1">// 2. 定义协程函数（使用自定义 awaiter）</span>
+<span class="n">task</span><span class="w"> </span><span class="nf">compute_value</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;协程开始执行</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="n">suspend_later_awaiter</span><span class="w"> </span><span class="n">awaiter</span><span class="p">;</span>
+<span class="w">    </span><span class="c1">// 第一次 co_await：不挂起</span>
+<span class="w">    </span><span class="k">co_await</span><span class="w"> </span><span class="n">awaiter</span><span class="p">;</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;第一次 co_await 完成</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">// 第二次 co_await：会挂起再恢复</span>
+<span class="w">    </span><span class="k">co_await</span><span class="w"> </span><span class="n">awaiter</span><span class="p">;</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;第二次 co_await 完成</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">co_return</span><span class="w"> </span><span class="mi">42</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// 3. 主函数调用</span>
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;创建协程</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="n">task</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">compute_value</span><span class="p">();</span><span class="w"> </span><span class="c1">// 创建协程，initial_suspend 挂起</span>
+
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;获取结果（驱动协程）</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">t</span><span class="p">.</span><span class="n">result</span><span class="p">();</span><span class="w"> </span><span class="c1">// 恢复协程运行</span>
+
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;最终结果: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>其执行结果如下：</p>
+<div class="highlight"><pre><span></span><code>创建协程
+获取结果（驱动协程）
+协程开始执行
+awaiter: 第一次 await_ready() 返回 true，不挂起
+awaiter: 恢复执行
+第一次 co_await 完成
+awaiter: 第二次 await_ready() 返回 false，准备挂起
+awaiter: 协程被挂起，稍后恢复...
+awaiter: 恢复执行
+第二次 co_await 完成
+最终结果: 42
+</code></pre></div>
+<p>表面上看，输出顺序略显混乱，但理解协程的关键在于分清关注层次。对于未知代码，应首先从使用者的角度了解其使用方式。</p>
+<p>从使用者视角来看，真正相关的行为只有以下三行输出：</p>
+<div class="highlight"><pre><span></span><code>创建协程
+获取结果（驱动协程）
+
+最终结果: 42
+</code></pre></div>
+<p>在 main 函数中，首先调用 compute_value() —— 这是一个协程函数。调用后立即返回一个协程返回对象 task t，表示异步任务已提交，但并未阻塞当前线程。随后，通过调用 t.result() 驱动协程执行并等待结果。</p>
+<p>这一过程符合典型的异步操作流程：</p>
+<ol>
+<li>提交任务（compute_value() 调用）；</li>
+<li>后续通过接口查询状态或获取结果（t.result()）；</li>
+<li>最终取得执行结果。</li>
+</ol>
+<p>其中，协程使用者仅需关心协程返回对象 task 及其 result() 方法。只要最终能正确获得结果，且行为表现如同串行执行，就满足了使用者的预期。协程内部的挂起、恢复等细节，对使用者透明。</p>
+<p>而协程实现者便要关心如何在标准或者换句话说，在编译器提供的功能完成仿佛同步的异步代码。</p>
+<ol>
+<li>协程返回对象如何实现</li>
+<li>协程桢大致结构</li>
+<li>promise_type 对象</li>
+<li>promise_handle 对象</li>
+<li>awaiter 对象</li>
+</ol>
+<h3 id="23">2.3 模块构成</h3>
+<p>现在讲一下前面提到的协程的五个关键抽象，先讲讲它们各自的职责：</p>
+<ol>
+<li>协程返回对象：协程函数的返回值类型，供使用者使用，用于获取协程的执行结果或控制其行为。</li>
+<li>协程帧（Coroutine Frame）：由编译器在堆上分配的内存块，用于保存协程的参数、局部变量、暂停状态以及恢复执行所需的所有上下文信息。</li>
+<li>promise_type 对象：定义在协程返回对象中的嵌套类型，是协程内部逻辑的“控制器”，负责管理协程的行为，如初始化、暂停、返回值处理和异常传播。</li>
+<li>coroutine_handle 对象：一种不持有资源的轻量级句柄，用于对协程帧进行低层操作，如恢复执行（resume）或销毁帧（destroy），是协程外部控制流程的主要工具。</li>
+<li>awaiter 对象：与 co_await 表达式相关联的对象，用于定义等待操作的行为，包括是否阻塞、如何挂起协程以及恢复后的后续动作。</li>
+</ol>
+<p>这些组件共同支撑了无栈协程的运行机制：</p>
+<ol>
+<li>
+<p>协程函数作为入口，调用时会创建协程帧，并在其中构造 promise_type 对象来协调内部逻辑。</p>
+</li>
+<li>
+<p>协程返回对象由 promise_type 生成，供外部使用。</p>
+</li>
+<li>
+<p>通过 co_await，协程可在异步操作未完成时挂起自身，将控制权交还调用者；当条件满足后，通过 coroutine_handle 恢复执行。</p>
+</li>
+<li>
+<p>整个过程由编译器在背后生成状态机代码来实现，使得异步逻辑能以同步形式书写。</p>
+</li>
+</ol>
+<h2 id="promise_type">三、协程组件——promise_type</h2>
+<p>当一个函数中出现了 co_await、co_return 等协程关键字，这意味着它是一个协程。编译器会为该函数生成状态机代码，并在运行时于堆上分配协程帧，用于保存参数、局部变量和当前执行状态。</p>
+<p>协程的创建和控制依赖 promise_type。它是协程返回类型（如 task）中定义的嵌套类型，由编译器在协程启动时自动实例化。通过 promise_type 提供的方法，如 initial_suspend、final_suspend、get_return_object 等，协程的初始化、挂起行为和返回对象的生成得以定制。</p>
+<p>因此，promise_type 起到了控制协程行为的核心作用，相当于协程的“控制芯片”，决定了协程如何被创建、暂停和销毁。</p>
+<p>关键方法如下：</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>get_return_object()</code></td>
+<td>创建并返回协程返回对象</td>
+</tr>
+<tr>
+<td><code>initial_suspend()</code></td>
+<td>初始挂起点：决定是否立即运行</td>
+</tr>
+<tr>
+<td><code>final_suspend()</code></td>
+<td>最终挂起点：决定是否自动销毁</td>
+</tr>
+<tr>
+<td><code>return_value(T)</code> / <code>return_void()</code></td>
+<td>处理 <code>co_return</code></td>
+</tr>
+<tr>
+<td><code>unhandled_exception()</code></td>
+<td>捕获未处理异常</td>
+</tr>
+</tbody>
+</table>
+<h3 id="31-promise_type">3.1 promise_type控制器作用</h3>
+<p>promise_type 通过其特定成员函数在协程的关键节点被编译器自动调用，从而实现对协程执行流程的控制。具体过程如下：</p>
+<p>当一个函数被标记为协程后，编译器会根据其返回类型中的嵌套类型 promise_type，在协程启动前于协程帧中创建一个 promise_type 实例。</p>
+<p>创建完成后，立即调用该实例的 get_return_object() 成员函数，生成协程的返回对象（如 task）。这个对象返回给调用者，用于后续获取结果或控制协程。</p>
+<p>接着调用 initial_suspend()，决定协程是否在开始时挂起：</p>
+<ul>
+<li>返回 std::suspend_never：协程立即执行函数体；</li>
+<li>返回 std::suspend_always：协程挂起，控制权立即返回给调用者。</li>
+</ul>
+<p>在协程函数中执行 co_return value; 时，编译器会调用 promise_type 的 return_value(value) 成员函数，将返回值保存到 promise 对象中，以便后续读取。</p>
+<p>co_return 完成后，调用 final_suspend()，决定协程结束后是否挂起：</p>
+<p>返回 std::suspend_never：协程继续执行，协程帧被销毁，promise_type 对象也随之销毁；
+返回 std::suspend_always：协程挂起，协程帧和 promise_type 对象保持有效，直到外部显式恢复或销毁。
+通过这些成员函数，promise_type 实现了对协程创建、启动、值传递和销毁全过程的精细控制。</p>
+<h2 id="return-object">四、协程返回对象（Return Object）：协程的“代理”</h2>
+<p>协程返回对象是协程帧的访问器或控制器，其内部保有获取协程帧的控制能力。具体而言，协程返回对象通过调用协程内部的嵌套类（promise_type）来间接构造，以此在协程和协程返回对象之间建立关系。值得注意的是，它并不像常规的函数那样，是编译器直接调用返回值的构造函数，然后完成构造。这是因为promise_type并不要求提供供协程外部操作的成员函数，因此协程返回对象的设计重点就在于实现对整个协程的获取与控制。</p>
+<h3 id="41">4.1 构造过程</h3>
+<p>通过协程内部的promise_type嵌套类构造，具体构造过程为：</p>
+<ul>
+<li>协程开始执行时，编译器会创建promise_type对象</li>
+<li>调用promise_type::get_return_object()获取协程返回对象</li>
+<li>该对象随后被返回给协程的调用者</li>
+</ul>
+<h3 id="42">4.2 职责</h3>
+<ol>
+<li>
+<p>协程生命周期管理</p>
+<ul>
+<li>持有coroutine_handle：保存协程的句柄，用于恢复、销毁等操作</li>
+<li>控制执行权：提供resume()/<code>operator ()</code>方法恢复协程的执行</li>
+<li>资源管理：确保协程资源在适当时候被释放（通过RAII机制）</li>
+<li>状态跟踪：维护协程的当前执行状态（挂起、完成等）</li>
+</ul>
+</li>
+<li>
+<p>与promise_type的协作</p>
+<ul>
+<li>结果传递：通过promise_type设置协程的返回值或异常</li>
+<li>异常处理：捕获并传播协程中抛出的异常</li>
+<li>协程间通信：作为协程内部与外部世界的数据交换通道</li>
+</ul>
+</li>
+<li>
+<p>提供标准接口</p>
+<ul>
+<li>等待接口：<ul>
+<li>await_ready()：检查协程是否已完成</li>
+<li>await_suspend()：挂起当前协程，将控制权转移给其他协程</li>
+<li>await_resume()：获取协程的结果</li>
+</ul>
+</li>
+<li>结果获取：<ul>
+<li>result()/get()：获取协程的计算结果</li>
+<li>value()：获取生成器产生的当前值</li>
+</ul>
+</li>
+<li>状态查询：<ul>
+<li>done()：检查协程是否已完成执行</li>
+<li>is_ready()：检查结果是否可用</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>异常处理机制<ul>
+<li>捕获协程执行中抛出的异常</li>
+<li>提供异常传播机制</li>
+<li>支持通过promise_type自定义异常处理策略</li>
+</ul>
+</li>
+</ol>
+<h2 id="coroutine-frame">五、协程帧（Coroutine Frame）：协程的“身体”</h2>
+<p>协程桢的概念是为了便于整体管理协程而提出来的抽象概念，并不能够被用户直接操作，但是理解它便于理解整个协程的运行原理。</p>
+<p>可通过以下问题解释它的由来。</p>
+<h3 id="51-coroutine-frame">5.1 协程帧（Coroutine Frame）定义</h3>
+<ul>
+<li>协程帧是 C++ 协程机制中由编译器自动分配的一块内存区域，用于存储协程运行所需的完整上下文状态。</li>
+<li>它在协程首次被调用时分配（通常在堆上），并在协程生命周期结束时被销毁。</li>
+<li>协程帧中包含以下内容：<ul>
+<li>promise_type 实例（最先构造）；</li>
+<li>函数参数（按值传递的会被拷贝进来）；</li>
+<li>局部变量（跨越 co_await / co_yield 的变量）；</li>
+<li>编译器生成的状态机数据（如当前挂起点索引、临时对象等）。</li>
+</ul>
+</li>
+</ul>
+<h3 id="52">5.2 协程桢概念的必要性</h3>
+<ul>
+<li>
+<p>因为普通函数的执行依赖于调用栈，一旦函数返回，其栈帧就被销毁，所有局部状态丢失。</p>
+</li>
+<li>
+<p>但协程的核心特性是：</p>
+<ul>
+<li>可在执行中途暂停（co_await）；</li>
+<li>暂停后控制权返回调用者；</li>
+<li>之后可通过 resume() 从暂停点继续执行。</li>
+<li>这就要求：协程的执行状态必须跨越多次调用、跨越栈帧生命周期而依然有效。</li>
+</ul>
+</li>
+<li>
+<p>👉 因此，必须有一个独立于调用栈的内存区域来保存这些状态 —— 这就是 协程帧 的由来。</p>
+</li>
+</ul>
+<h3 id="53-promise_type">5.3 协程帧的内存分配与 promise_type 的存储要求</h3>
+<p><strong>协程帧必须分配在堆上（或等价内存）</strong></p>
+<p>协程的生命周期不依赖调用栈，因为它可能在函数调用返回后很久才被 resume()。因此协程帧必须使用动态分配（默认在堆上），或通过自定义分配器管理，其生命周期由 coroutine_handle 控制，调用 destroy() 时才释放。这也是为什么协程有"堆开销"的原因 —— 但可通过无堆分配的优化（如 noexcept + 固定大小）避免。</p>
+<p><strong>为什么 promise_type 对象必须作为协程帧的一部分？</strong></p>
+<p>promise_type 不能放在栈上，也不能单独存在，原因如下：</p>
+<ol>
+<li>
+<p>不能放在栈上：<br />
+    如果 promise_type 在栈上（如作为局部变量），当协程函数首次返回时，其栈帧就会被销毁。但协程可能尚未执行完毕，后续 resume() 仍需访问 promise，此时访问已被销毁的栈内存会导致未定义行为。</p>
+</li>
+<li>
+<p>不能单独由用户管理：<br />
+    用户无法预知协程何时开始、何时结束，也无法准确管理其生命周期（如多 resume、异常路径），且不同编译器生成的状态机差异大，难以统一接口。</p>
+</li>
+</ol>
+<p>因此，promise_type 必须作为协程帧的一部分，由编译器统一管理，在协程帧分配时构造，在 destroy() 时析构。这种设计既保证了协程的长期存活能力，又避免了手动管理生命周期的复杂性。</p>
+<h2 id="stdcoroutine_handle">六、 协程操作句柄（std::coroutine_handle）：协程的“遥控器”</h2>
+<ol>
+<li>
+<p>什么是 coroutine_handle？</p>
+<ul>
+<li>一个轻量级、不透明的句柄，用于控制和操作协程；</li>
+<li>类似于“协程的指针”，指向协程帧（Coroutine Frame）；</li>
+<li>可复制、可移动，也可跨线程传递；</li>
+<li>是用户与协程之间进行交互的唯一控制接口。</li>
+</ul>
+</li>
+<li>
+<p>核心方法：</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>resume()</td>
+<td>恢复协程执行</td>
+</tr>
+<tr>
+<td>destroy()</td>
+<td>销毁协程帧（释放内存）</td>
+</tr>
+<tr>
+<td>done()</td>
+<td>查询协程是否已完成</td>
+</tr>
+<tr>
+<td>promise()</td>
+<td>访问 promise_type 实例</td>
+</tr>
+<tr>
+<td>from_promise()</td>
+<td>从 promise 创建句柄</td>
+</tr>
+<tr>
+<td>address() / from_address()</td>
+<td>底层地址操作（用于序列化）</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>使用示例：</p>
+<div class="highlight"><pre><span></span><code><span class="n">std</span><span class="o">::</span><span class="n">coroutine_handle</span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">handle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">...;</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">handle</span><span class="p">.</span><span class="n">done</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">handle</span><span class="p">.</span><span class="n">resume</span><span class="p">();</span><span class="w"> </span><span class="c1">// 驱动协程</span>
+<span class="p">}</span>
+<span class="n">handle</span><span class="p">.</span><span class="n">destroy</span><span class="p">();</span><span class="w"> </span><span class="c1">// 释放资源</span>
+</code></pre></div>
+<ul>
+<li>📌 coroutine_handle 是你与协程之间的“控制接口”，你可以有多个副本指向同一个协程帧。</li>
+</ul>
+</li>
+</ol>
+<h2 id="awaiter">七、awaiter 对象</h2>
+<h3 id="71-awaiter">7.1 什么是 awaiter 对象？</h3>
+<p>awaiter 对象是协程等待机制的核心组件，它定义了协程如何等待另一个协程或异步操作完成。当协程执行到 co_await 表达式时，会创建一个 awaiter 对象，该对象实现了协程挂起和恢复的具体逻辑。</p>
+<h3 id="72-awaiter">7.2 awaiter 对象的接口要求</h3>
+<p>一个对象要成为 awaiter，必须满足以下接口要求：</p>
+<ol>
+<li>
+<p>awaitable 概念：</p>
+<ul>
+<li>必须可转换为 awaiter_type 类型（通常是其自身）</li>
+<li>该类型必须提供三个核心成员函数</li>
+</ul>
+</li>
+<li>
+<p>核心成员函数：
+    ```c++
+    /**</p>
+<ul>
+<li>@brief 检查协程是否需要挂起等待</li>
+<li></li>
+<li>此函数用于判断当前异步操作是否已经完成，决定协程是否需要立即恢复执行。</li>
+<li></li>
+<li>@return true 异步操作已完成，协程无需挂起，可直接继续执行</li>
+<li>@return false 异步操作未完成，协程需要挂起等待</li>
+<li></li>
+<li>@note 当返回 true 时，编译器会优化掉挂起/恢复的开销，</li>
+<li>直接调用 await_resume() 实现零开销路径
+ */
+bool await_ready() noexcept;</li>
+</ul>
+<p>/*<em>
+* @brief 定义协程挂起时的操作和恢复策略
+* 
+* 此函数在协程遇到 co_await 表达式且 await_ready() 返回 false 时被调用，
+* 用于设置协程的挂起行为和恢复机制。
+* 
+* @tparam Promise 协程的 promise_type 类型
+* @param h 当前协程的句柄，包含协程执行地址和 promise 对象访问权限
+* @return coroutine_handle&lt;&gt; 返回目标协程句柄（对称协程模式）
+* @return void 返回 void（非对称协程模式）
+* @return bool 返回 false 表示立即恢复，true 表示继续挂起
+* 
+* @note 返回值决定协程的恢复方式：
+*       - 返回协程句柄：对称协程，当目标协程恢复时当前协程也会恢复
+*       - 返回 void：非对称协程，通过外部回调或事件恢复
+*       - 返回 bool：控制是否立即恢复
+* 
+* @example
+* struct my_awaiter {
+*     void await_suspend(coroutine_handle&lt;&gt; h) noexcept {
+*         // 注册异步回调，完成后恢复协程
+*         async_op([h]{ h.resume(); });
+*     }
+* };
+</em>/
+template<typename Promise>
+auto await_suspend(coroutine_handle<Promise> h) noexcept;</p>
+<p>/*<em>
+* @brief 获取协程恢复时的结果或执行恢复后的初始化
+* 
+* 此函数在协程从挂起状态恢复时被调用，用于获取异步操作的结果
+* 或执行恢复后的必要初始化工作。
+* 
+* @return decltype(auto) 异步操作的结果值或引用
+*         - 可以是值类型（int, string 等）
+*         - 可以是引用类型（避免拷贝）
+*         - 可以是 void（仅用于初始化）
+* 
+* @note 如果异步操作失败，应在此函数中抛出异常，
+*       异常会传播给 co_await 表达式的调用者
+* 
+* @example
+* struct my_awaiter {
+*     int await_resume() {
+*         return get_async_result();  // 返回异步操作结果
+*     }
+* 
+*     void await_resume() noexcept {
+*         setup_context();  // 仅用于初始化
+*     }
+* };
+</em>/
+decltype(auto) await_resume();
+````
+3. 可选的异常处理接口：
+<div class="highlight"><pre><span></span><code><span class="cm">/**</span>
+<span class="cm">* @brief 无异常版本的恢复函数</span>
+<span class="cm">* </span>
+<span class="cm">* 此函数是 await_resume() 的 noexcept 变体，用于在协程恢复时执行</span>
+<span class="cm">* 无异常抛出的操作。当协程作者确定恢复操作不会抛出异常时使用。</span>
+<span class="cm">* </span>
+<span class="cm">* @note 使用场景：</span>
+<span class="cm">*       - 当异步操作结果保证有效，无需异常检查</span>
+<span class="cm">*       - 性能敏感的场景，避免异常处理开销</span>
+<span class="cm">*       - 仅用于执行恢复后的初始化，不涉及结果获取</span>
+<span class="cm">* </span>
+<span class="cm">* @warning 如果此函数内部抛出异常，将导致程序终止（std::terminate）</span>
+<span class="cm">*          因此必须确保函数体不会抛出任何异常</span>
+<span class="cm">* </span>
+<span class="cm">* @example</span>
+<span class="cm">* struct safe_awaiter {</span>
+<span class="cm">*     void await_resume() noexcept {</span>
+<span class="cm">*         // 仅执行无异常的初始化操作</span>
+<span class="cm">*         reset_state();</span>
+<span class="cm">*         update_context();</span>
+<span class="cm">*     }</span>
+<span class="cm">* };</span>
+<span class="cm">*/</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">await_resume</span><span class="p">()</span><span class="w"> </span><span class="k">noexcept</span><span class="p">;</span>
+</code></pre></div></p>
+</li>
+</ol>
+<h3 id="73">7.3 与协程返回对象的关系</h3>
+<p>awaiter 对象与协程返回对象密切相关：</p>
+<ol>
+<li>
+<p>协程返回对象作为 awaiter：</p>
+<ul>
+<li>协程返回对象本身通常也是一个 awaitable 类型</li>
+<li>当协程被其他协程 co_await 时，它就扮演了 awaiter 的角色</li>
+<li>通过实现 await_ready()/await_suspend()/await_resume() 接口定义自己的等待行为</li>
+</ul>
+</li>
+<li>
+<p>生命周期管理：</p>
+<ul>
+<li>awaiter 对象的生命周期通常与 co_await 表达式的作用域绑定</li>
+<li>在 await_suspend() 中可以捕获当前协程的句柄，用于后续恢复</li>
+</ul>
+</li>
+</ol>
+<h3 id="74-awaiter">7.4 awaiter 的典型实现模式</h3>
+<ol>
+<li>简单等待器：</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="k">struct</span><span class="w"> </span><span class="nc">simple_awaiter</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="nf">await_ready</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">await_suspend</span><span class="p">(</span><span class="n">coroutine_handle</span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">h</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// 设置恢复回调或注册到事件循环</span>
+<span class="w">        </span><span class="n">h</span><span class="p">.</span><span class="n">resume</span><span class="p">();</span><span class="w">  </span><span class="c1">// 立即恢复（仅用于演示）</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">await_resume</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// 获取等待结果</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div>
+<ol>
+<li>
+<p>异步操作适配器：</p>
+<ul>
+<li>将传统异步操作（如回调、Future）转换为协程可等待的形式</li>
+<li>在 await_suspend() 中注册回调，在回调中调用 h.resume()</li>
+</ul>
+</li>
+<li>
+<p>超时控制：</p>
+</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="k">struct</span><span class="w"> </span><span class="nc">timeout_awaiter</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">milliseconds</span><span class="w"> </span><span class="n">timeout</span><span class="p">;</span>
+<span class="w">    </span><span class="n">coroutine_handle</span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">h</span><span class="p">;</span>
+
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="nf">await_ready</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">await_suspend</span><span class="p">(</span><span class="n">coroutine_handle</span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">ch</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">h</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ch</span><span class="p">;</span>
+<span class="w">        </span><span class="c1">// 启动定时器，超时后恢复协程</span>
+<span class="w">        </span><span class="n">timer</span><span class="p">.</span><span class="n">expires_after</span><span class="p">(</span><span class="n">timeout</span><span class="p">);</span>
+<span class="w">        </span><span class="n">timer</span><span class="p">.</span><span class="n">async_wait</span><span class="p">([</span><span class="k">this</span><span class="p">](</span><span class="k">auto</span><span class="p">){</span><span class="w"> </span><span class="n">h</span><span class="p">.</span><span class="n">resume</span><span class="p">();</span><span class="w"> </span><span class="p">});</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">await_resume</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// 检查是否超时</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div>
+<h3 id="75-awaiter">7.5 awaiter 的设计要点</h3>
+<ol>
+<li>
+<p>无开销原则：</p>
+<ul>
+<li>当 await_ready() 返回 true 时，编译器会优化掉挂起/恢复的开销</li>
+<li>这种情况下相当于直接调用 await_resume()</li>
+</ul>
+</li>
+<li>
+<p>异常安全：</p>
+<ul>
+<li>await_suspend() 中抛出的异常会导致当前协程恢复并抛出该异常</li>
+<li>await_resume() 中的异常会被传播给等待者</li>
+</ul>
+</li>
+<li>
+<p>对称/非对称控制流：</p>
+<ul>
+<li>对称协程：await_suspend() 可以返回另一个协程句柄，实现协程链式调用</li>
+<li>非对称协程：await_suspend() 通常不返回（或返回 void），通过其他方式恢复</li>
+</ul>
+</li>
+</ol>
+<h3 id="76-promise_type">7.6 与 promise_type 的协作</h3>
+<p>awaiter 对象与 promise_type 协作完成协程的控制：</p>
+<ol>
+<li>
+<p>定制等待行为：</p>
+<ul>
+<li>promise_type 可以定义 await_transform() 方法</li>
+<li>在 co_await 表达式时，编译器会调用 await_transform() 对等待对象进行包装</li>
+<li>这允许协程作者定制不同的等待语义</li>
+</ul>
+</li>
+<li>
+<p>协程状态传递：</p>
+<ul>
+<li>await_suspend() 接收当前协程的句柄，可以访问其 promise</li>
+<li>通过 h.promise() 可以获取或修改协程的内部状态</li>
+</ul>
+</li>
+<li>
+<p>功能划分： 
+    在 C++ 协程中，功能应该放在 awaiter 还是 promise_type 中，主要取决于功能的作用范围和生命周期。与 co_await 表达式的作用域绑定，当 co_await 完成后通常会被销毁，短期存在，仅用于当前等待，适用于临时性的异步操作；与协程的生命周期绑定，从协程创建到 destroy() 调用期间一直存在，长期存在，管理协程的整体状态，适用于协程级别的逻辑。  </p>
+<ul>
+<li>
+<p>放在 awaiter 中的功能</p>
+<ul>
+<li>
+<p>与单个 co_await 表达式相关<br />
+功能仅影响当前 co_await 的行为，不涉及协程的整体控制。</p>
+</li>
+<li>
+<p>与异步操作的具体实现相关<br />
+例如：网络 IO、定时器、文件读取等，这些是 co_await 等待的具体对象。</p>
+</li>
+<li>
+<p>与协程的挂起/恢复逻辑相关<br />
+例如：决定是否挂起、如何恢复、获取异步结果等</p>
+</li>
+</ul>
+</li>
+<li>
+<p>放在 promise_type 中的功能  </p>
+<ul>
+<li>
+<p>与整个协程的生命周期相关<br />
+例如：协程的初始化、最终返回值、异常处理等。</p>
+</li>
+<li>
+<p>与协程的执行策略相关<br />
+例如：是否使用栈分配、协程调度策略等。</p>
+</li>
+<li>
+<p>与 co_await 的全局行为相关<br />
+例如：通过 await_transform() 修改所有 co_await 的行为。</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="77">7.7 实际应用示例</h3>
+<p><div class="highlight"><pre><span></span><code><span class="c1">// 自定义的异步 IO awaiter</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">io_awaiter</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">tcp</span><span class="o">::</span><span class="n">socket</span><span class="o">&amp;</span><span class="w"> </span><span class="n">socket</span><span class="p">;</span>
+<span class="w">    </span><span class="n">boost</span><span class="o">::</span><span class="n">asio</span><span class="o">::</span><span class="n">mutable_buffer</span><span class="w"> </span><span class="n">buffer</span><span class="p">;</span>
+
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="nf">await_ready</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="k">noexcept</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">Promise</span><span class="o">&gt;</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="n">await_suspend</span><span class="p">(</span><span class="n">coroutine_handle</span><span class="o">&lt;</span><span class="n">Promise</span><span class="o">&gt;</span><span class="w"> </span><span class="n">h</span><span class="p">)</span><span class="w"> </span><span class="k">noexcept</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">auto</span><span class="o">&amp;</span><span class="w"> </span><span class="n">promise</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">h</span><span class="p">.</span><span class="n">promise</span><span class="p">();</span>
+
+<span class="w">        </span><span class="c1">// 异步读取数据</span>
+<span class="w">        </span><span class="n">socket</span><span class="p">.</span><span class="n">async_read_some</span><span class="p">(</span><span class="n">buffer</span><span class="p">,</span><span class="w"> </span>
+<span class="w">            </span><span class="p">[</span><span class="n">h</span><span class="p">](</span><span class="n">boost</span><span class="o">::</span><span class="n">system</span><span class="o">::</span><span class="n">error_code</span><span class="w"> </span><span class="n">ec</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span><span class="w"> </span><span class="n">bytes</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="c1">// 存储结果到 promise</span>
+<span class="w">                </span><span class="n">h</span><span class="p">.</span><span class="n">promise</span><span class="p">().</span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="n">ec</span><span class="p">,</span><span class="w"> </span><span class="n">bytes</span><span class="p">};</span>
+<span class="w">                </span><span class="n">h</span><span class="p">.</span><span class="n">resume</span><span class="p">();</span><span class="w">  </span><span class="c1">// 通知协程继续执行</span>
+<span class="w">            </span><span class="p">});</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">pair</span><span class="o">&lt;</span><span class="n">boost</span><span class="o">::</span><span class="n">system</span><span class="o">::</span><span class="n">error_code</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span><span class="o">&gt;</span><span class="w"> </span><span class="n">await_resume</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">h</span><span class="p">.</span><span class="n">promise</span><span class="p">().</span><span class="n">result</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="c1">// 在协程中使用</span>
+<span class="n">task</span><span class="o">&lt;</span><span class="kt">void</span><span class="o">&gt;</span><span class="w"> </span><span class="n">read_data</span><span class="p">(</span><span class="n">tcp</span><span class="o">::</span><span class="n">socket</span><span class="o">&amp;</span><span class="w"> </span><span class="n">socket</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">array</span><span class="o">&lt;</span><span class="kt">char</span><span class="p">,</span><span class="w"> </span><span class="mi">1024</span><span class="o">&gt;</span><span class="w"> </span><span class="n">buffer</span><span class="p">;</span>
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="p">[</span><span class="n">ec</span><span class="p">,</span><span class="w"> </span><span class="n">bytes</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">co_await</span><span class="w"> </span><span class="n">io_awaiter</span><span class="p">{</span><span class="n">socket</span><span class="p">,</span><span class="w"> </span><span class="n">buffer</span><span class="p">};</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">ec</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// 处理读取到的数据</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<p>通过这种设计，awaiter 对象为协程提供了灵活的异步等待机制，使得协程能够自然地与各种异步系统和资源进行交互。</p>
+<h2 id="_3">八、流程解析</h2>
+<p>整体上结构图如下所示。</p>
+<div class="highlight"><pre><span></span><code>+-----------------------+
+| 协程返回对象           | ← 用户持有
+| (task&lt;T&gt;, future)     |
++----------+------------+
+           |
+           | 持有 handle
+           ▼
++----------------------------------+
+|       协程帧 (堆上分配)           |
+|                                  |
+|  +----------------------------+  |
+|  | promise_type 实例           | ← 控制逻辑
+|  +----------------------------+  |
+|                                  |
+|  函数参数 (按值传递才安全)         |
+|  局部变量 (跨越 suspend 点)       |
+|  状态机数据 (如状态枚举、awaiter)  |
+|                                  |
++----------------------------------+
+</code></pre></div>
+<p>让我们按照执行顺序，详细解析这个协程是如何工作的。</p>
+<ol>
+<li>步骤 1: 协程创建<br />
+    <div class="highlight"><pre><span></span><code><span class="n">task</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">compute_value</span><span class="p">();</span>
+</code></pre></div><ul>
+<li>发生了什么？
+    i. 编译器为 compute_value 创建一个堆上的协程帧。
+    ii. 在帧中构造 promise_type 实例。
+    iii. 调用 promise_type::initial_suspend()。在我们的例子中，它返回 std::suspend_never，这意味着协程不会在初始时挂起，而是会立即开始执行函数体。
+    iv. 调用 promise_type::get_return_object() 创建 task 对象 t，并将其返回给 main。</li>
+<li>输出：
+<div class="highlight"><pre><span></span><code>--- 创建协程 ---
+</code></pre></div></li>
+</ul>
+</li>
+<li>步骤 2: 协程开始执行<br />
+    由于 initial_suspend 返回 std::suspend_never，协程创建后立即开始执行 compute_value 的函数体。
+    <div class="highlight"><pre><span></span><code>task compute_value() {
+    std::cout &lt;&lt; &quot;协程开始执行\n&quot;; // &lt;-- 立即执行
+    suspend_later_awaiter awaiter;
+    co_await awaiter;
+    // ...
+}
+</code></pre></div><ul>
+<li>发生了什么？
+    i. 输出 "协程开始执行"。
+    ii. 创建 awaiter 对象，should_suspend 为 true。
+    iii. 遇到第一个 co_await awaiter。
+    iv. 调用 awaiter.await_ready()，返回 true。
+    v. 因为 await_ready() 返回 true，co_await 表达式被认为是同步完成的，所以直接调用 await_resume()，然后继续执行。</li>
+<li>输出：
+    <div class="highlight"><pre><span></span><code>协程开始执行
+awaiter: 第一次 await_ready() 返回 true，不挂起
+awaiter: 协程已恢复执行
+第一次 co_await 完成
+</code></pre></div></li>
+</ul>
+</li>
+<li>
+<p>步骤 3: 遇到第二个 co_await<br />
+    协程继续执行，遇到第二个 co_await awaiter。此时 awaiter 的 should_suspend 已被设为 false。
+    <div class="highlight"><pre><span></span><code>co_await awaiter; // &lt;-- 第二次
+</code></pre></div></p>
+<ul>
+<li>发生了什么？
+    i. 调用 awaiter.await_ready()，返回 false。
+    ii. 因为 await_ready() 返回 false，co_await 表达式被认为是异步完成的。编译器会调用 await_suspend()，然后当前协程挂起。
+    iii. iawait_suspend() 被调用，它输出 "协程被挂起..."，然后在一个新线程中启动一个定时器，1秒后调用 handle.resume() 来恢复这个协程。</li>
+<li>输出：
+    <div class="highlight"><pre><span></span><code>awaiter: 第二次 await_ready() 返回 false，准备挂起
+awaiter: 协程被挂起，稍后恢复...
+</code></pre></div>
+此时，协程暂停执行，控制权回到 main 函数。</li>
+</ul>
+</li>
+<li>
+<p>步骤 4: 主线程等待与协程恢复<br />
+    <div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// ...</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\n</span><span class="s">--- 主线程继续工作，等待协程完成 ---</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">t</span><span class="p">.</span><span class="n">result</span><span class="p">();</span><span class="w"> </span><span class="c1">// &lt;-- 阻塞直到协程完全结束</span>
+<span class="w">    </span><span class="c1">// ...</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<ul>
+<li>发生了什么？
+i. main 线程输出信息后，调用 t.result()。
+ii. t.result() 内部调用 handle().resume()，这个调用会唤醒步骤3中挂起的协程，使其从 co_await awaiter; 的下一行继续执行。
+iii. 恢复时，必须调用 awaiter.await_resume()，输出 "协程已恢复执行"。
+iv. 协程继续执行，输出 "第二次 co_await 完成"。
+v. 遇到 co_return 42。调用 p.return_value(42)，然后调用 p.final_suspend()。
+vi. final_suspend() 返回 std::suspend_always，协程在 co_return 后再次挂起，等待被销毁。</li>
+<li>输出：
+    <div class="highlight"><pre><span></span><code>--- 主线程继续工作，等待协程完成 ---
+主线程工作完成，等待协程结果...
+awaiter: 异步操作完成，准备恢复协程...
+awaiter: 协程已恢复执行
+第二次 co_await 完成
+</code></pre></div></li>
+</ul>
+</li>
+<li>
+<p>步骤 5: 最终销毁
+    <div class="highlight"><pre><span></span><code>int result = t.result(); // &lt;-- t.result() 负责恢复并销毁
+</code></pre></div></p>
+<ul>
+<li>发生了什么？
+    i. t.result() 函数在 handle().resume() 中再次恢复协程，这次是为了执行 final_suspend() 之后的清理工作。
+    ii. 协程函数体执行完毕，协程帧被标记为“已完成”。
+    iii. t.result() 从 promise 对象中取出 value (42) 并返回。
+    iv. main 函数接收结果并输出。
+    v. main 函数结束，task 对象 t 析构，其析构函数调用 handle().destroy()，最终释放整个协程帧。</li>
+<li>输出：
+<div class="highlight"><pre><span></span><code>--- 最终结果: 42 ---
+</code></pre></div></li>
+</ul>
+</li>
+</ol>
+<p><strong>要点分析：</strong></p>
+<p>通过这个详细的示例，我们可以清晰地看到：</p>
+<ol>
+<li>promise_type 是协程的“灵魂”：它定义了协程从生到死的宏观策略，决定着协程何时启动、何时结束以及如何返回结果。</li>
+<li>awaiter 是异步操作的“手脚”：它封装了单个 co_await 的具体逻辑，决定着是否等待、如何等待以及如何恢复。它使得我们可以用统一、声明式的方式来处理各种不同的异步源。</li>
+<li>co_await 是粘合剂：它将 awaiter 的行为无缝地集成到控制流中，使得异步代码的编写体验与同步代码别无二致。</li>
+</ol>
+<p>理解 awaiter 和 promise_type 的职责划分与协作机制，是掌握 C++ 协程的关键。一旦你熟悉了它们的工作方式，你就能构建出高效、清晰且强大的异步应用程序。</p>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.instant", "navigation.tabs", "toc.integrate", "content.code.copy", "content.code.annotate", "navigation.top", "search.highlight"], "search": "../../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-ams.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+      
+        <script src="../../../assets/javascripts/focus-mode.js"></script>
+      
+    
+  </body>
+</html>
