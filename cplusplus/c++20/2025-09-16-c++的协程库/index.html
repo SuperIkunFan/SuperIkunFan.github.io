@@ -348,6 +348,26 @@
     
     
       <li class="md-tabs__item">
+        <a href="../../../%E7%94%B5%E6%9C%BA%E6%8E%A7%E5%88%B6/2025-05-07-%E6%97%A0%E6%84%9F%E7%94%B5%E6%9C%BA%E6%8E%A7%E5%88%B6%E6%80%BB%E7%BA%B2%E9%A2%86/" class="md-tabs__link">
+          
+  
+  
+  电机控制
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
         <a href="../../../%E7%B3%BB%E7%BB%9F%E8%84%9A%E6%9C%AC/2025-05-29-powershell%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/" class="md-tabs__link">
           
   
@@ -1799,7 +1819,7 @@
   
   
   <span class="md-ellipsis">
-    系统脚本
+    电机控制
     
   </span>
   
@@ -1809,6 +1829,77 @@
         
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            电机控制
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E7%94%B5%E6%9C%BA%E6%8E%A7%E5%88%B6/2025-05-07-%E6%97%A0%E6%84%9F%E7%94%B5%E6%9C%BA%E6%8E%A7%E5%88%B6%E6%80%BB%E7%BA%B2%E9%A2%86/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    无感电机控制总纲
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    系统脚本
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
             <span class="md-nav__icon md-icon"></span>
             系统脚本
           </label>
@@ -2445,77 +2536,77 @@ awaiter: 恢复执行
 </li>
 <li>
 <p>核心成员函数：
-    ```c++
-    /**</p>
-<ul>
-<li>@brief 检查协程是否需要挂起等待</li>
-<li></li>
-<li>此函数用于判断当前异步操作是否已经完成，决定协程是否需要立即恢复执行。</li>
-<li></li>
-<li>@return true 异步操作已完成，协程无需挂起，可直接继续执行</li>
-<li>@return false 异步操作未完成，协程需要挂起等待</li>
-<li></li>
-<li>@note 当返回 true 时，编译器会优化掉挂起/恢复的开销，</li>
-<li>直接调用 await_resume() 实现零开销路径
- */
-bool await_ready() noexcept;</li>
-</ul>
-<p>/*<em>
-* @brief 定义协程挂起时的操作和恢复策略
-* 
-* 此函数在协程遇到 co_await 表达式且 await_ready() 返回 false 时被调用，
-* 用于设置协程的挂起行为和恢复机制。
-* 
-* @tparam Promise 协程的 promise_type 类型
-* @param h 当前协程的句柄，包含协程执行地址和 promise 对象访问权限
-* @return coroutine_handle&lt;&gt; 返回目标协程句柄（对称协程模式）
-* @return void 返回 void（非对称协程模式）
-* @return bool 返回 false 表示立即恢复，true 表示继续挂起
-* 
-* @note 返回值决定协程的恢复方式：
-*       - 返回协程句柄：对称协程，当目标协程恢复时当前协程也会恢复
-*       - 返回 void：非对称协程，通过外部回调或事件恢复
-*       - 返回 bool：控制是否立即恢复
-* 
-* @example
-* struct my_awaiter {
-*     void await_suspend(coroutine_handle&lt;&gt; h) noexcept {
-*         // 注册异步回调，完成后恢复协程
-*         async_op([h]{ h.resume(); });
-*     }
-* };
-</em>/
-template<typename Promise>
-auto await_suspend(coroutine_handle<Promise> h) noexcept;</p>
-<p>/*<em>
-* @brief 获取协程恢复时的结果或执行恢复后的初始化
-* 
-* 此函数在协程从挂起状态恢复时被调用，用于获取异步操作的结果
-* 或执行恢复后的必要初始化工作。
-* 
-* @return decltype(auto) 异步操作的结果值或引用
-*         - 可以是值类型（int, string 等）
-*         - 可以是引用类型（避免拷贝）
-*         - 可以是 void（仅用于初始化）
-* 
-* @note 如果异步操作失败，应在此函数中抛出异常，
-*       异常会传播给 co_await 表达式的调用者
-* 
-* @example
-* struct my_awaiter {
-*     int await_resume() {
-*         return get_async_result();  // 返回异步操作结果
-*     }
-* 
-*     void await_resume() noexcept {
-*         setup_context();  // 仅用于初始化
-*     }
-* };
-</em>/
-decltype(auto) await_resume();
-````
-3. 可选的异常处理接口：
-<div class="highlight"><pre><span></span><code><span class="cm">/**</span>
+    <div class="highlight"><pre><span></span><code><span class="cm">/**</span>
+<span class="cm">* @brief 检查协程是否需要挂起等待</span>
+<span class="cm">* </span>
+<span class="cm">* 此函数用于判断当前异步操作是否已经完成，决定协程是否需要立即恢复执行。</span>
+<span class="cm">* </span>
+<span class="cm">* @return true 异步操作已完成，协程无需挂起，可直接继续执行</span>
+<span class="cm">* @return false 异步操作未完成，协程需要挂起等待</span>
+<span class="cm">* </span>
+<span class="cm">* @note 当返回 true 时，编译器会优化掉挂起/恢复的开销，</span>
+<span class="cm">*       直接调用 await_resume() 实现零开销路径</span>
+<span class="cm"> */</span>
+<span class="kt">bool</span><span class="w"> </span><span class="nf">await_ready</span><span class="p">()</span><span class="w"> </span><span class="k">noexcept</span><span class="p">;</span>
+
+<span class="cm">/**</span>
+<span class="cm">* @brief 定义协程挂起时的操作和恢复策略</span>
+<span class="cm">* </span>
+<span class="cm">* 此函数在协程遇到 co_await 表达式且 await_ready() 返回 false 时被调用，</span>
+<span class="cm">* 用于设置协程的挂起行为和恢复机制。</span>
+<span class="cm">* </span>
+<span class="cm">* @tparam Promise 协程的 promise_type 类型</span>
+<span class="cm">* @param h 当前协程的句柄，包含协程执行地址和 promise 对象访问权限</span>
+<span class="cm">* @return coroutine_handle&lt;&gt; 返回目标协程句柄（对称协程模式）</span>
+<span class="cm">* @return void 返回 void（非对称协程模式）</span>
+<span class="cm">* @return bool 返回 false 表示立即恢复，true 表示继续挂起</span>
+<span class="cm">* </span>
+<span class="cm">* @note 返回值决定协程的恢复方式：</span>
+<span class="cm">*       - 返回协程句柄：对称协程，当目标协程恢复时当前协程也会恢复</span>
+<span class="cm">*       - 返回 void：非对称协程，通过外部回调或事件恢复</span>
+<span class="cm">*       - 返回 bool：控制是否立即恢复</span>
+<span class="cm">* </span>
+<span class="cm">* @example</span>
+<span class="cm">* struct my_awaiter {</span>
+<span class="cm">*     void await_suspend(coroutine_handle&lt;&gt; h) noexcept {</span>
+<span class="cm">*         // 注册异步回调，完成后恢复协程</span>
+<span class="cm">*         async_op([h]{ h.resume(); });</span>
+<span class="cm">*     }</span>
+<span class="cm">* };</span>
+<span class="cm">*/</span>
+<span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">Promise</span><span class="o">&gt;</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">await_suspend</span><span class="p">(</span><span class="n">coroutine_handle</span><span class="o">&lt;</span><span class="n">Promise</span><span class="o">&gt;</span><span class="w"> </span><span class="n">h</span><span class="p">)</span><span class="w"> </span><span class="k">noexcept</span><span class="p">;</span>
+
+<span class="cm">/**</span>
+<span class="cm">* @brief 获取协程恢复时的结果或执行恢复后的初始化</span>
+<span class="cm">* </span>
+<span class="cm">* 此函数在协程从挂起状态恢复时被调用，用于获取异步操作的结果</span>
+<span class="cm">* 或执行恢复后的必要初始化工作。</span>
+<span class="cm">* </span>
+<span class="cm">* @return decltype(auto) 异步操作的结果值或引用</span>
+<span class="cm">*         - 可以是值类型（int, string 等）</span>
+<span class="cm">*         - 可以是引用类型（避免拷贝）</span>
+<span class="cm">*         - 可以是 void（仅用于初始化）</span>
+<span class="cm">* </span>
+<span class="cm">* @note 如果异步操作失败，应在此函数中抛出异常，</span>
+<span class="cm">*       异常会传播给 co_await 表达式的调用者</span>
+<span class="cm">* </span>
+<span class="cm">* @example</span>
+<span class="cm">* struct my_awaiter {</span>
+<span class="cm">*     int await_resume() {</span>
+<span class="cm">*         return get_async_result();  // 返回异步操作结果</span>
+<span class="cm">*     }</span>
+<span class="cm">* </span>
+<span class="cm">*     void await_resume() noexcept {</span>
+<span class="cm">*         setup_context();  // 仅用于初始化</span>
+<span class="cm">*     }</span>
+<span class="cm">* };</span>
+<span class="cm">*/</span>
+<span class="k">decltype</span><span class="p">(</span><span class="k">auto</span><span class="p">)</span><span class="w"> </span><span class="n">await_resume</span><span class="p">();</span>
+</code></pre></div></p>
+</li>
+<li>可选的异常处理接口：
+    <div class="highlight"><pre><span></span><code><span class="cm">/**</span>
 <span class="cm">* @brief 无异常版本的恢复函数</span>
 <span class="cm">* </span>
 <span class="cm">* 此函数是 await_resume() 的 noexcept 变体，用于在协程恢复时执行</span>
@@ -2539,8 +2630,7 @@ decltype(auto) await_resume();
 <span class="cm">* };</span>
 <span class="cm">*/</span>
 <span class="kt">void</span><span class="w"> </span><span class="nf">await_resume</span><span class="p">()</span><span class="w"> </span><span class="k">noexcept</span><span class="p">;</span>
-</code></pre></div></p>
-</li>
+</code></pre></div></li>
 </ol>
 <h3 id="73">7.3 与协程返回对象的关系</h3>
 <p>awaiter 对象与协程返回对象密切相关：</p>
