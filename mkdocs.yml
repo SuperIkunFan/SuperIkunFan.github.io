@@ -1,7 +1,7 @@
 site_name: ikun爱学习
+
 theme:
-  name: 
-    material  # 核心配置：使用 Material 主题
+  name: material  # 核心配置：使用 Material 主题
   palette: #调色板
     - scheme: default
       primary: indigo
@@ -14,8 +14,7 @@ theme:
         icon: material/weather-sunny
         name: 亮色模式
   
-  language:
-    zh #表示在浏览器中显示当前页面的语言是什么，如果是en，那么像谷歌浏览器就可以翻译
+  language: zh #表示在浏览器中显示当前页面的语言是什么，如果是en，那么像谷歌浏览器就可以翻译
 
   font:
     text: "Noto Sans, Noto Sans SC"  # 优先使用Noto Sans显示符号
@@ -42,9 +41,16 @@ markdown_extensions:
       - name: mermaid
         class: mermaid
         format: !!python/name:pymdownx.superfences.fence_code_format
+  - admonition
+  - pymdownx.details
+
 extra_javascript:
+  - javascripts/config.js
+  - https://polyfill.io/v3/polyfill.min.js?features=es6
   - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
-  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-ams.js  # 关键：加载 amsmath 扩展
-  - https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js #启动mermaid
+  - https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js
   - assets/javascripts/focus-mode.js
+
+extra_css:
+  - stylesheets/extra.css
 # ---------------------end--------------------------
