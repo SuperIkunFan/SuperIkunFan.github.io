@@ -1,0 +1,2274 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="2025-08-26-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84R_tree%28%E4%B8%80%29.html">
+      
+      
+        <link rel="next" href="../%E7%94%B5%E6%9C%BA%E6%8E%A7%E5%88%B6/2025-05-07-%E6%97%A0%E6%84%9F%E7%94%B5%E6%9C%BA%E6%8E%A7%E5%88%B6%E6%80%BB%E7%BA%B2%E9%A2%86.html">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.20">
+    
+    
+      
+        <title>数据结构R_Tree（二）设计实现 - ikun爱学习</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.e53b48f4.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans,+Noto+Sans+SC:300,300i,400,400i,700,700i%7CFira+Code,+monospace:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Noto Sans, Noto Sans SC";--md-code-font:"Fira Code, monospace"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../index.html" title="ikun爱学习" class="md-header__button md-logo" aria-label="ikun爱学习" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            ikun爱学习
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              数据结构R_Tree（二）设计实现
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="blue"  aria-label="暗色模式"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="暗色模式" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="亮色模式"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="亮色模式" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../index.html" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../cmake/2024-09-04-cmake%E7%9A%84install%E5%91%BD%E4%BB%A4.html" class="md-tabs__link">
+          
+  
+  
+  Cmake
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../cplusplus/2025-05-26-%E4%B8%80%E7%A7%8Dc%2B%2B%E5%B8%B8%E9%87%8F%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF.html" class="md-tabs__link">
+          
+  
+  
+  Cplusplus
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/2025-03-28-cmake%E7%9A%84ctest%E6%A1%86%E6%9E%B6.html" class="md-tabs__link">
+          
+  
+  
+  单元测试
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6/2025-09-16-clangd%E7%9A%84vscode%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B.html" class="md-tabs__link">
+          
+  
+  
+  常用软件
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/2025-05-07-%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86%E4%B8%AD%E7%9A%84%E5%90%84%E7%A7%8D%E9%A2%91%E7%8E%87.html" class="md-tabs__link">
+          
+  
+  
+  数字信号处理
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="2025-08-26-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84R_tree%28%E4%B8%80%29.html" class="md-tabs__link">
+          
+  
+  
+  数据结构
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../%E7%94%B5%E6%9C%BA%E6%8E%A7%E5%88%B6/2025-05-07-%E6%97%A0%E6%84%9F%E7%94%B5%E6%9C%BA%E6%8E%A7%E5%88%B6%E6%80%BB%E7%BA%B2%E9%A2%86.html" class="md-tabs__link">
+          
+  
+  
+  电机控制
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../%E7%B3%BB%E7%BB%9F%E8%84%9A%E6%9C%AC/2025-05-29-powershell%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8.html" class="md-tabs__link">
+          
+  
+  
+  系统脚本
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../index.html" title="ikun爱学习" class="md-nav__button md-logo" aria-label="ikun爱学习" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    ikun爱学习
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Cmake
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Cmake
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cmake/2024-09-04-cmake%E7%9A%84install%E5%91%BD%E4%BB%A4.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    cmake的install命令详解
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cmake/2024-09-04-cmake%E7%9A%84%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%8F%82%E6%95%B0.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    cmake的命令行参数
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cmake/2024-09-05-cmake%E7%9A%84include%E5%91%BD%E4%BB%A4.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    cmake的include命令详解
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cmake/2024-09-05-cmake%E7%9A%84list%E5%91%BD%E4%BB%A4.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    cmake的list命令详解
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cmake/2024-09-05-cmake%E7%9A%84set%E5%91%BD%E4%BB%A4.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    cmake的set命令详解
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cmake/2024-09-06-cmake%E7%9A%84add_custom_command%E5%91%BD%E4%BB%A4.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    cmake的add_custom_command命令详解
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cmake/2025-01-09-cmake%E7%9A%84file%E5%91%BD%E4%BB%A4.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    cmake的cmake的file命令详解
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cmake/2025-01-09-cmake%E7%9A%84option%E5%91%BD%E4%BB%A4.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    cmake的cmake的option命令详解
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cmake/2025-01-15-cmake%E7%9A%84target%E6%A6%82%E5%BF%B5.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    cmake的cmake的target概念
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cmake/2025-01-16-cmake%E7%9A%84%E6%80%BB%E4%BD%93%E8%AF%AD%E8%A8%80%E6%A6%82%E5%BF%B5.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    cmake的cmake的总体语言概念
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cmake/2025-07-09-cmake%E7%9A%84%E5%89%8D%E7%BD%AE%E7%9F%A5%E8%AF%86gcc.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    cmake的前置知识--gcc
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cmake/2025-08-04-cmake%E7%9A%84preset%E5%8A%9F%E8%83%BD.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    cmake的preset功能
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cmake/2025-08-08-cmake%E7%9A%84%E7%94%9F%E6%88%90%E5%99%A8%E8%A1%A8%E8%BE%BE%E5%BC%8F.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    cmake的生成器表达式
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Cplusplus
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Cplusplus
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cplusplus/2025-05-26-%E4%B8%80%E7%A7%8Dc%2B%2B%E5%B8%B8%E9%87%8F%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    基于非类型模板形参的编译期常量注入技术
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cplusplus/2025-06-25-c%2B%2B%E6%A8%A1%E6%9D%BF%E5%8F%82%E6%95%B0%E6%8E%A8%E5%AF%BC%E5%92%8C%E6%A8%A1%E6%9D%BF%E5%AE%9E%E4%BE%8B%E5%8C%96.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    c++模板参数推导和模板实例化
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cplusplus/2025-06-26-c%2B%2B%E6%A0%87%E7%AD%BE%E6%B4%BE%E5%8F%91%E6%8A%80%E6%9C%AF--%E4%BB%A5geometry%E6%B3%9B%E5%9E%8B%E4%B8%BA%E4%BE%8B.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    c++标签派发技术--以geometry泛型为例
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cplusplus/2025-07-10-c%2B%2B%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96%E6%96%B9%E5%BC%8F%E4%BB%A5%E5%8F%8A%E5%88%9D%E5%A7%8B%E5%8C%96%E5%88%97%E8%A1%A8.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    c++的初始化方式以及初始化列表
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cplusplus/2025-07-11-c%2B%2B%E7%9A%84%E5%8F%AF%E5%8F%98%E5%8F%82%E6%95%B0%E6%A8%A1%E6%9D%BF.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    c++的可变参数模板
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cplusplus/2025-07-15-c%2B%2B%E7%9A%84%E5%B9%B3%E5%87%A1%E7%B1%BB%E5%92%8C%E6%A0%87%E5%87%86%E5%B8%83%E5%B1%80%E7%B1%BB.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    c++的平凡类和标准布局类
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cplusplus/2025-08-18-c%2B%2B%E7%9A%84%E5%B8%B8%E9%87%8F%E6%BC%94%E5%8F%98.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    c++的常量演变
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cplusplus/2025-09-10-c%2B%2B%E7%9A%84%E7%B1%BB%E5%A4%96%E7%B1%BB%E5%9E%8B%E8%A7%A3%E6%9E%90%E8%A7%84%E5%88%99.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    c++的类外类型解析规则
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_9" id="__nav_3_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    C++20
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_9">
+            <span class="md-nav__icon md-icon"></span>
+            C++20
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cplusplus/c%2B%2B20/2025-08-19-c%2B%2B%E7%9A%84format%E5%BA%93.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    format库
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cplusplus/c%2B%2B20/2025-09-16-c%2B%2B%E7%9A%84%E5%8D%8F%E7%A8%8B%E5%BA%93.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    协程库
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    单元测试
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            单元测试
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/2025-03-28-cmake%E7%9A%84ctest%E6%A1%86%E6%9E%B6.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    cmake的ctest框架
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/2025-03-29-boost.test%E6%A1%86%E6%9E%B6.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    boost的单元测试框架
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    常用软件
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            常用软件
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6/2025-09-16-clangd%E7%9A%84vscode%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    clangd的配置
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6/2025-09-26-draw-io%E7%9A%84%E5%B8%B8%E8%A7%81%E6%93%8D%E4%BD%9C.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    draw-io的常见操作
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    数字信号处理
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            数字信号处理
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/2025-05-07-%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86%E4%B8%AD%E7%9A%84%E5%90%84%E7%A7%8D%E9%A2%91%E7%8E%87.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    数字信号中的各种频率
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/2025-05-08-%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E4%B8%AD%E9%A2%91%E5%9F%9F%E6%BB%A4%E6%B3%A2%E5%99%A8%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    频域滤波器基础知识
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/2025-05-08-%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86%E4%B8%AD%E7%9A%84%E5%B7%B4%E7%89%B9%E6%B2%83%E6%96%AF%E6%BB%A4%E6%B3%A2%E5%99%A8.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    巴特沃斯滤波器
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    数据结构
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            数据结构
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="2025-08-26-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84R_tree%28%E4%B8%80%29.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    数据结构R_Tree（一）理论算法
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    数据结构R_Tree（二）设计实现
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="2025-08-29-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84R_tree%28%E4%BA%8C%29.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    数据结构R_Tree（二）设计实现
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      一、树结构设计
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      二、节点设计
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      三、边界处理
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="三、边界处理">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.1 哨兵初始化
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.2 节点初始化
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      四、删除节点初探
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      五、插入操作
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="五、插入操作">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.1 寻找合适节点
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.2 插入调整算法
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      六、删除操作
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    电机控制
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            电机控制
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E7%94%B5%E6%9C%BA%E6%8E%A7%E5%88%B6/2025-05-07-%E6%97%A0%E6%84%9F%E7%94%B5%E6%9C%BA%E6%8E%A7%E5%88%B6%E6%80%BB%E7%BA%B2%E9%A2%86.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    无感电机控制总纲
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E7%94%B5%E6%9C%BA%E6%8E%A7%E5%88%B6/2025-09-24-%E9%AB%98%E9%A2%91%E5%BC%A6%E6%B3%A2%E6%B3%A8%E5%85%A5.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    高频脉冲注入
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    系统脚本
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            系统脚本
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E7%B3%BB%E7%BB%9F%E8%84%9A%E6%9C%AC/2025-05-29-powershell%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    powershell快速入门
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E7%B3%BB%E7%BB%9F%E8%84%9A%E6%9C%AC/2025-08-06-wsl%E5%B8%B8%E7%94%A8%E5%86%85%E5%AE%B9.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    wsl2常用内容
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+  <h1>数据结构R_Tree（二）设计实现</h1>
+
+<h2 id="_1">一、树结构设计</h2>
+<p>首先看看对于Rtree树本身而言，用户有哪些常见的需求。</p>
+<ol>
+<li>
+<p>理论上是支持n维的几何体搜索，因为我们需要设计它可以根据用户需要设计为任意的维度。</p>
+</li>
+<li>
+<p>它可以支持用户自定义维度坐标中的数据类型，例如int, double, long double等等，也支持自定义的类型，只要它满足数据计算即可。</p>
+</li>
+<li>
+<p>它支持用户自己存储时一个节点最大多少个。</p>
+</li>
+<li>
+<p>能够自定义实际存储的几何体的数据结构，例如有的想要使用std::vector来表示，有的想要使用std::array来表示。</p>
+</li>
+</ol>
+<p>因此根据上面的要求，常见的模板类标头如下：</p>
+<div class="highlight"><pre><span></span><code><span class="cm">/**</span>
+<span class="cm"> * @brief 通用 N 维 R-tree 空间索引结构</span>
+<span class="cm"> *</span>
+<span class="cm"> * @tparam CoordinateType_t  坐标值的数据类型（必须支持比较与算术运算）</span>
+<span class="cm"> * @tparam Dimension_t       空间维度（如 2D, 3D, N-D），编译期常量</span>
+<span class="cm"> * @tparam MaxEntries        每个节点最大子节点/条目数量（影响树高与查询性能）</span>
+<span class="cm"> * @tparam IndexType_t       几何索引项的类型</span>
+<span class="cm"> *</span>
+<span class="cm"> * 示例：</span>
+<span class="cm"> *   RTree&lt;double, 3, 16, MyBox&gt; rtree; // 3D空间，double坐标，每节点最多16个条目</span>
+<span class="cm"> */</span>
+<span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">CoordinateType_t</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span><span class="w"> </span><span class="n">Dimension_t</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span><span class="w"> </span><span class="n">MaxEntries</span><span class="p">,</span><span class="w"> </span><span class="k">typename</span><span class="w"> </span><span class="nc">IndexType_t</span><span class="o">&gt;</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">RTree</span><span class="p">;</span>
+</code></pre></div>
+<h2 id="_2">二、节点设计</h2>
+<p>在<a href="2025-08-26-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84R_tree%28%E4%B8%80%29.html">rtree理论设计</a>可以看到，rtree树与b树有很多相似之处。它们都是实际存储的元素是放在叶子节点中，二非叶子节点不存储元素，只是放下层树的索引地址。</p>
+<p>首先看看叶子节点有哪些需求：</p>
+<ol>
+<li>保有一个固定大小的数组。数组中的元素为一个pair，pair的第一个字段表示存储的元素可以用一般的n维超矩体表示，第二个字段就是表示实际几何体存放的位置。</li>
+<li>表示当前实际存储了多少个元素。</li>
+<li>保有指向父指针。（主要是方便实现）</li>
+<li>覆盖当前存储的所有几何体的超矩体表示。</li>
+</ol>
+<p>再来看看非叶子节点的需求：</p>
+<ol>
+<li>保有一个固定大小的数组。数组中的元素是指向下一级的子树的地址。</li>
+<li>表示当前实际存储了多少个元素。</li>
+<li>保有指向父指针。（主要是方便实现）</li>
+<li>覆盖当前存储的所有几何体的超矩体表示。</li>
+</ol>
+<p>综上可以得到一个既能表示叶子节点，又能表示非叶子的一般节点，它通过一个bool值区分。</p>
+<p>一般节点：</p>
+<ol>
+<li>保有一个固定大小的数组。数组中的元素为一个pair，pair的第一个字段表示存储的元素可以用一般的n维超矩体表示，第二个字段就是表示实际几何体存放的位置。</li>
+<li>保有一个固定大小的数组。数组中的元素是指向下一级的子树的地址。</li>
+<li>表示当前实际存储了多少个元素。</li>
+<li>保有指向父指针。（主要是方便实现）</li>
+<li>覆盖当前存储的所有几何体的超矩体表示。</li>
+<li>表示当前节点是叶子节点还是非叶子节点的bool值。</li>
+</ol>
+<p>并且为了方便可以实现如下一个模板类的超矩体。</p>
+<div class="highlight"><pre><span></span><code><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span><span class="w"> </span><span class="n">Dimensions</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="o">&gt;</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">Hyperrectangle</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">array</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span><span class="w"> </span><span class="n">Dimensions</span><span class="o">&gt;</span><span class="w"> </span><span class="n">min_corner</span><span class="p">;</span><span class="w"> </span><span class="c1">// 最小角点（左下）</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">array</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span><span class="w"> </span><span class="n">Dimensions</span><span class="o">&gt;</span><span class="w"> </span><span class="n">max_corner</span><span class="p">;</span><span class="w"> </span><span class="c1">// 最大角点（右上）</span>
+
+<span class="w">    </span><span class="k">using</span><span class="w"> </span><span class="n">value_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">array</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span><span class="w"> </span><span class="n">Dimensions</span><span class="o">&gt;</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">Hyperrectangle</span><span class="p">(</span><span class="n">value_type</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">_max</span><span class="p">,</span><span class="w"> </span><span class="n">value_type</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">_min</span><span class="p">)</span><span class="w"> </span>
+<span class="w">        </span><span class="o">:</span><span class="w"> </span><span class="n">min_corner</span><span class="p">(</span><span class="n">_min</span><span class="p">),</span><span class="w"> </span><span class="n">max_corner</span><span class="p">(</span><span class="n">_max</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{}</span>
+<span class="p">};</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">N</span><span class="o">&gt;</span>
+<span class="n">Hyperrectangle</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">array</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span><span class="w"> </span><span class="n">N</span><span class="o">&gt;</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">array</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span><span class="w"> </span><span class="n">N</span><span class="o">&gt;</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">Hyperrectangle</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span><span class="w"> </span><span class="n">N</span><span class="o">&gt;</span><span class="p">;</span>
+</code></pre></div>
+<p>实际存储的类型和表示的维数是由构造rtree树时，用户设定的。当然也可以使用别名模板方便用户使用。</p>
+<p>根据前面的内容可以设计节点为：</p>
+<div class="highlight"><pre><span></span><code><span class="k">struct</span><span class="w"> </span><span class="nc">Node_t</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">using</span><span class="w"> </span><span class="n">leaf_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">typename</span><span class="w"> </span><span class="nc">std</span><span class="o">::</span><span class="n">pair</span><span class="o">&lt;</span><span class="n">RTree</span><span class="o">::</span><span class="n">mapped_type</span><span class="w"> </span><span class="o">*</span><span class="p">,</span><span class="w"> </span><span class="n">RTree</span><span class="o">::</span><span class="n">key_type</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">    </span><span class="k">using</span><span class="w"> </span><span class="n">leaf_type_pointer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">leaf_type</span><span class="w"> </span><span class="o">*</span><span class="p">;</span>
+<span class="w">    </span><span class="k">using</span><span class="w"> </span><span class="n">node_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Node_t</span><span class="p">;</span>
+<span class="w">    </span><span class="k">using</span><span class="w"> </span><span class="n">node_type_pointer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Node_t</span><span class="w"> </span><span class="o">*</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">RTree</span><span class="o">::</span><span class="n">key_type</span><span class="w"> </span><span class="n">m_Hyperrectangle</span><span class="p">;</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">array</span><span class="o">&lt;</span><span class="n">leaf_type_pointer</span><span class="p">,</span><span class="w"> </span><span class="n">RTree</span><span class="o">::</span><span class="n">k_maxSize</span><span class="o">&gt;</span><span class="w"> </span><span class="n">m_Data</span><span class="p">;</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">array</span><span class="o">&lt;</span><span class="n">node_type_pointer</span><span class="p">,</span><span class="w"> </span><span class="n">RTree</span><span class="o">::</span><span class="n">k_maxSize</span><span class="o">&gt;</span><span class="w"> </span><span class="n">m_node</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span><span class="w"> </span><span class="n">m_size</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">m_isLeaf</span><span class="p">;</span>
+<span class="w">    </span><span class="n">Node_t</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">m_parent</span><span class="p">;</span>
+
+<span class="w">    </span><span class="cm">/*其他字段要求*/</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>对于单个叶子节点而言，其字段如图2-1所示：</p>
+<div align="center">
+  <img src="assets/single_rtree_node.png" alt="分割对比">
+  <br>
+  <small>图2-1</small>
+</div>
+
+<p>即内部包含的是数据对节点的指针，它指向的是数据对结构体，目的是让描述这个元素的矩形和实际元素绑定在一起。数据对中绑定的是实际数据的指针，但也可以直接是数据。</p>
+<p>整体的树结构如图2-2所示：</p>
+<div align="center">
+  <img src="assets/Rtree.png" alt="分割对比">
+  <br>
+  <small>图2-2</small>
+</div>
+
+<h2 id="_3">三、边界处理</h2>
+<p>如果处理没有数据的情况呢，或者是分别出边界呢？一种流行的方法是，使用哨兵节点。</p>
+<p>哨兵节点并不直接参与数据的存储，通常是利用哨兵节点构造出树被包围的感觉。</p>
+<p>一种朴素的想法是，如果根节点的父节点和叶子节点的不存储数据的字段都存储的是哨兵节点的地址，那么整个树都被哨兵包围了。</p>
+<h3 id="31">3.1 哨兵初始化</h3>
+<p>哨兵节点是作为边界节点，那么就需要确定它被初始化时各个字段的内容。</p>
+<ol>
+<li>
+<p>节点类型<br />
+    普通节点，理由：由于非空树的父节点是哨兵节点，而由于数据都放在叶子节点中，所以为了不和一般的准则相悖，设置为非叶子节点。</p>
+</li>
+<li>
+<p>覆盖矩形<br />
+    为零，任意</p>
+</li>
+<li>
+<p>父节点指针<br />
+    指向哨兵节点的地址，可通过父节点和自身节点均是哨兵节点判定当前节点是哨兵节点</p>
+</li>
+<li>
+<p>非叶子节点指针<br />
+    指向哨兵节点的地址，可通过字节点和自身节点均是哨兵节点判定当前节点是哨兵节点</p>
+</li>
+<li>
+<p>数据对节点指针
+    赋值为空，因为不知道如何默认构造，所以选择为空节点。</p>
+</li>
+</ol>
+<p>那么整体结构如图3-1所示：</p>
+<div align="center">
+  <img src="assets/rtree_sentinal_node.png" alt="分割对比">
+  <br>
+  <small>图3-1</small>
+</div>
+
+<h3 id="32">3.2 节点初始化</h3>
+<p>叶子节点和非叶子是字段节点类型来进行区分的。</p>
+<p>那么什么时候会出现构建叶子节点呢？有如下情况：</p>
+<ol>
+<li>
+<p>当前树没有任何东西</p>
+</li>
+<li>
+<p>插入位置的叶子节点已经存满了，需要构造一个新的叶子节点，从而让数据对节点插入</p>
+</li>
+</ol>
+<p>什么时候会出现构建非叶子节点呢？</p>
+<p>假设准备插入的节点位置是j，插入的元素是i，对于节点j来说，无论它是准备叶子节点的插入还是非叶子节点的插入，就是节点j存储的位置满足，此时它处理不了，一般处理方式是向树的父节点请求处理这个情况，假设节点j的父节点是x。也就是说，需要构建一个新的节点k，将节点i插入到节点k中，然后再将插入的元素重新设置为k，然后插入位置重新设置为x。</p>
+<pre class="mermaid"><code>flowchart TD
+    A[开始插入: 位置j, 元素i] --&gt; B{节点j能否处理插入?}
+
+    B -- 能 --&gt; C[直接插入节点j]
+    C --&gt; D[结束插入流程]
+
+    B -- 不能 --&gt; E[向父节点x请求处理]
+    E --&gt; F[创建新节点k]
+    F --&gt; G[将元素i插入节点k]
+    G --&gt; H[设置新插入元素为k&lt;br&gt;插入位置重置为x]
+    H --&gt; I[继续向上递归处理]
+</code></pre>
+<p>根据上面的分析，可以如下处理一般构建时各个字段的初始化内容：</p>
+<ol>
+<li>
+<p>节点类型：<br />
+    可选参数，根据传入参数设置。也可以默认为叶子节点，根据实际情况在外部调整。</p>
+</li>
+<li>
+<p>覆盖矩形：<br />
+    为零或者是任意。</p>
+</li>
+<li>
+<p>父节点指针：<br />
+    指向哨兵节点，表示边界。</p>
+</li>
+<li>
+<p>非叶子节点指针：<br />
+    指向哨兵节点的地址，为了处理树第一次插入数据时存储实际数据的根节点。</p>
+</li>
+<li>
+<p>数据对节点指针：<br />
+    赋值为空，因为不知道如何默认构造，所以选择为空节点。</p>
+</li>
+</ol>
+<h2 id="_4">四、删除节点初探</h2>
+<p>在前面的文章中，删除节点之后，其平衡的策略的主要思想为，收集不满足要求的节点，然后调整覆盖矩形，然后递归调整上一级节点。</p>
+<p>在理论篇时，整体讲述了删除节点之后调整的过程，需要注意如下点。</p>
+<ol>
+<li>
+<p>删除节点之后，重新收集的节点类型：  </p>
+<ul>
+<li>整个过程只会在删除节点之后，第一次判定该叶子节点是否满足最小数量要求时，收集到的元素都是元素对，其余时候向根节点递归判定时，都是一般的子树。</li>
+<li>这也就意味着，可以将这些节点分别放置，一般元素对为集合Q1，子树节点的归置集合为Q2。</li>
+</ul>
+</li>
+<li>
+<p>什么时候就不需要再判定节点中存储的数量是否满足最小数量要求：<br />
+    当我们删除一个叶子节点中的元素对之后，什么时候就可以停止收集节点了呢？模拟一下整个过程：  </p>
+<ul>
+<li>第一步，实际索引的元素都是在叶子节点中存储，当叶子节点中的元素少于最小要求，此时把叶子节点中所有元素放入归置结合Q1。  </li>
+<li>第二步，然后将当前叶子节点从它的父结点中去除索引，然后再检查父节点中的元素是否满足最小元素要求。此时父节点已经是普通节点了，那么它存储的元素都是子树。  </li>
+<li>第三步，假设这个时候的父节点仍然不满足要求，那么就将父节点中的所有元素放入到归置集合Q2中，然后按照这个逻辑重新检查父节点的父节点，以此类推。</li>
+<li>第四步，如果这个是否发现某一层节点去除待删除节点之后仍然满足最小要求，那么这个时候就可以退出对数量最小化的要求判定了。  </li>
+</ul>
+</li>
+<li>
+<p>什么时候将待归置元素重新插入到树中呢？<br />
+    在理论篇中，作者认为需要检查到根节点之后，在将这些待归置元素重新插入到树中，但作者同时强调了一个原则：<br />
+    <b>从更高层级节点（非叶子节点）中取出的条目，必须被放置在树中更高的层级，以确保其依赖子树中的叶子节点与主树的叶子节点处于同一层级。</b><br />
+    因此，重插入的时机应该选择在当不再收集元素之后，立即以该节点作为根节点，再将这些收集到的元素插入到以该节点为根节点的子树中。</p>
+</li>
+<li>
+<p>如何进行插入呢？即回答这四个问题：  </p>
+<ul>
+<li>先插入大的子树还是小的子树或者是元素对呢？<br />
+    个人认为先插入大子树，因为收集到的元素至少是当前索引节点的下一级节点，各类树的思想都是以广度优先，即尽量将节点插入到离根节点的地方。而重插入时尽量将归置节点放到同一高度下，因此先将大节点插入。  </li>
+<li>如何判定当前节点表达的是大子树还是小子树呢？<br />
+    需要在节点中增加一个字段，表示当前节点的高度，离根节点越近的节点，那么它的高度值就越大。  </li>
+<li>如何判定搜索位置呢？<br />
+    根据节点中的高度判定是否需要下一级节点搜索。</li>
+<li>重插入是否会导致插入的根节点呢？<br />
+    不会，因为插入之前，以停止收集的节点做为根节点的子树已经具有容纳当前所有节点所有元素的能力，当重新插入之后，最多重新生成之前去除索引的节点，而不会导致当前根节点不能容纳的情况。</li>
+</ul>
+</li>
+<li>
+<p>高度值如何计算？<br />
+    以当前索引节点中高度值最大的，然后+1就能够表示它的高度。</p>
+</li>
+</ol>
+<h2 id="_5">五、插入操作</h2>
+<h3 id="51">5.1 寻找合适节点</h3>
+<p>首先明确下寻找到合适的插入位置都有哪些场景需求。前面分析到整个树既有叶子节点，也有普通节点的情况。插入时会在存在着直接插入数据对的情况，也存在着插入子树的情况。数据对是可能是由于用户插入数据导致的，也有可能是删除操作导致整个树节点的重平衡导致的。</p>
+<ol>
+<li>
+<p>查找元素对插入位置</p>
+</li>
+<li>
+<p>查找子树插入位置</p>
+</li>
+</ol>
+<p>前面提到，为了保证插入子树在同一高度，那么在字段中引入了高度值。那么为了写出一般化的查找节点算法，可以引入下面的变量情况：</p>
+<ol>
+<li>插入节点的矩形描述</li>
+<li>插入节点的高度</li>
+<li>被插入的子树根节点</li>
+</ol>
+<p>先考虑只有数据对插入时的查找要求。</p>
+<div class="highlight"><pre><span></span><code><span class="n">Node_t</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nf">ChooseLeaf</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">key_type</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">_key</span><span class="p">,</span><span class="w"> </span><span class="n">Node_t</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">_root</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span><span class="w"> </span><span class="n">_height</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">isSentinel</span><span class="p">(</span><span class="n">_root</span><span class="o">-&gt;</span><span class="n">m_parent</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">_root</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="n">Node_t</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">rootNode_i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">_root</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">rootNode_i</span><span class="o">-&gt;</span><span class="n">_height</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">_height</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">break</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+
+<span class="w">        </span><span class="k">auto</span><span class="w"> </span><span class="n">bestNode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">min_element</span><span class="p">(</span>
+<span class="w">            </span><span class="n">rootNode_i</span><span class="o">-&gt;</span><span class="n">m_node</span><span class="p">,</span>
+<span class="w">            </span><span class="n">rootNode_i</span><span class="o">-&gt;</span><span class="n">m_node</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">rootNode_i</span><span class="o">-&gt;</span><span class="n">m_size</span><span class="p">,</span>
+<span class="w">            </span><span class="p">[</span><span class="n">R</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">cref</span><span class="p">(</span><span class="n">rootNode_i</span><span class="o">-&gt;</span><span class="w"> </span><span class="n">m_Hyperrectangle</span><span class="p">)]</span><span class="w"> </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="k">typename</span><span class="w"> </span><span class="nc">Node_t</span><span class="o">::</span><span class="n">data_type</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">val1</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="k">typename</span><span class="w"> </span><span class="nc">Node_t</span><span class="o">::</span><span class="n">data_type</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">val2</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="c1">// 计算 val1 的 MBR 包含 R 后的新体积</span>
+<span class="w">                </span><span class="k">auto</span><span class="w"> </span><span class="n">enlargedRect1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">combine</span><span class="p">(</span><span class="n">val1</span><span class="p">.</span><span class="n">first</span><span class="p">,</span><span class="w"> </span><span class="n">R</span><span class="p">);</span><span class="w">  </span><span class="c1">// combine 返回包含两个矩形的新矩形</span>
+<span class="w">                </span><span class="k">auto</span><span class="w"> </span><span class="n">growth1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">volume</span><span class="p">(</span><span class="n">enlargedRect1</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">volume</span><span class="p">(</span><span class="n">val1</span><span class="p">.</span><span class="n">rect</span><span class="p">);</span>
+
+<span class="w">                </span><span class="c1">// 计算 val2 的 MBR 包含 R 后的新体积</span>
+<span class="w">                </span><span class="k">auto</span><span class="w"> </span><span class="n">enlargedRect2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">combine</span><span class="p">(</span><span class="n">val2</span><span class="p">.</span><span class="n">first</span><span class="p">,</span><span class="w"> </span><span class="n">R</span><span class="p">);</span>
+<span class="w">                </span><span class="k">auto</span><span class="w"> </span><span class="n">growth2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">volume</span><span class="p">(</span><span class="n">enlargedRect2</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">volume</span><span class="p">(</span><span class="n">val2</span><span class="p">.</span><span class="n">rect</span><span class="p">);</span>
+
+<span class="w">                </span><span class="c1">// 优先比较扩张体积：越小越好</span>
+<span class="w">                </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">growth1</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">growth2</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                    </span><span class="k">return</span><span class="w"> </span><span class="n">growth1</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">growth2</span><span class="p">;</span>
+<span class="w">                </span><span class="p">}</span>
+
+<span class="w">                </span><span class="c1">// 若扩张体积相同，选择原始体积更小的节点（更紧凑）</span>
+<span class="w">                </span><span class="k">return</span><span class="w"> </span><span class="n">volume</span><span class="p">(</span><span class="n">val1</span><span class="p">.</span><span class="n">rect</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">volume</span><span class="p">(</span><span class="n">val2</span><span class="p">.</span><span class="n">rect</span><span class="p">);</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">rootNode_i</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="52">5.2 插入调整算法</h3>
+<p>当前面节点查找算法已经为我们找到一个合适的位置，那么此时只需要将节点尝试插入。那么想要插入的节点超限了，那么就需要构造一个插入节点的兄弟节点，然后将待插入元素根据一定的算法插入到这两个节点中。</p>
+<p>在3.2节的节点初始化已经说明了如何进行分配。</p>
+<p>那么整体上插入一个元素步骤如下：</p>
+<ol>
+<li>
+<p>找到插入节点的位置，设为P。</p>
+</li>
+<li>
+<p>尝试将待插入元素i加入到待插入节点P中。  </p>
+<ul>
+<li>插入节点为哨兵节点：即为空树的第一次插入或者是需要增加树的高度。</li>
+<li>插入节点的容量不足：跳转到第三步。</li>
+<li>插入节点元素满足，可以直接插入，完成插入。</li>
+</ul>
+</li>
+<li>
+<p>构建一个新的兄弟节点N，调用分裂节点算法将节点P和节点N中的元素以及待插入元素i重新分配到P和N中。</p>
+</li>
+<li>
+<p>将待插入元素设为N，并将插入节点P设为P的父节点，跳转到第二步。</p>
+</li>
+<li>
+<p>申请一个节点，将待插入元素插入其中，并且将整个树的根节点更新，结束插入过程。</p>
+</li>
+</ol>
+<p>在这里，可以看出来仅仅是为了让节点能够正常插入到树中。在插入过程中，需要维护两个字段：</p>
+<ul>
+<li>
+<p>一个是整个子树（包括叶子节点和非叶子节点）的矩形描述。<br />
+    这个基本就是调用覆盖算法得到一个覆盖所有存储元素的矩形即可。</p>
+</li>
+<li>
+<p>子树的高度：<br />
+    这个就是获取存储的元素的高度的最大值。</p>
+</li>
+</ul>
+<p>那么子树的矩形描述可以在计算前后其矩阵描述未发生变化的情况下，终止执行。</p>
+<p>树的高度变化就是在高度值不再变化之后既可以终止执行，那么它和插入过程的终止有关系吗？好像没有。</p>
+<p>那么子树高度是在哪里变化的呢？它是由于根节点传入新的不可插入的节点之后从而增加的。</p>
+<div class="highlight"><pre><span></span><code><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
+<span class="kt">void</span><span class="w"> </span><span class="n">adajustTree</span><span class="p">(</span><span class="n">Node_t</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">pInsertNode</span><span class="p">,</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">pElement</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">kIsElementPair</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">is_same_v</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span><span class="w"> </span><span class="k">typename</span><span class="w"> </span><span class="nc">Node_t</span><span class="o">::</span><span class="n">leaf_type</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<h2 id="_6">六、删除操作</h2>
+<p>待续</p>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "..", "features": ["navigation.instant", "navigation.tabs", "toc.integrate", "content.code.copy", "content.code.annotate", "navigation.top", "search.highlight"], "search": "../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+      
+        <script src="../assets/javascripts/focus-mode.js"></script>
+      
+    
+  </body>
+</html>

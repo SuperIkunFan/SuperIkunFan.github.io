@@ -1,0 +1,2532 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="2025-06-25-c%2B%2B%E6%A8%A1%E6%9D%BF%E5%8F%82%E6%95%B0%E6%8E%A8%E5%AF%BC%E5%92%8C%E6%A8%A1%E6%9D%BF%E5%AE%9E%E4%BE%8B%E5%8C%96.html">
+      
+      
+        <link rel="next" href="2025-07-10-c%2B%2B%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96%E6%96%B9%E5%BC%8F%E4%BB%A5%E5%8F%8A%E5%88%9D%E5%A7%8B%E5%8C%96%E5%88%97%E8%A1%A8.html">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.20">
+    
+    
+      
+        <title>c++标签派发技术--以geometry泛型为例 - ikun爱学习</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.e53b48f4.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans,+Noto+Sans+SC:300,300i,400,400i,700,700i%7CFira+Code,+monospace:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Noto Sans, Noto Sans SC";--md-code-font:"Fira Code, monospace"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../index.html" title="ikun爱学习" class="md-header__button md-logo" aria-label="ikun爱学习" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            ikun爱学习
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              c++标签派发技术--以geometry泛型为例
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="blue"  aria-label="暗色模式"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="暗色模式" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="亮色模式"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="亮色模式" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../index.html" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../cmake/2024-09-04-cmake%E7%9A%84install%E5%91%BD%E4%BB%A4.html" class="md-tabs__link">
+          
+  
+  
+  Cmake
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="2025-05-26-%E4%B8%80%E7%A7%8Dc%2B%2B%E5%B8%B8%E9%87%8F%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF.html" class="md-tabs__link">
+          
+  
+  
+  Cplusplus
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/2025-03-28-cmake%E7%9A%84ctest%E6%A1%86%E6%9E%B6.html" class="md-tabs__link">
+          
+  
+  
+  单元测试
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6/2025-09-16-clangd%E7%9A%84vscode%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B.html" class="md-tabs__link">
+          
+  
+  
+  常用软件
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/2025-05-07-%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86%E4%B8%AD%E7%9A%84%E5%90%84%E7%A7%8D%E9%A2%91%E7%8E%87.html" class="md-tabs__link">
+          
+  
+  
+  数字信号处理
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/2025-08-26-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84R_tree%28%E4%B8%80%29.html" class="md-tabs__link">
+          
+  
+  
+  数据结构
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../%E7%94%B5%E6%9C%BA%E6%8E%A7%E5%88%B6/2025-05-07-%E6%97%A0%E6%84%9F%E7%94%B5%E6%9C%BA%E6%8E%A7%E5%88%B6%E6%80%BB%E7%BA%B2%E9%A2%86.html" class="md-tabs__link">
+          
+  
+  
+  电机控制
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../%E7%B3%BB%E7%BB%9F%E8%84%9A%E6%9C%AC/2025-05-29-powershell%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8.html" class="md-tabs__link">
+          
+  
+  
+  系统脚本
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../index.html" title="ikun爱学习" class="md-nav__button md-logo" aria-label="ikun爱学习" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    ikun爱学习
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Cmake
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Cmake
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cmake/2024-09-04-cmake%E7%9A%84install%E5%91%BD%E4%BB%A4.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    cmake的install命令详解
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cmake/2024-09-04-cmake%E7%9A%84%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%8F%82%E6%95%B0.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    cmake的命令行参数
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cmake/2024-09-05-cmake%E7%9A%84include%E5%91%BD%E4%BB%A4.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    cmake的include命令详解
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cmake/2024-09-05-cmake%E7%9A%84list%E5%91%BD%E4%BB%A4.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    cmake的list命令详解
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cmake/2024-09-05-cmake%E7%9A%84set%E5%91%BD%E4%BB%A4.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    cmake的set命令详解
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cmake/2024-09-06-cmake%E7%9A%84add_custom_command%E5%91%BD%E4%BB%A4.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    cmake的add_custom_command命令详解
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cmake/2025-01-09-cmake%E7%9A%84file%E5%91%BD%E4%BB%A4.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    cmake的cmake的file命令详解
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cmake/2025-01-09-cmake%E7%9A%84option%E5%91%BD%E4%BB%A4.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    cmake的cmake的option命令详解
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cmake/2025-01-15-cmake%E7%9A%84target%E6%A6%82%E5%BF%B5.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    cmake的cmake的target概念
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cmake/2025-01-16-cmake%E7%9A%84%E6%80%BB%E4%BD%93%E8%AF%AD%E8%A8%80%E6%A6%82%E5%BF%B5.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    cmake的cmake的总体语言概念
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cmake/2025-07-09-cmake%E7%9A%84%E5%89%8D%E7%BD%AE%E7%9F%A5%E8%AF%86gcc.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    cmake的前置知识--gcc
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cmake/2025-08-04-cmake%E7%9A%84preset%E5%8A%9F%E8%83%BD.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    cmake的preset功能
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cmake/2025-08-08-cmake%E7%9A%84%E7%94%9F%E6%88%90%E5%99%A8%E8%A1%A8%E8%BE%BE%E5%BC%8F.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    cmake的生成器表达式
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    Cplusplus
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Cplusplus
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="2025-05-26-%E4%B8%80%E7%A7%8Dc%2B%2B%E5%B8%B8%E9%87%8F%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    基于非类型模板形参的编译期常量注入技术
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="2025-06-25-c%2B%2B%E6%A8%A1%E6%9D%BF%E5%8F%82%E6%95%B0%E6%8E%A8%E5%AF%BC%E5%92%8C%E6%A8%A1%E6%9D%BF%E5%AE%9E%E4%BE%8B%E5%8C%96.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    c++模板参数推导和模板实例化
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    c++标签派发技术--以geometry泛型为例
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="2025-06-26-c%2B%2B%E6%A0%87%E7%AD%BE%E6%B4%BE%E5%8F%91%E6%8A%80%E6%9C%AF--%E4%BB%A5geometry%E6%B3%9B%E5%9E%8B%E4%B8%BA%E4%BE%8B.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    c++标签派发技术--以geometry泛型为例
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      一、前言
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      二、主要结构设想
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      三、具体实现方案
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="三、具体实现方案">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-swich-value" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.1 实现类型 swich (value)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-case" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.2 实现类型的 case
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.3 两者进行关联
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.4 实际设计方案
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#impl" class="md-nav__link">
+    <span class="md-ellipsis">
+      四、impl获取信息的泛型实现
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="四、impl获取信息的泛型实现">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.1 友元优缺点分析
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.2 友元函数
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.3 友元类
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.3 友元类">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#431-boostserialization" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.3.1 Boost.Serialization 方案（友元普通类 + 成员函数模板）
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#432-boostgeometry" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.3.2 Boost.Geometry 方案（友元类模板 + 静态成员函数）
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.4 总结
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#geometry" class="md-nav__link">
+    <span class="md-ellipsis">
+      五、geometry标签分发的一个实现
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="2025-07-10-c%2B%2B%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96%E6%96%B9%E5%BC%8F%E4%BB%A5%E5%8F%8A%E5%88%9D%E5%A7%8B%E5%8C%96%E5%88%97%E8%A1%A8.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    c++的初始化方式以及初始化列表
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="2025-07-11-c%2B%2B%E7%9A%84%E5%8F%AF%E5%8F%98%E5%8F%82%E6%95%B0%E6%A8%A1%E6%9D%BF.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    c++的可变参数模板
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="2025-07-15-c%2B%2B%E7%9A%84%E5%B9%B3%E5%87%A1%E7%B1%BB%E5%92%8C%E6%A0%87%E5%87%86%E5%B8%83%E5%B1%80%E7%B1%BB.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    c++的平凡类和标准布局类
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="2025-08-18-c%2B%2B%E7%9A%84%E5%B8%B8%E9%87%8F%E6%BC%94%E5%8F%98.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    c++的常量演变
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="2025-09-10-c%2B%2B%E7%9A%84%E7%B1%BB%E5%A4%96%E7%B1%BB%E5%9E%8B%E8%A7%A3%E6%9E%90%E8%A7%84%E5%88%99.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    c++的类外类型解析规则
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_9" id="__nav_3_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    C++20
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_9">
+            <span class="md-nav__icon md-icon"></span>
+            C++20
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="c%2B%2B20/2025-08-19-c%2B%2B%E7%9A%84format%E5%BA%93.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    format库
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="c%2B%2B20/2025-09-16-c%2B%2B%E7%9A%84%E5%8D%8F%E7%A8%8B%E5%BA%93.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    协程库
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    单元测试
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            单元测试
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/2025-03-28-cmake%E7%9A%84ctest%E6%A1%86%E6%9E%B6.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    cmake的ctest框架
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/2025-03-29-boost.test%E6%A1%86%E6%9E%B6.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    boost的单元测试框架
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    常用软件
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            常用软件
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6/2025-09-16-clangd%E7%9A%84vscode%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    clangd的配置
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6/2025-09-26-draw-io%E7%9A%84%E5%B8%B8%E8%A7%81%E6%93%8D%E4%BD%9C.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    draw-io的常见操作
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    数字信号处理
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            数字信号处理
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/2025-05-07-%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86%E4%B8%AD%E7%9A%84%E5%90%84%E7%A7%8D%E9%A2%91%E7%8E%87.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    数字信号中的各种频率
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/2025-05-08-%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E4%B8%AD%E9%A2%91%E5%9F%9F%E6%BB%A4%E6%B3%A2%E5%99%A8%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    频域滤波器基础知识
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/2025-05-08-%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86%E4%B8%AD%E7%9A%84%E5%B7%B4%E7%89%B9%E6%B2%83%E6%96%AF%E6%BB%A4%E6%B3%A2%E5%99%A8.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    巴特沃斯滤波器
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    数据结构
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            数据结构
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/2025-08-26-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84R_tree%28%E4%B8%80%29.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    数据结构R_Tree（一）理论算法
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/2025-08-29-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84R_tree%28%E4%BA%8C%29.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    数据结构R_Tree（二）设计实现
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    电机控制
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            电机控制
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E7%94%B5%E6%9C%BA%E6%8E%A7%E5%88%B6/2025-05-07-%E6%97%A0%E6%84%9F%E7%94%B5%E6%9C%BA%E6%8E%A7%E5%88%B6%E6%80%BB%E7%BA%B2%E9%A2%86.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    无感电机控制总纲
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E7%94%B5%E6%9C%BA%E6%8E%A7%E5%88%B6/2025-09-24-%E9%AB%98%E9%A2%91%E5%BC%A6%E6%B3%A2%E6%B3%A8%E5%85%A5.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    高频脉冲注入
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    系统脚本
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            系统脚本
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E7%B3%BB%E7%BB%9F%E8%84%9A%E6%9C%AC/2025-05-29-powershell%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    powershell快速入门
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E7%B3%BB%E7%BB%9F%E8%84%9A%E6%9C%AC/2025-08-06-wsl%E5%B8%B8%E7%94%A8%E5%86%85%E5%AE%B9.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    wsl2常用内容
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+  <h1>c++标签派发技术--以geometry泛型为例</h1>
+
+<h2 id="_1">一、前言</h2>
+<p>当我们想要对多种类型实现同样的接口，那么最先想到的是重载这个函数，根据接口来让编译器自动选择。今天将一个比较常见的技巧，就是标签派发，它也能实现类似重载的效果。</p>
+<h2 id="_2">二、主要结构设想</h2>
+<p>在C++泛型编程中，常需为不同类型的对象提供统一的接口。然而，这些类型之间往往不存在继承关系，无法通过虚函数实现多态。此时，如何根据参数类型选择对应的实现逻辑，成为一个普遍需求。标签派发（Tag Dispatching）正是解决这一问题的典型技术。</p>
+<p>标签派发旨在解决无继承关系的类在统一接口下实现不同行为的问题。</p>
+<p>首先，通过函数模板可获取参数的实际类型。但模板在编译期处理，无法直接用 if-else 判断类型。</p>
+<p>为此，引入两个机制：</p>
+<ol>
+<li>用标签类型标识不同情况，如 <code>struct tag_a {}; struct tag_b {};</code></li>
+<li>用函数重载模拟分支选择，根据标签调用对应实现。</li>
+</ol>
+<p>最终，主函数根据参数类型选择标签，并转发到正确的重载版本，实现编译期分发。</p>
+<h2 id="_3">三、具体实现方案</h2>
+<p>在无继承关系的类型间实现统一接口时，需在编译期根据类型选择不同实现。核心问题有两个：</p>
+<ol>
+<li>
+<p>如何表示类型的“常量值”？<br />
+    可定义空的标签类型作为类型常量：
+    <div class="highlight"><pre><span></span><code><span class="k">struct</span><span class="w"> </span><span class="nc">ConstType1</span><span class="w"> </span><span class="p">{};</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">ConstType2</span><span class="w"> </span><span class="p">{};</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">ConstType3</span><span class="w"> </span><span class="p">{};</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">ConstType4</span><span class="w"> </span><span class="p">{};</span>
+</code></pre></div></p>
+</li>
+<li>
+<p>如何实现类型的“swich-case”分支？<br />
+    利用类模板的偏特化机制，实现基于类型匹配的编译期分支，等效于 switch 语句。在<a href="2025-06-25-c%2B%2B%E6%A8%A1%E6%9D%BF%E5%8F%82%E6%95%B0%E6%8E%A8%E5%AF%BC%E5%92%8C%E6%A8%A1%E6%9D%BF%E5%AE%9E%E4%BE%8B%E5%8C%96.html">c++参数推导</a>中，可以使用偏特例化，既保持泛型的效果，又可以达到约束的效果。接下来谈谈如何实现“swich-case”的类型匹配。</p>
+</li>
+</ol>
+<h3 id="31-swich-value">3.1 实现类型 <code>swich (value)</code></h3>
+<p>在普通的 switch(value) 中，输入的是一个表达式的值；而在类型系统中，我们通过类型“求值”实现类似机制。</p>
+<p>switch 是对表达式求值后匹配分支，类型匹配则是：输入一个类型，得到另一个类型。</p>
+<p>假设有一个类型参数 <code>T</code>，通过元函数 <code>TraitType</code> 对其“求值”，输出结果为 <code>TraitType&lt;T&gt;::type</code>（即 T::tag）。</p>
+<pre class="mermaid"><code>flowchart TD
+    A[输入类型 T] --&gt; B[调用 TraitType&lt;T&gt;]
+    B --&gt; C{TraitType&lt;T&gt; 类模板}
+    C --&gt; D[输出结果 T::tag]</code></pre>
+<p>具体实现如下，通过特征类（trait）提取类型的标签：</p>
+<div class="highlight"><pre><span></span><code><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">TraitType</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">using</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">::</span><span class="n">tag</span><span class="p">;</span><span class="w">  </span><span class="c1">// 要求T定义嵌套类型tag</span>
+<span class="p">};</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">usedClass1</span><span class="w"> </span><span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="w">    </span><span class="k">using</span><span class="w"> </span><span class="n">tag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ConstType1</span><span class="p">;</span>
+<span class="p">};</span>
+</code></pre></div>
+<p>在这里就实现了输入一个类型实参，得到另外一个类型实参的目的。</p>
+<h3 id="32-case">3.2 实现类型的 case</h3>
+<p>在普通的 switch-case 中，case 分支匹配的是常量值，随后执行对应的动作。例如：</p>
+<div class="highlight"><pre><span></span><code><span class="k">case</span><span class="w"> </span><span class="no">value</span><span class="p">:</span><span class="w"> </span><span class="n">func</span><span class="p">();</span><span class="w"> </span><span class="k">break</span><span class="p">;</span>
+</code></pre></div>
+<p><strong>核心类比：</strong></p>
+<table>
+<thead>
+<tr>
+<th>运行时 <code>switch-case</code></th>
+<th>编译期类型匹配</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>case val:</code></td>
+<td>模板偏特化 <code>funcImpl_t&lt;T, val&gt;</code></td>
+</tr>
+<tr>
+<td><code>default:</code></td>
+<td>主模板默认特化</td>
+</tr>
+<tr>
+<td>执行对应语句块</td>
+<td>调用特化版本的 <code>funcImpl</code> 函数</td>
+</tr>
+</tbody>
+</table>
+<p>具体实现如下，使用类模板偏特化实现类型级的 case 分支：</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// 主模板：默认实现（相当于 default 分支）</span>
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">RealType</span><span class="p">,</span><span class="w"> </span><span class="k">typename</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">GetTypeOfTag</span><span class="o">&lt;</span><span class="n">RealType</span><span class="o">&gt;&gt;</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">funcImpl_t</span><span class="p">{</span>
+<span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">funcImpl</span><span class="p">(</span><span class="n">RealType</span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">Val</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;default impl</span><span class="se">\r\n</span><span class="s">&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// 偏特化版本1：处理标签 ConstType1（相当于 case ConstType1:）</span>
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">RealType</span><span class="o">&gt;</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">funcImpl_t</span><span class="w"> </span><span class="o">&lt;</span><span class="n">RealType</span><span class="p">,</span><span class="w"> </span><span class="n">ConstType1</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">funcImpl</span><span class="p">(</span><span class="n">RealType</span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">Val</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;ConstType1</span><span class="se">\r\n</span><span class="s">&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// 偏特化版本2：处理标签 ConstType2（相当于 case ConstType2:）</span>
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">RealType</span><span class="o">&gt;</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">funcImpl_t</span><span class="w"> </span><span class="o">&lt;</span><span class="n">RealType</span><span class="p">,</span><span class="w"> </span><span class="n">ConstType2</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">funcImpl</span><span class="p">(</span><span class="n">RealType</span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">Val</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;ConstType2</span><span class="se">\r\n</span><span class="s">&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// 偏特化版本3：处理标签 ConstType3（相当于 case ConstType3:）</span>
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">RealType</span><span class="o">&gt;</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">funcImpl_t</span><span class="w"> </span><span class="o">&lt;</span><span class="n">RealType</span><span class="p">,</span><span class="w"> </span><span class="n">ConstType3</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">funcImpl</span><span class="p">(</span><span class="n">RealType</span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">Val</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;ConstType3</span><span class="se">\r\n</span><span class="s">&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><strong>说明</strong>:</p>
+<ul>
+<li>每个偏特化版本对应一个具体的标签类型（如 ConstType1），相当于 case 中的常量值。</li>
+<li>编译器根据 TraitType<RealType>::type 的结果，选择匹配的特化版本，实现编译期分支。</li>
+<li>主模板作为默认情况，未匹配时启用，相当于 default 分支。</li>
+</ul>
+<p>这样，就实现了类型系统中的 case 机制：
+输入一个类型标签，匹配对应的实现分支，执行特定逻辑，完成从“类型到行为”的静态分发。</p>
+<h3 id="33">3.3 两者进行关联</h3>
+<p>我们的最终目标是：让函数能够根据传入参数的类型，自动选择对应的算法实现，从而达成 静态多态（Static Polymorphism）。</p>
+<p>与运行时通过虚函数和继承实现的动态多态不同，静态多态在编译期完成类型判断与函数绑定，不产生任何运行时开销。C++ 中实现这一机制的核心工具是 模板（templates） 和 类型萃取（type traits）。</p>
+<p>为了实现这一目标，我们已经实现了类似 switch (value) 的结构化类型分派机制，并为不同类型设计了对应的 case 分支处理逻辑。接下来的关键问题是如何将“类型”与“对应实现”有效地关联起来。</p>
+<p>解决这一问题的思路如下：</p>
+<p>C++ 的模板函数具备自动类型推导能力 —— 当调用模板函数时，编译器会根据实参的类型自动推断出模板参数。同时，结合 函数重载 和 重载解析（overload resolution） 规则，编译器会选择最匹配的函数版本。这意味着，我们可以为不同类型的参数提供不同的重载版本，从而实现基于类型的“分发”。</p>
+<p>更进一步，借助 std::enable_if、constexpr if（C++17）或 SFINAE 技术，可以在编译期根据类型特征（如是否为整型、是否支持某种操作等）启用或禁用特定的模板重载，实现精确的算法选择。</p>
+<p>因此，我们将 类型萃取 与 模板重载 相结合：</p>
+<ul>
+<li>利用模板获取实参的类型；</li>
+<li>利用类模板的默认模板参数提取类型标签（tag）；</li>
+<li>通过条件编译选择或者是模板偏特化基于标签进行分支匹配；</li>
+<li>最终在编译期完成“类型 → 算法”的静态绑定。</li>
+</ul>
+<p>即“类型 → 实现”的自动选择机制。</p>
+<p>如下面的代码：</p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">usedClass1</span><span class="w"> </span><span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="w">    </span><span class="k">using</span><span class="w"> </span><span class="n">tag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ConstType1</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
+<span class="kt">void</span><span class="w"> </span><span class="n">func1</span><span class="p">(</span><span class="n">T</span><span class="w"> </span><span class="n">val</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">funcImpl_t</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;::</span><span class="n">funcImpl</span><span class="p">(</span><span class="n">val</span><span class="p">);</span>
+<span class="p">};</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">usedClass1</span><span class="w"> </span><span class="n">ff</span><span class="p">;</span>
+<span class="w">    </span><span class="n">func1</span><span class="p">(</span><span class="n">ff</span><span class="p">);</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>其工作流程为：</p>
+<pre class="mermaid"><code>graph TD
+    A[模板函数 func1 接收实参] --&gt; B[自动推导出类型 T]
+    B --&gt; C[实例化 funcImpl_t&lt;T&gt;]
+    C --&gt; D[通过默认模板参数&lt;br&gt; TraitType&lt;T&gt;::type 提取 tag]
+    D --&gt; E[根据 tag 选择偏特化版本]
+    E --&gt; F[调用对应的 funcImpl 实现]
+    F --&gt; G[编译期完成类型到算法的静态绑定]</code></pre>
+<h3 id="34">3.4 实际设计方案</h3>
+<p>根据上一节的内容，主要的实现流程可总结如上。</p>
+<ol>
+<li>设计模板常量TYPE1、TYPE2...TYPEN<ul>
+<li>如上面例子中的 <code>struct ConstType1 {};struct ConstType2 {};struct ConstType3 {};struct ConstType4 {};</code>。</li>
+</ul>
+</li>
+<li>设计用户接口函数，userInterface<ul>
+<li>需要使用模板函数，从而获取传入变量的模板实参。</li>
+<li>将变量实参和模板实参同时传递给具体实现的类模型structImpl。</li>
+</ul>
+</li>
+<li>设计具体实现类usedClass1与模板常量的绑定方式，以及具体实现类usedClass1与萃取接口函数绑定的方式。<ul>
+<li>实现一：设计一个模板类trait，然后读取类中固定类型别名，然后把这个类型赋值给名为type的类型别名。</li>
+<li>实现二：设计一个主模板类trait，其内部没有type的类型别名，然后偏特化实现，type值定为想要绑定的类型别名。</li>
+</ul>
+</li>
+<li>根据第三步设计的绑定方式，将具体实现类的模板参数同步转发，并使用萃取接口萃取实际传入的类型绑定的模板常量。<ul>
+<li>实现方式一般为默认值。</li>
+<li>内部需要有一个静态接口函数接口，一般实现为使用静态断言false，表示没有特化成功。或者是该模板没有实现响应的接口。</li>
+</ul>
+</li>
+<li>根据structImpl依次特化模板常量TYPE1、TYPE2...TYPEN，然后重新实现主模板中的接口函数。</li>
+</ol>
+<p>主要实现的伪码如下</p>
+<div class="highlight"><pre><span></span><code><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
+<span class="kt">void</span><span class="w"> </span><span class="n">interfaceUser</span><span class="p">(</span><span class="n">T</span><span class="w"> </span><span class="n">val</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">switch</span><span class="w"> </span><span class="p">(</span><span class="n">GetTypeOfTag</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="no">ConstType1</span><span class="p">:</span>
+<span class="w">        </span><span class="n">funcImpl_t</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span><span class="w"> </span><span class="n">ConstType1</span><span class="o">&gt;::</span><span class="n">funcImpl</span><span class="p">(</span><span class="n">val</span><span class="p">);</span>
+<span class="w">    </span><span class="k">break</span><span class="p">;</span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="no">ConstType2</span><span class="p">:</span>
+<span class="w">        </span><span class="n">funcImpl_t</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span><span class="w"> </span><span class="n">ConstType1</span><span class="o">&gt;::</span><span class="n">funcImpl</span><span class="p">(</span><span class="n">val</span><span class="p">);</span>
+<span class="w">    </span><span class="k">break</span><span class="p">;</span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="no">ConstType3</span><span class="p">:</span>
+<span class="w">        </span><span class="n">funcImpl_t</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span><span class="w"> </span><span class="n">ConstType1</span><span class="o">&gt;::</span><span class="n">funcImpl</span><span class="p">(</span><span class="n">val</span><span class="p">);</span>
+
+<span class="w">    </span><span class="k">break</span><span class="p">;</span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="no">ConstType4</span><span class="p">:</span>
+<span class="w">        </span><span class="n">funcImpl_t</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span><span class="w"> </span><span class="n">ConstType1</span><span class="o">&gt;::</span><span class="n">funcImpl</span><span class="p">(</span><span class="n">val</span><span class="p">);</span>
+<span class="w">    </span><span class="k">break</span><span class="p">;</span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="no">ConstType5</span><span class="p">:</span>
+<span class="w">        </span><span class="n">funcImpl_t</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span><span class="w"> </span><span class="n">ConstType1</span><span class="o">&gt;::</span><span class="n">funcImpl</span><span class="p">(</span><span class="n">val</span><span class="p">);</span>
+<span class="w">    </span><span class="k">break</span><span class="p">;</span>
+<span class="w">    </span><span class="k">default</span><span class="o">:</span>
+<span class="w">        </span><span class="k">static_assert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;error message!&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="k">break</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>关系图如下：</p>
+<pre class="mermaid"><code>flowchart TD
+    %% ===== 第一层：模板常量定义 =====
+    A[模板常量库] --&gt; B["TYPE1 (ConstType1{})"]
+    A --&gt; C["TYPE2 (ConstType2{})"]
+    A --&gt; D["..."]
+    A --&gt; E["TYPEN (ConstTypeN{})"]
+
+    %% ===== 第二层：用户接口 =====
+    F[用户接口函数] --&gt;|"template&lt;TYPEX&gt;"| G["userInterface&lt;TYPEX&gt;(args)"]
+    G --&gt;|"1. 捕获模板实参TYPEX&lt;br&gt;2. 转发参数args"| H{structImpl}
+
+    %% ===== 第三层：类型萃取核心 =====
+    H --&gt;|"分发控制"| I[[trait&lt;T&gt;]]
+    I --&gt;|主模板| J["static_assert(false)"]
+    I --&gt;|偏特化实现| K["trait&lt;TYPE1&gt;::type = usedClass1"]
+    I --&gt;|固定别名实现| L["trait&lt;T&gt;::type = T::impl_type"]
+
+    %% ===== 第四层：具体实现 =====
+    K --&gt; M[usedClass1]
+    L --&gt; M
+    M --&gt;|"实现算法"| N["具体功能实现"]
+
+    %% ===== 第五层：输出 =====
+    N --&gt; O[生成目标代码]
+
+    %% ===== 补充关系 =====
+    B -.-&gt;|作为模板实参| G
+    C -.-&gt; G
+    E -.-&gt; G
+    J -.-&gt;|错误处理| P[编译终止]
+
+    %% ===== 样式定义 =====
+    classDef const fill:#cff,stroke:#333;
+    classDef interface fill:#fcf,stroke:#333;
+    classDef trait fill:#ffc,stroke:#333;
+    classDef impl fill:#cfc,stroke:#333;
+    classDef output fill:#ccf,stroke:#333;
+
+    class A,B,C,D,E const;
+    class F,G,H interface;
+    class I,J,K,L trait;
+    class M,N impl;
+    class O output;
+</code></pre>
+<h2 id="impl">四、impl获取信息的泛型实现</h2>
+<p>前面提到通过自定义 tag 匹配算法实现，但引入了一个问题：编写算法时只知道 tag，对传入对象的内部信息一无所知，难以操作。要访问对象的信息，通常有三种方式：</p>
+<ul>
+<li>
+<p>通过 obj.data 访问数据成员：<br />
+    需要算法方指定类中必须存在的数据成员名。但由于算法和类由不同人员开发，算法要求类暴露特定成员，会增加类设计的约束，影响封装性，不够灵活。</p>
+</li>
+<li>
+<p>通过 obj.memberFunc() 调用成员函数：<br />
+    比直接访问成员稍好，但仍要求类提供特定公有接口。若类开发者不愿暴露这些接口，则无法使用。</p>
+</li>
+<li>
+<p>通过友元获取类内部信息：<br />
+    虽可访问私有成员，但仍需类主动声明友元，本质上仍依赖类的配合。</p>
+</li>
+</ul>
+<p>三种方式都要求类按照算法预期提供特定访问方式。算法方只能提出要求：<b>若想使用本算法，必须实现指定的数据或接口</b>，否则无法工作。这在一定程度上解决了前述困境——明确使用条件，但依然对类的设计提出了约束。</p>
+<h3 id="41">4.1 友元优缺点分析</h3>
+<p>c++中可以使用友元函数和友元类，这两者可以各自选择是否需要模板化来实现泛型的目的。</p>
+<h3 id="42">4.2 友元函数</h3>
+<p>算法端通常采用模板函数作为统一接口，用于获取或设置对象数据。基本做法是：</p>
+<ul>
+<li>定义一个泛型函数模板，对未特化的类型触发 static_assert 报错，提示用户必须提供特化实现。</li>
+<li>用户在自定义类中将该函数模板的特化版本声明为 friend，从而允许其访问私有成员。</li>
+<li>提供对应的函数模板特化实现，直接访问对象的私有数据。</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">getInfoUsedForAlgo</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">T</span><span class="o">&amp;</span><span class="w"> </span><span class="n">val</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="k">decltype</span><span class="p">(</span><span class="k">auto</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">static_assert</span><span class="p">(</span><span class="nb">false</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;should specialize getInfoUsedForAlgo for your class&quot;</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">concreteType</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">42</span><span class="p">;</span>
+<span class="w">    </span><span class="k">friend</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">getInfoUsedForAlgo</span><span class="o">&lt;</span><span class="n">concreteType</span><span class="o">&gt;</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">concreteType</span><span class="o">&amp;</span><span class="w"> </span><span class="n">val</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="k">decltype</span><span class="p">(</span><span class="k">auto</span><span class="p">);</span>
+<span class="p">};</span>
+
+<span class="k">template</span><span class="o">&lt;&gt;</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">getInfoUsedForAlgo</span><span class="o">&lt;</span><span class="n">concreteType</span><span class="o">&gt;</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">concreteType</span><span class="o">&amp;</span><span class="w"> </span><span class="n">val</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="k">decltype</span><span class="p">(</span><span class="k">auto</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">val</span><span class="p">.</span><span class="n">name</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>特点与优势：</p>
+<ul>
+<li>实现简单直接，无需额外类或复杂结构。</li>
+<li>通过友元机制访问私有成员，不破坏类的封装性。</li>
+<li>对于 struct，可直接特化函数模板，无需显式声明友元。</li>
+<li>算法方定义接口契约，用户按需实现，降低了算法与具体类型的耦合度。</li>
+</ul>
+<p>本质：<b>算法定义访问契约，用户通过友元函数特化满足契约，实现安全、解耦的数据提取</b>。</p>
+<h3 id="43">4.3 友元类</h3>
+<p>使用友元类的主要目的是利用类模板的偏特化能力，因为函数模板不支持偏特化。通过偏特化可针对不同类型施加条件判断，适配具体类的实现，同时保留泛型接口的通用性。</p>
+<p>常见方案有两种：</p>
+<hr />
+<h4 id="431-boostserialization">4.3.1 Boost.Serialization 方案（友元普通类 + 成员函数模板）</h4>
+<ul>
+<li>定义一个普通类（如 detail::access），作为通用访问器。</li>
+<li>该类的静态成员函数为函数模板，负责调用被访问类的私有接口（如 serialize）。</li>
+<li>用户类将 access 声明为友元，并实现相应的私有访问接口。</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">namespace</span><span class="w"> </span><span class="nn">detail</span><span class="w"> </span><span class="p">{</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">access</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">Archive</span><span class="p">,</span><span class="w"> </span><span class="k">typename</span><span class="w"> </span><span class="nc">UserType</span><span class="o">&gt;</span>
+<span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">save</span><span class="p">(</span><span class="n">Archive</span><span class="o">&amp;</span><span class="w"> </span><span class="n">ar</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">UserType</span><span class="o">&amp;</span><span class="w"> </span><span class="n">obj</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">obj</span><span class="p">.</span><span class="n">serialize</span><span class="p">(</span><span class="n">ar</span><span class="p">);</span><span class="w"> </span><span class="c1">// 调用私有成员函数</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">};</span>
+<span class="p">}</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">concreteType</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">42</span><span class="p">;</span>
+<span class="w">    </span><span class="k">friend</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">detail</span><span class="o">::</span><span class="n">access</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">Archive</span><span class="o">&gt;</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="n">serialize</span><span class="p">(</span><span class="n">Archive</span><span class="o">&amp;</span><span class="w"> </span><span class="n">ar</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">ar</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">name</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div>
+<p>特点：</p>
+<ul>
+<li>访问逻辑由被访问类主动实现（如 serialize 方法），控制权在用户端。</li>
+<li>适用于需要深度定制序列化行为的场景，灵活性高。</li>
+</ul>
+<hr />
+<h4 id="432-boostgeometry">4.3.2 Boost.Geometry 方案（友元类模板 + 静态成员函数）</h4>
+<ul>
+<li>定义一个类模板 detail::access<T>，用于提取类型 T 的数据。</li>
+<li>提供默认模板版本并用 static_assert 限制未特化情况。</li>
+<li>用户通过特化 access<T> 模板，并将其声明为友元，实现对私有成员的访问。</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">namespace</span><span class="w"> </span><span class="nn">detail</span><span class="w"> </span><span class="p">{</span>
+<span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">access</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">getData</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">T</span><span class="o">&amp;</span><span class="w"> </span><span class="n">obj</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="k">decltype</span><span class="p">(</span><span class="k">auto</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">static_assert</span><span class="p">(</span><span class="nb">false</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;must specialize access&lt;T&gt;&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">};</span>
+<span class="p">}</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">concreteType</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">42</span><span class="p">;</span>
+<span class="w">    </span><span class="k">friend</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">detail</span><span class="o">::</span><span class="n">access</span><span class="o">&lt;</span><span class="n">concreteType</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="k">template</span><span class="o">&lt;&gt;</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">detail</span><span class="o">::</span><span class="n">access</span><span class="o">&lt;</span><span class="n">concreteType</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="o">&amp;</span><span class="w"> </span><span class="nf">getData</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">concreteType</span><span class="o">&amp;</span><span class="w"> </span><span class="n">obj</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">obj</span><span class="p">.</span><span class="n">name</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">};</span>
+
+<span class="c1">// 支持模板类特化</span>
+<span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">concreteTypeT</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">42</span><span class="p">;</span>
+<span class="w">    </span><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">U</span><span class="o">&gt;</span>
+<span class="w">    </span><span class="k">friend</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">detail</span><span class="o">::</span><span class="n">access</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">detail</span><span class="o">::</span><span class="n">access</span><span class="o">&lt;</span><span class="n">concreteTypeT</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="o">&amp;</span><span class="w"> </span><span class="nf">getData</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">concreteTypeT</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&amp;</span><span class="w"> </span><span class="n">obj</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">obj</span><span class="p">.</span><span class="n">name</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div>
+<p>特点：</p>
+<ul>
+<li>通过模板特化统一提供外部访问接口，适合泛型库设计。</li>
+<li>支持对模板类的整体特化，提升代码复用性</li>
+</ul>
+<h3 id="44">4.4 总结</h3>
+<table>
+<thead>
+<tr>
+<th>方案</th>
+<th>机制</th>
+<th>适用场景</th>
+<th>特点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Serialization 风格</td>
+<td>友元普通类 + 成员函数模板</td>
+<td>每个类需定制交互逻辑</td>
+<td>用户实现私有接口，灵活但重复</td>
+</tr>
+<tr>
+<td>Geometry 风格</td>
+<td>友元类模板 + 偏特化</td>
+<td>泛型库、模板类通用处理</td>
+<td>接口集中管理，复用性强</td>
+</tr>
+</tbody>
+</table>
+<h2 id="geometry">五、geometry标签分发的一个实现</h2>
+<p>既然是针对进行处理的，那么变量肯定需要是类型中的常量，假设我预先设计一个类型，比如</p>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;type_traits&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;vector&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;list&gt;</span>
+
+<span class="c1">// 1. 定义标签类型</span>
+<span class="k">namespace</span><span class="w"> </span><span class="nn">geometry</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">namespace</span><span class="w"> </span><span class="nn">traits</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// 主标签</span>
+<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">geometry_tag</span><span class="w"> </span><span class="p">{};</span>
+
+<span class="w">        </span><span class="c1">// 具体几何类型标签</span>
+<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">point_tag</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">geometry_tag</span><span class="w"> </span><span class="p">{};</span>
+<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">line_tag</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">geometry_tag</span><span class="w"> </span><span class="p">{};</span>
+<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">polygon_tag</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">geometry_tag</span><span class="w"> </span><span class="p">{};</span>
+<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">multi_point_tag</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">geometry_tag</span><span class="w"> </span><span class="p">{};</span>
+<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">multi_line_tag</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">geometry_tag</span><span class="w"> </span><span class="p">{};</span>
+<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">multi_polygon_tag</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">geometry_tag</span><span class="w"> </span><span class="p">{};</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// 2. 定义特征类模板（主模板）</span>
+<span class="w">    </span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">Geometry</span><span class="o">&gt;</span>
+<span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">tag</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// 默认情况下没有标签</span>
+<span class="w">        </span><span class="c1">// 用户需要为他们的几何类型特化这个特征类</span>
+<span class="w">    </span><span class="p">};</span>
+
+<span class="w">    </span><span class="c1">// 3. 定义一些几何类型</span>
+<span class="w">    </span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
+<span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">Point</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">T</span><span class="w"> </span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">;</span>
+<span class="w">    </span><span class="p">};</span>
+
+<span class="w">    </span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
+<span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">Line</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">Point</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="w"> </span><span class="n">start</span><span class="p">,</span><span class="w"> </span><span class="n">end</span><span class="p">;</span>
+<span class="w">    </span><span class="p">};</span>
+
+<span class="w">    </span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
+<span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">Polygon</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Point</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">outer</span><span class="p">;</span>
+<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Point</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&gt;&gt;</span><span class="w"> </span><span class="n">inners</span><span class="p">;</span>
+<span class="w">    </span><span class="p">};</span>
+
+<span class="w">    </span><span class="c1">// 4. 为几何类型特化标签特征</span>
+<span class="w">    </span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
+<span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">tag</span><span class="o">&lt;</span><span class="n">Point</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">using</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">traits</span><span class="o">::</span><span class="n">point_tag</span><span class="p">;</span>
+<span class="w">    </span><span class="p">};</span>
+
+<span class="w">    </span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
+<span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">tag</span><span class="o">&lt;</span><span class="n">Line</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">using</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">traits</span><span class="o">::</span><span class="n">line_tag</span><span class="p">;</span>
+<span class="w">    </span><span class="p">};</span>
+
+<span class="w">    </span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
+<span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">tag</span><span class="o">&lt;</span><span class="n">Polygon</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">using</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">traits</span><span class="o">::</span><span class="n">polygon_tag</span><span class="p">;</span>
+<span class="w">    </span><span class="p">};</span>
+
+<span class="w">    </span><span class="c1">// 5. 辅助类型提取</span>
+<span class="w">    </span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">Geometry</span><span class="o">&gt;</span>
+<span class="w">    </span><span class="k">using</span><span class="w"> </span><span class="n">tag_t</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">typename</span><span class="w"> </span><span class="nc">tag</span><span class="o">&lt;</span><span class="n">Geometry</span><span class="o">&gt;::</span><span class="n">type</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">// 6. 实现算法（使用标签派发）</span>
+<span class="w">    </span><span class="k">namespace</span><span class="w"> </span><span class="nn">dispatch</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// 默认实现（主模板）</span>
+<span class="w">        </span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">Geometry</span><span class="p">,</span><span class="w"> </span><span class="k">typename</span><span class="w"> </span><span class="nc">Tag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tag_t</span><span class="o">&lt;</span><span class="n">Geometry</span><span class="o">&gt;&gt;</span>
+<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">area</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">static</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="nf">apply</span><span class="p">(</span><span class="n">Geometry</span><span class="w"> </span><span class="k">const</span><span class="o">&amp;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="c1">// 默认实现（可能抛出异常或静态断言）</span>
+<span class="w">                </span><span class="k">static_assert</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">Geometry</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span>
+<span class="w">                    </span><span class="s">&quot;Not implemented for this geometry type&quot;</span><span class="p">);</span>
+<span class="w">                </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">};</span>
+
+<span class="w">        </span><span class="c1">// 点特化</span>
+<span class="w">        </span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">Geometry</span><span class="o">&gt;</span>
+<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">area</span><span class="o">&lt;</span><span class="n">Geometry</span><span class="p">,</span><span class="w"> </span><span class="n">traits</span><span class="o">::</span><span class="n">point_tag</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">static</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="nf">apply</span><span class="p">(</span><span class="n">Geometry</span><span class="w"> </span><span class="k">const</span><span class="o">&amp;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="k">return</span><span class="w"> </span><span class="mf">0.0</span><span class="p">;</span><span class="w"> </span><span class="c1">// 点的面积为0</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">};</span>
+
+<span class="w">        </span><span class="c1">// 线特化</span>
+<span class="w">        </span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">Geometry</span><span class="o">&gt;</span>
+<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">area</span><span class="o">&lt;</span><span class="n">Geometry</span><span class="p">,</span><span class="w"> </span><span class="n">traits</span><span class="o">::</span><span class="n">line_tag</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">static</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="nf">apply</span><span class="p">(</span><span class="n">Geometry</span><span class="w"> </span><span class="k">const</span><span class="o">&amp;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="k">return</span><span class="w"> </span><span class="mf">0.0</span><span class="p">;</span><span class="w"> </span><span class="c1">// 线的面积为0</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">};</span>
+
+<span class="w">        </span><span class="c1">// 多边形特化</span>
+<span class="w">        </span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">Geometry</span><span class="o">&gt;</span>
+<span class="w">        </span><span class="k">struct</span><span class="w"> </span><span class="nc">area</span><span class="o">&lt;</span><span class="n">Geometry</span><span class="p">,</span><span class="w"> </span><span class="n">traits</span><span class="o">::</span><span class="n">polygon_tag</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">static</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="nf">apply</span><span class="p">(</span><span class="n">Geometry</span><span class="w"> </span><span class="k">const</span><span class="o">&amp;</span><span class="w"> </span><span class="n">geom</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="c1">// 简化版多边形面积计算（实际Boost.Geometry有更复杂的实现）</span>
+<span class="w">                </span><span class="kt">double</span><span class="w"> </span><span class="n">sum</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="p">;</span>
+<span class="w">                </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">size_t</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">geom</span><span class="p">.</span><span class="n">outer</span><span class="p">.</span><span class="n">size</span><span class="p">();</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="n">geom</span><span class="p">.</span><span class="n">outer</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+<span class="w">                    </span><span class="n">sum</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="p">(</span><span class="n">geom</span><span class="p">.</span><span class="n">outer</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">geom</span><span class="p">.</span><span class="n">outer</span><span class="p">[</span><span class="n">j</span><span class="p">].</span><span class="n">y</span><span class="w"> </span><span class="o">-</span><span class="w"> </span>
+<span class="w">                            </span><span class="n">geom</span><span class="p">.</span><span class="n">outer</span><span class="p">[</span><span class="n">j</span><span class="p">].</span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">geom</span><span class="p">.</span><span class="n">outer</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">y</span><span class="p">);</span>
+<span class="w">                </span><span class="p">}</span>
+<span class="w">                </span><span class="k">return</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">abs</span><span class="p">(</span><span class="n">sum</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mf">2.0</span><span class="p">;</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">};</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// 7. 用户接口函数</span>
+<span class="w">    </span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">Geometry</span><span class="o">&gt;</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">area</span><span class="p">(</span><span class="n">Geometry</span><span class="w"> </span><span class="k">const</span><span class="o">&amp;</span><span class="w"> </span><span class="n">geom</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">dispatch</span><span class="o">::</span><span class="n">area</span><span class="o">&lt;</span><span class="n">Geometry</span><span class="o">&gt;::</span><span class="n">apply</span><span class="p">(</span><span class="n">geom</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="n">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">geometry</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">Point</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="w"> </span><span class="n">p</span><span class="p">{</span><span class="mf">1.0</span><span class="p">,</span><span class="w"> </span><span class="mf">2.0</span><span class="p">};</span>
+<span class="w">    </span><span class="n">Line</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="w"> </span><span class="n">l</span><span class="p">{{</span><span class="mf">0.0</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0</span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="mf">1.0</span><span class="p">,</span><span class="w"> </span><span class="mf">1.0</span><span class="p">}};</span>
+<span class="w">    </span><span class="n">Polygon</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="w"> </span><span class="n">poly</span><span class="p">{</span>
+<span class="w">        </span><span class="p">{{</span><span class="mf">0.0</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0</span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="mf">1.0</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0</span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="mf">1.0</span><span class="p">,</span><span class="w"> </span><span class="mf">1.0</span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="mf">0.0</span><span class="p">,</span><span class="w"> </span><span class="mf">1.0</span><span class="p">}},</span><span class="w"> </span><span class="c1">// 外环</span>
+<span class="w">        </span><span class="p">{}</span><span class="w"> </span><span class="c1">// 内环</span>
+<span class="w">    </span><span class="p">};</span>
+
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Point area: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">area</span><span class="p">(</span><span class="n">p</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Line area: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">area</span><span class="p">(</span><span class="n">l</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Polygon area: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">area</span><span class="p">(</span><span class="n">poly</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "..", "features": ["navigation.instant", "navigation.tabs", "toc.integrate", "content.code.copy", "content.code.annotate", "navigation.top", "search.highlight"], "search": "../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+      
+        <script src="../assets/javascripts/focus-mode.js"></script>
+      
+    
+  </body>
+</html>

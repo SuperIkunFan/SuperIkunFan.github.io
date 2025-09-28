@@ -1,0 +1,2468 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../2025-09-10-c%2B%2B%E7%9A%84%E7%B1%BB%E5%A4%96%E7%B1%BB%E5%9E%8B%E8%A7%A3%E6%9E%90%E8%A7%84%E5%88%99.html">
+      
+      
+        <link rel="next" href="2025-09-16-c%2B%2B%E7%9A%84%E5%8D%8F%E7%A8%8B%E5%BA%93.html">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.20">
+    
+    
+      
+        <title>format库 - ikun爱学习</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.e53b48f4.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans,+Noto+Sans+SC:300,300i,400,400i,700,700i%7CFira+Code,+monospace:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Noto Sans, Noto Sans SC";--md-code-font:"Fira Code, monospace"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../../index.html" title="ikun爱学习" class="md-header__button md-logo" aria-label="ikun爱学习" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            ikun爱学习
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              format库
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="blue"  aria-label="暗色模式"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="暗色模式" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="亮色模式"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="亮色模式" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../index.html" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../cmake/2024-09-04-cmake%E7%9A%84install%E5%91%BD%E4%BB%A4.html" class="md-tabs__link">
+          
+  
+  
+  Cmake
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../2025-05-26-%E4%B8%80%E7%A7%8Dc%2B%2B%E5%B8%B8%E9%87%8F%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF.html" class="md-tabs__link">
+          
+  
+  
+  Cplusplus
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/2025-03-28-cmake%E7%9A%84ctest%E6%A1%86%E6%9E%B6.html" class="md-tabs__link">
+          
+  
+  
+  单元测试
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6/2025-09-16-clangd%E7%9A%84vscode%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B.html" class="md-tabs__link">
+          
+  
+  
+  常用软件
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/2025-05-07-%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86%E4%B8%AD%E7%9A%84%E5%90%84%E7%A7%8D%E9%A2%91%E7%8E%87.html" class="md-tabs__link">
+          
+  
+  
+  数字信号处理
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/2025-08-26-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84R_tree%28%E4%B8%80%29.html" class="md-tabs__link">
+          
+  
+  
+  数据结构
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../%E7%94%B5%E6%9C%BA%E6%8E%A7%E5%88%B6/2025-05-07-%E6%97%A0%E6%84%9F%E7%94%B5%E6%9C%BA%E6%8E%A7%E5%88%B6%E6%80%BB%E7%BA%B2%E9%A2%86.html" class="md-tabs__link">
+          
+  
+  
+  电机控制
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../%E7%B3%BB%E7%BB%9F%E8%84%9A%E6%9C%AC/2025-05-29-powershell%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8.html" class="md-tabs__link">
+          
+  
+  
+  系统脚本
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../index.html" title="ikun爱学习" class="md-nav__button md-logo" aria-label="ikun爱学习" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    ikun爱学习
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Cmake
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Cmake
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cmake/2024-09-04-cmake%E7%9A%84install%E5%91%BD%E4%BB%A4.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    cmake的install命令详解
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cmake/2024-09-04-cmake%E7%9A%84%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%8F%82%E6%95%B0.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    cmake的命令行参数
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cmake/2024-09-05-cmake%E7%9A%84include%E5%91%BD%E4%BB%A4.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    cmake的include命令详解
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cmake/2024-09-05-cmake%E7%9A%84list%E5%91%BD%E4%BB%A4.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    cmake的list命令详解
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cmake/2024-09-05-cmake%E7%9A%84set%E5%91%BD%E4%BB%A4.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    cmake的set命令详解
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cmake/2024-09-06-cmake%E7%9A%84add_custom_command%E5%91%BD%E4%BB%A4.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    cmake的add_custom_command命令详解
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cmake/2025-01-09-cmake%E7%9A%84file%E5%91%BD%E4%BB%A4.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    cmake的cmake的file命令详解
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cmake/2025-01-09-cmake%E7%9A%84option%E5%91%BD%E4%BB%A4.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    cmake的cmake的option命令详解
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cmake/2025-01-15-cmake%E7%9A%84target%E6%A6%82%E5%BF%B5.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    cmake的cmake的target概念
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cmake/2025-01-16-cmake%E7%9A%84%E6%80%BB%E4%BD%93%E8%AF%AD%E8%A8%80%E6%A6%82%E5%BF%B5.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    cmake的cmake的总体语言概念
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cmake/2025-07-09-cmake%E7%9A%84%E5%89%8D%E7%BD%AE%E7%9F%A5%E8%AF%86gcc.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    cmake的前置知识--gcc
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cmake/2025-08-04-cmake%E7%9A%84preset%E5%8A%9F%E8%83%BD.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    cmake的preset功能
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cmake/2025-08-08-cmake%E7%9A%84%E7%94%9F%E6%88%90%E5%99%A8%E8%A1%A8%E8%BE%BE%E5%BC%8F.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    cmake的生成器表达式
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    Cplusplus
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Cplusplus
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2025-05-26-%E4%B8%80%E7%A7%8Dc%2B%2B%E5%B8%B8%E9%87%8F%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    基于非类型模板形参的编译期常量注入技术
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2025-06-25-c%2B%2B%E6%A8%A1%E6%9D%BF%E5%8F%82%E6%95%B0%E6%8E%A8%E5%AF%BC%E5%92%8C%E6%A8%A1%E6%9D%BF%E5%AE%9E%E4%BE%8B%E5%8C%96.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    c++模板参数推导和模板实例化
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2025-06-26-c%2B%2B%E6%A0%87%E7%AD%BE%E6%B4%BE%E5%8F%91%E6%8A%80%E6%9C%AF--%E4%BB%A5geometry%E6%B3%9B%E5%9E%8B%E4%B8%BA%E4%BE%8B.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    c++标签派发技术--以geometry泛型为例
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2025-07-10-c%2B%2B%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96%E6%96%B9%E5%BC%8F%E4%BB%A5%E5%8F%8A%E5%88%9D%E5%A7%8B%E5%8C%96%E5%88%97%E8%A1%A8.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    c++的初始化方式以及初始化列表
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2025-07-11-c%2B%2B%E7%9A%84%E5%8F%AF%E5%8F%98%E5%8F%82%E6%95%B0%E6%A8%A1%E6%9D%BF.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    c++的可变参数模板
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2025-07-15-c%2B%2B%E7%9A%84%E5%B9%B3%E5%87%A1%E7%B1%BB%E5%92%8C%E6%A0%87%E5%87%86%E5%B8%83%E5%B1%80%E7%B1%BB.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    c++的平凡类和标准布局类
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2025-08-18-c%2B%2B%E7%9A%84%E5%B8%B8%E9%87%8F%E6%BC%94%E5%8F%98.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    c++的常量演变
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2025-09-10-c%2B%2B%E7%9A%84%E7%B1%BB%E5%A4%96%E7%B1%BB%E5%9E%8B%E8%A7%A3%E6%9E%90%E8%A7%84%E5%88%99.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    c++的类外类型解析规则
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_9" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3_9" id="__nav_3_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    C++20
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_9_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_9">
+            <span class="md-nav__icon md-icon"></span>
+            C++20
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    format库
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="2025-08-19-c%2B%2B%E7%9A%84format%E5%BA%93.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    format库
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      一、前言
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="一、前言">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-printf" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.1 printf的缺点
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.2 流式操作符
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13-format" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.3 format库
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      二、格式化字符串
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="二、格式化字符串">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.1 参数顺序指定
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.2 格式化形式指定
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      三、自定义类型
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="三、自定义类型">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-parse" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.1 解析成员函数parse
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-format" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.2 格式化字符串format
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-parse" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.3 验证parse传入的字符串
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="2025-09-16-c%2B%2B%E7%9A%84%E5%8D%8F%E7%A8%8B%E5%BA%93.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    协程库
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    单元测试
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            单元测试
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/2025-03-28-cmake%E7%9A%84ctest%E6%A1%86%E6%9E%B6.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    cmake的ctest框架
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/2025-03-29-boost.test%E6%A1%86%E6%9E%B6.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    boost的单元测试框架
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    常用软件
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            常用软件
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6/2025-09-16-clangd%E7%9A%84vscode%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    clangd的配置
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6/2025-09-26-draw-io%E7%9A%84%E5%B8%B8%E8%A7%81%E6%93%8D%E4%BD%9C.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    draw-io的常见操作
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    数字信号处理
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            数字信号处理
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/2025-05-07-%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86%E4%B8%AD%E7%9A%84%E5%90%84%E7%A7%8D%E9%A2%91%E7%8E%87.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    数字信号中的各种频率
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/2025-05-08-%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E4%B8%AD%E9%A2%91%E5%9F%9F%E6%BB%A4%E6%B3%A2%E5%99%A8%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    频域滤波器基础知识
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/2025-05-08-%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86%E4%B8%AD%E7%9A%84%E5%B7%B4%E7%89%B9%E6%B2%83%E6%96%AF%E6%BB%A4%E6%B3%A2%E5%99%A8.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    巴特沃斯滤波器
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    数据结构
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            数据结构
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/2025-08-26-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84R_tree%28%E4%B8%80%29.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    数据结构R_Tree（一）理论算法
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/2025-08-29-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84R_tree%28%E4%BA%8C%29.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    数据结构R_Tree（二）设计实现
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    电机控制
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            电机控制
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%94%B5%E6%9C%BA%E6%8E%A7%E5%88%B6/2025-05-07-%E6%97%A0%E6%84%9F%E7%94%B5%E6%9C%BA%E6%8E%A7%E5%88%B6%E6%80%BB%E7%BA%B2%E9%A2%86.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    无感电机控制总纲
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%94%B5%E6%9C%BA%E6%8E%A7%E5%88%B6/2025-09-24-%E9%AB%98%E9%A2%91%E5%BC%A6%E6%B3%A2%E6%B3%A8%E5%85%A5.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    高频脉冲注入
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    系统脚本
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            系统脚本
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%B3%BB%E7%BB%9F%E8%84%9A%E6%9C%AC/2025-05-29-powershell%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    powershell快速入门
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%B3%BB%E7%BB%9F%E8%84%9A%E6%9C%AC/2025-08-06-wsl%E5%B8%B8%E7%94%A8%E5%86%85%E5%AE%B9.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    wsl2常用内容
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+  <h1>format库</h1>
+
+<h2 id="_1">一、前言</h2>
+<p>c++20之前，c++在输出字符串时常常使用printf或者是流式操作符这两种方式进行字符串输出。</p>
+<h3 id="11-printf">1.1 <code>printf</code>的缺点</h3>
+<p>printf需要程序员自己选择格式化的方式，需要用户自己指定当前数据类型，从而在运行时进行格式化。由于这个特性，它带来了不便于维护的缺点：</p>
+<ol>
+<li>
+<p>类型不匹配导致未定义行为（Undefined Behavior）<br />
+    printf 完全依赖程序员手动指定格式化符（如 %d, %f, %s），但不检查实际传入参数的类型是否匹配。</p>
+</li>
+<li>
+<p>缺乏编译时检查<br />
+    由于 printf 是 可变参数函数（variadic function），编译器无法在编译期验证格式字符串与参数的匹配性。</p>
+</li>
+<li>
+<p>类型选择错误常见且隐蔽<br />
+    C++ 中类型丰富（如 size_t, ptrdiff_t, long long, uint32_t），但 printf 没有统一的格式化规则。<br />
+    这导致平台维护性差。</p>
+</li>
+<li>
+<p>字符串安全问题<br />
+    printf 对字符串处理不安全，尤其是当格式字符串来自用户输入时：<br />
+    <div class="highlight"><pre><span></span><code>char* user_input = &quot;%s%s%s%s%s%s&quot;;  // 恶意输入
+printf(user_input);  // ❌ 格式化字符串攻击！会读取栈上随机数据
+</code></pre></div>
+    这曾是历史上著名的安全漏洞来源（如缓冲区溢出攻击）。</p>
+</li>
+</ol>
+<h3 id="12">1.2 流式操作符</h3>
+<p>由于printf有这些缺点，c++提出使用流式运算符，通过函数重载的方式自动匹配对应的格式化函数。但是流式运算符会造成整体输出的格式化字符串分散，难以从整体看出所要格式的字符内容是是什么。尤其是在一次格式化时有多个参数一同输出时更为严重。</p>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iomanip&gt;</span>
+
+<span class="k">struct</span><span class="w"> </span><span class="nc">User</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">name</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">age</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">salary</span><span class="p">;</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span><span class="w"> </span><span class="n">login_count</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="n">User</span><span class="w"> </span><span class="n">user</span><span class="p">{</span><span class="s">&quot;张三&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">28</span><span class="p">,</span><span class="w"> </span><span class="mf">85000.0</span><span class="p">,</span><span class="w"> </span><span class="mi">153</span><span class="p">};</span>
+
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;用户: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">user</span><span class="p">.</span><span class="n">name</span>
+<span class="w">          </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot; (&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">user</span><span class="p">.</span><span class="n">age</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;岁), 年薪: &quot;</span>
+<span class="w">          </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">fixed</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">setprecision</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">user</span><span class="p">.</span><span class="n">salary</span>
+<span class="w">          </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;元, 登录次数: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">user</span><span class="p">.</span><span class="n">login_count</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;次&quot;</span>
+<span class="w">          </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</code></pre></div>
+<h3 id="13-format">1.3 <code>format</code>库</h3>
+<p>由于以上两种方式都没有那么舒服，而 <code>Python</code> 的 <code>f-string</code>（格式化字符串字面量） 提供了一种更直观、更优雅的解决方案.</p>
+<div class="highlight"><pre><span></span><code><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;张三&quot;</span>
+<span class="n">age</span> <span class="o">=</span> <span class="mi">28</span>
+<span class="n">salary</span> <span class="o">=</span> <span class="mf">85000.0</span>
+
+<span class="c1"># ✅ f-string：直观、集中、安全</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;用户: </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">age</span><span class="si">}</span><span class="s2">岁), 年薪: </span><span class="si">{</span><span class="n">salary</span><span class="si">:</span><span class="s2">,.2f</span><span class="si">}</span><span class="s2">元&quot;</span><span class="p">)</span>
+</code></pre></div>
+<p>f-string 的优势：</p>
+<ol>
+<li>
+<p>格式完全集中<br />
+    整个输出模板清晰可见，无需拼接。</p>
+</li>
+<li>
+<p>变量直接嵌入<br />
+    {name}、{age} 直接写在字符串中，无需额外参数列表。</p>
+</li>
+<li>
+<p>支持格式化语法<br />
+    {salary:,.2f} 支持千位分隔、精度控制，类似 std::format。</p>
+</li>
+</ol>
+<p>因此，c++20提出了format库。</p>
+<h2 id="_2">二、格式化字符串</h2>
+<p>format库与python的解决方案有很大的相似性。都是给定一个格式化的字符串内容，不同的是python是将变量直接在格式化字符串中放置，而c++是将这些变量当作参数传入格式化函数。</p>
+<div class="highlight"><pre><span></span><code><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">format</span><span class="p">(</span><span class="s">&quot;name is {}.</span><span class="se">\r\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;yy&quot;</span><span class="p">);</span>
+</code></pre></div>
+<p>这一对花括号<code>{}</code>就类似于printf中的占位符。而printf中是可以选择特定的格式化方式，format库是在一对花括号内添加一定的内容来指定格式化的方式。</p>
+<div class="highlight"><pre><span></span><code><span class="s">&quot;{paraIndex:paraForm}&quot;</span>
+</code></pre></div>
+<p>格式化整体上呈现如上，在冒号之前的是参数索引<code>paraIndex</code>，它表示的将后面填入的哪一个参数放入到这个位置。</p>
+<p>后面的<code>paraForm</code>表示如何将这个变量转化为字符串的哪种形式。</p>
+<h3 id="21">2.1 参数顺序指定</h3>
+<p>std::format 库支持显式指定参数索引，这意味着你可以完全控制参数在格式字符串中的使用顺序，甚至可以重复使用同一个参数。这比 printf 的位置参数（如 %2$d）更加灵活和直观。</p>
+<ol>
+<li>显式参数索引<br />
+    在格式说明符中，冒号 <code>:</code>之前的部分可以是一个数字，表示使用 std::format 函数参数列表中的第几个参数（从 0 开始计数）。
+        <div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;format&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Alice&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">age</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">30</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">height</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1.65</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">// 按照参数索引 0, 1, 2 的顺序使用</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">format</span><span class="p">(</span><span class="s">&quot;{0}, {1}, {2}</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">age</span><span class="p">,</span><span class="w"> </span><span class="n">height</span><span class="p">);</span>
+<span class="w">    </span><span class="c1">// 输出: Alice, 30, 1.65</span>
+
+<span class="w">    </span><span class="c1">// 乱序使用参数：先用索引 2，再用 0，最后用 1</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">format</span><span class="p">(</span><span class="s">&quot;身高: {2}m, 名字: {0}, 年龄: {1}</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">age</span><span class="p">,</span><span class="w"> </span><span class="n">height</span><span class="p">);</span>
+<span class="w">    </span><span class="c1">// 输出: 身高: 1.65m, 名字: Alice, 年龄: 30</span>
+
+<span class="w">    </span><span class="c1">// 重复使用同一个参数：索引 0 被用了两次</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">format</span><span class="p">(</span><span class="s">&quot;用户 {0} 的名字是 {0}。</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">name</span><span class="p">);</span>
+<span class="w">    </span><span class="c1">// 输出: 用户 Alice 的名字是 Alice。</span>
+<span class="p">}</span>
+</code></pre></div></li>
+<li>混合使用位置参数和自动递增参数<ul>
+<li>你可以在同一个格式字符串中混合使用显式索引和自动递增的参数。但一旦使用了显式索引，后续的所有参数都必须使用显式索引。
+    <div class="highlight"><pre><span></span><code><span class="c1">// ✅ 正确：全部使用自动递增（隐式索引）</span>
+<span class="n">std</span><span class="o">::</span><span class="n">format</span><span class="p">(</span><span class="s">&quot;{}, {}, {}&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;a&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;b&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;c&quot;</span><span class="p">);</span>
+
+<span class="c1">// ✅ 正确：全部使用显式索引</span>
+<span class="n">std</span><span class="o">::</span><span class="n">format</span><span class="p">(</span><span class="s">&quot;{2}, {0}, {1}&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;a&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;b&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;c&quot;</span><span class="p">);</span><span class="w"> </span><span class="c1">// 输出: c, a, b</span>
+
+<span class="c1">// ❌ 错误！混合使用会编译失败</span>
+<span class="c1">// std::format(&quot;{}, {1}, {}&quot;, &quot;a&quot;, &quot;b&quot;, &quot;c&quot;); // 错误！不能先用隐式再用显式</span>
+</code></pre></div></li>
+<li>规则总结：<ul>
+<li>如果格式说明符中没有指定索引（如 {}），则按参数出现的顺序自动分配。</li>
+<li>如果格式说明符中有指定索引（如 {0}），则所有参数都必须使用显式索引。</li>
+<li>显式索引允许乱序和重复使用参数。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="22">2.2 格式化形式指定</h3>
+<p>首先看格式化形式的完全体形式为：</p>
+<div class="highlight"><pre><span></span><code>[[fill]align][sign][#][0][width][,][.precision][format]
+</code></pre></div>
+<ol>
+<li>
+<p>对齐（Alignment）与填充（Fill）<br />
+    这部分控制输出的宽度和文本在该宽度内的对齐方式。  </p>
+<ul>
+<li><code>&lt;</code> (左对齐): 内容靠左，填充在右侧。
+    <div class="highlight"><pre><span></span><code><span class="n">std</span><span class="o">::</span><span class="n">format</span><span class="p">(</span><span class="s">&quot;{:&lt;10}&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Hi&quot;</span><span class="p">);</span><span class="w"> </span><span class="c1">// 输出 &quot;Hi        &quot;</span>
+</code></pre></div></li>
+<li><code>&gt;</code> (右对齐): 内容靠右，填充在左侧。
+    <div class="highlight"><pre><span></span><code><span class="n">std</span><span class="o">::</span><span class="n">format</span><span class="p">(</span><span class="s">&quot;{:&gt;10}&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Hi&quot;</span><span class="p">);</span><span class="w"> </span><span class="c1">// 输出 &quot;        Hi&quot;</span>
+</code></pre></div></li>
+<li>^ (居中对齐): 内容居中，填充在两侧。
+    <div class="highlight"><pre><span></span><code><span class="n">std</span><span class="o">::</span><span class="n">format</span><span class="p">(</span><span class="s">&quot;{:^10}&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Hi&quot;</span><span class="p">);</span><span class="w"> </span><span class="c1">// 输出 &quot;    Hi    &quot;</span>
+</code></pre></div></li>
+<li>= (符号后填充): 仅用于数字。填充字符（通常是空格或0）放在符号（+, -,  ）之后，数字之前。这在对齐带符号的数字时非常有用。
+    <div class="highlight"><pre><span></span><code><span class="n">std</span><span class="o">::</span><span class="n">format</span><span class="p">(</span><span class="s">&quot;{:=+5}&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">42</span><span class="p">);</span><span class="w">  </span><span class="c1">// 输出 &quot;+  42&quot;</span>
+<span class="n">std</span><span class="o">::</span><span class="n">format</span><span class="p">(</span><span class="s">&quot;{:=+05}&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">42</span><span class="p">);</span><span class="w"> </span><span class="c1">// 输出 &quot;+0042&quot; (fill=&#39;0&#39;, width=5)</span>
+</code></pre></div></li>
+<li>填充字符 (fill): 可以在对齐标志前指定一个字符作为填充字符。如果省略，默认是空格。
+    <div class="highlight"><pre><span></span><code><span class="n">std</span><span class="o">::</span><span class="n">format</span><span class="p">(</span><span class="s">&quot;{:0&gt;5}&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">42</span><span class="p">);</span><span class="w"> </span><span class="c1">// 输出 &quot;00042&quot;, 用 &#39;0&#39; 填充，右对齐</span>
+<span class="n">std</span><span class="o">::</span><span class="n">format</span><span class="p">(</span><span class="s">&quot;{:*&gt;10}&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Hi&quot;</span><span class="p">);</span><span class="w"> </span><span class="c1">// 输出 &quot;********Hi&quot;, 用 &#39;*&#39; 填充，右对齐</span>
+</code></pre></div></li>
+</ul>
+</li>
+<li>
+<p>符号（Sign）<br />
+    控制数值的符号显示。  </p>
+<ul>
+<li><code>+</code> 正数也显示 <code>+</code> 号。
+    <div class="highlight"><pre><span></span><code><span class="n">std</span><span class="o">::</span><span class="n">format</span><span class="p">(</span><span class="s">&quot;{:+}&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">42</span><span class="p">);</span><span class="w">  </span><span class="c1">// 输出 &quot;+42&quot;</span>
+<span class="n">std</span><span class="o">::</span><span class="n">format</span><span class="p">(</span><span class="s">&quot;{:+}&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">-42</span><span class="p">);</span><span class="w"> </span><span class="c1">// 输出 &quot;-42&quot;</span>
+</code></pre></div></li>
+<li>
+<p><code>-</code>(默认): 负数显示 - 号，正数不显示符号。
+    <div class="highlight"><pre><span></span><code><span class="n">std</span><span class="o">::</span><span class="n">format</span><span class="p">(</span><span class="s">&quot;{:-}&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">42</span><span class="p">);</span><span class="w">  </span><span class="c1">// 输出 &quot;42&quot;</span>
+<span class="n">std</span><span class="o">::</span><span class="n">format</span><span class="p">(</span><span class="s">&quot;{:-}&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">-42</span><span class="p">);</span><span class="w"> </span><span class="c1">// 输出 &quot;-42&quot;</span>
+</code></pre></div></p>
+</li>
+<li>
+<p>(空格): 负数显示 - 号，正数前面加一个空格。
+    <div class="highlight"><pre><span></span><code><span class="n">std</span><span class="o">::</span><span class="n">format</span><span class="p">(</span><span class="s">&quot;{: }&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">42</span><span class="p">);</span><span class="w">  </span><span class="c1">// 输出 &quot; 42&quot;</span>
+<span class="n">std</span><span class="o">::</span><span class="n">format</span><span class="p">(</span><span class="s">&quot;{: }&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">-42</span><span class="p">);</span><span class="w"> </span><span class="c1">// 输出 &quot;-42&quot;</span>
+</code></pre></div></p>
+</li>
+</ul>
+</li>
+<li>
+<p>替代形式（Alternative Form）<code>#</code><br />
+    对于某些类型，<code>#</code> 标志启用“替代形式”。  </p>
+<ul>
+<li>整数 (b, o, x, X): 在输出前添加进制前缀。
+    <div class="highlight"><pre><span></span><code><span class="n">std</span><span class="o">::</span><span class="n">format</span><span class="p">(</span><span class="s">&quot;{:#x}&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">255</span><span class="p">);</span><span class="w"> </span><span class="c1">// 输出 &quot;0xff&quot;</span>
+<span class="n">std</span><span class="o">::</span><span class="n">format</span><span class="p">(</span><span class="s">&quot;{:#X}&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">255</span><span class="p">);</span><span class="w"> </span><span class="c1">// 输出 &quot;0xFF&quot;</span>
+<span class="n">std</span><span class="o">::</span><span class="n">format</span><span class="p">(</span><span class="s">&quot;{:#o}&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">64</span><span class="p">);</span><span class="w">  </span><span class="c1">// 输出 &quot;064&quot;</span>
+<span class="n">std</span><span class="o">::</span><span class="n">format</span><span class="p">(</span><span class="s">&quot;{:#b}&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">);</span><span class="w">   </span><span class="c1">// 输出 &quot;0b101&quot;</span>
+</code></pre></div></li>
+<li>浮点数 (a, A, e, E, f, F, g, G): 即使没有小数部分，也强制显示小数点。
+    <div class="highlight"><pre><span></span><code><span class="n">std</span><span class="o">::</span><span class="n">format</span><span class="p">(</span><span class="s">&quot;{:#.0f}&quot;</span><span class="p">,</span><span class="w"> </span><span class="mf">42.0</span><span class="p">);</span><span class="w"> </span><span class="c1">// 输出 &quot;42.&quot; (而不是 &quot;42&quot;)</span>
+<span class="n">std</span><span class="o">::</span><span class="n">format</span><span class="p">(</span><span class="s">&quot;{:#g}&quot;</span><span class="p">,</span><span class="w"> </span><span class="mf">42.0</span><span class="p">);</span><span class="w">   </span><span class="c1">// 输出 &quot;42.&quot; (而不是 &quot;42&quot;)</span>
+</code></pre></div></li>
+</ul>
+</li>
+<li>
+<p>宽度（Width）与精度（Precision）  </p>
+<ul>
+<li>width: 一个整数，指定输出的最小字符宽度。如果内容长度小于此值，则用填充字符补齐。
+    <div class="highlight"><pre><span></span><code>std::format(&quot;{:8}&quot;, &quot;Hi&quot;); // 输出 &quot;      Hi&quot; (总宽8字符)
+</code></pre></div></li>
+<li>.precision: 以 . 开头，后跟一个整数，其含义取决于类型：  <ul>
+<li>字符串: 指定最大输出的字符数（截断）。<br />
+    <div class="highlight"><pre><span></span><code><span class="n">std</span><span class="o">::</span><span class="n">format</span><span class="p">(</span><span class="s">&quot;{:.3}&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Hello&quot;</span><span class="p">);</span><span class="w"> </span><span class="c1">// 输出 &quot;Hel&quot;</span>
+</code></pre></div></li>
+<li>浮点数: 指定小数点后的位数（对于 f, e, E）或总的有效数字位数（对于 g, G）。
+    <div class="highlight"><pre><span></span><code><span class="n">std</span><span class="o">::</span><span class="n">format</span><span class="p">(</span><span class="s">&quot;{:.2f}&quot;</span><span class="p">,</span><span class="w"> </span><span class="mf">3.14159</span><span class="p">);</span><span class="w"> </span><span class="c1">// 输出 &quot;3.14&quot;</span>
+<span class="n">std</span><span class="o">::</span><span class="n">format</span><span class="p">(</span><span class="s">&quot;{:.3g}&quot;</span><span class="p">,</span><span class="w"> </span><span class="mf">1234.56</span><span class="p">);</span><span class="w">  </span><span class="c1">// 输出 &quot;1.23e+03&quot;</span>
+</code></pre></div></li>
+<li>整数 (b, o, x, X): 指定最小的数字位数，不足则用前导零填充。
+    <div class="highlight"><pre><span></span><code>std::format(&quot;{:06x}&quot;, 255); // 输出 &quot;0000ff&quot;
+</code></pre></div></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>千位分隔符 <code>,</code><br />
+    在支持的类型（整数和浮点数）的整数部分插入千位分隔符（通常是逗号）。
+    <div class="highlight"><pre><span></span><code><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">format</span><span class="p">(</span><span class="s">&quot;{:,}&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">1234567</span><span class="p">);</span><span class="w">     </span><span class="c1">// 输出 &quot;1,234,567&quot;</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">format</span><span class="p">(</span><span class="s">&quot;{:,.2f}&quot;</span><span class="p">,</span><span class="w"> </span><span class="mf">1234.567</span><span class="p">);</span><span class="w"> </span><span class="c1">// 输出 &quot;1,234.57&quot;</span>
+</code></pre></div></p>
+</li>
+<li>
+<p>格式类型（Format Type）<br />
+    这是最核心的部分，决定了数据的表示方式。  </p>
+<ul>
+<li>d, i: 十进制有符号整数。</li>
+<li>u: 十进制无符号整数。</li>
+<li>o: 八进制整数。</li>
+<li>x: 十六进制整数（小写字母 a-f）。</li>
+<li>X: 十六进制整数（大写字母 A-F）。</li>
+<li>b: 二进制整数（小写字母）。</li>
+<li>B: 二进制整数（大写字母）。</li>
+<li>c: 字符。<br />
+    <div class="highlight"><pre><span></span><code><span class="n">std</span><span class="o">::</span><span class="n">format</span><span class="p">(</span><span class="s">&quot;{:c}&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">65</span><span class="p">);</span><span class="w"> </span><span class="c1">// 输出 &quot;A&quot;</span>
+</code></pre></div></li>
+<li>s: 字符串（默认，可省略）。</li>
+<li>a, A: 浮点数的十六进制表示（a 小写，A 大写）。</li>
+<li>e, E: 科学计数法（e 小写，E 大写）。
+    <div class="highlight"><pre><span></span><code><span class="n">std</span><span class="o">::</span><span class="n">format</span><span class="p">(</span><span class="s">&quot;{:.2e}&quot;</span><span class="p">,</span><span class="w"> </span><span class="mf">1234.56</span><span class="p">);</span><span class="w"> </span><span class="c1">// 输出 &quot;1.23e+03&quot;</span>
+</code></pre></div></li>
+<li>f, F: 定点表示法（f 小写，F 大写）。
+    <div class="highlight"><pre><span></span><code>std::format(&quot;{:.2f}&quot;, 1234.56); // 输出 &quot;1234.56&quot;
+</code></pre></div></li>
+<li>g, G: 通用格式。根据数值大小和精度，自动选择 f 或 e（g 小写，G 大写）。</li>
+<li>%: 百分比。将数值乘以100并添加 % 符号。
+    <div class="highlight"><pre><span></span><code>std::format(&quot;{:.1%}&quot;, 0.123); // 输出 &quot;12.3%&quot;
+</code></pre></div></li>
+</ul>
+</li>
+</ol>
+<h2 id="_3">三、自定义类型</h2>
+<p>想要实现格式化自定义类型的话，c++标准要求对自定义类实现formatter。formatter是一个模板类，通过将自定义类型特化的方式来实现格式化输出。</p>
+<div class="highlight"><pre><span></span><code><span class="k">template</span><span class="o">&lt;</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">T</span><span class="p">,</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">CharType</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">&gt;</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">formatter</span><span class="w"> </span><span class="p">{</span>
+<span class="k">using</span><span class="w"> </span><span class="n">CharT</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CharType</span><span class="p">;</span>
+<span class="k">using</span><span class="w"> </span><span class="n">Arg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">T</span><span class="p">;</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="w"> </span><span class="nc">ParseContext</span><span class="o">&gt;</span>
+<span class="k">constexpr</span><span class="w"> </span><span class="n">ParseContext</span><span class="o">::</span><span class="n">iterator</span><span class="w"> </span><span class="n">formatter</span><span class="o">::</span><span class="n">parse</span><span class="p">(</span><span class="n">ParseContext</span><span class="o">&amp;</span><span class="w"> </span><span class="n">ctx</span><span class="p">)</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="w"> </span><span class="nc">FmtContext</span><span class="o">&gt;</span>
+<span class="n">FmtContext</span><span class="o">::</span><span class="n">iterator</span><span class="w"> </span><span class="n">format</span><span class="p">(</span><span class="n">Arg</span><span class="w"> </span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="n">FmtContext</span><span class="o">&amp;</span><span class="w"> </span><span class="n">ctx</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+<span class="p">};</span>
+</code></pre></div>
+<p>其中需要特化实现两个成员函数parse和format两个成员函数，其中parse和format声明为模板成员函数是为了支持string和wstring。</p>
+<p>当我们要为自定义类型定义个性化的格式化输出时，std::format 的工作流程如下：</p>
+<ol>
+<li>格式字符串在编译期传递给 parse 函数。</li>
+<li>parse 函数解析并存储格式选项。</li>
+<li>format 函数执行实际的格式化。</li>
+</ol>
+<h3 id="31-parse">3.1 解析成员函数parse</h3>
+<p>首先，parse成员函数是编译期执行的，它的语义学是在编译器就将<code>{}</code>内部的格式化要求读取到实例化对象中，即通过<code>{}</code>来读取用户想要进行何种格式化。</p>
+<div class="highlight"><pre><span></span><code><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="w"> </span><span class="nc">ParseContext</span><span class="o">&gt;</span>
+<span class="k">constexpr</span><span class="w"> </span><span class="n">ParseContext</span><span class="o">::</span><span class="n">iterator</span><span class="w"> </span><span class="n">formatter</span><span class="o">::</span><span class="n">parse</span><span class="p">(</span><span class="n">ParseContext</span><span class="o">&amp;</span><span class="w"> </span><span class="n">ctx</span><span class="p">)</span>
+</code></pre></div>
+<p>成员函数parse的入参是一个模板类，先看它的模板声明：</p>
+<div class="highlight"><pre><span></span><code><span class="k">template</span><span class="o">&lt;</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">CharT</span><span class="w"> </span><span class="o">&gt;</span>
+<span class="n">std</span><span class="o">::</span><span class="n">basic_format_parse_context</span><span class="w"> </span><span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="w">    </span><span class="k">using</span><span class="w"> </span><span class="n">char_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CharT</span><span class="p">;</span>
+<span class="w">    </span><span class="k">using</span><span class="w"> </span><span class="n">iterator</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">basic_string_view</span><span class="o">&lt;</span><span class="n">CharT</span><span class="o">&gt;::</span><span class="n">const_iterator</span><span class="p">;</span>
+<span class="w">    </span><span class="k">using</span><span class="w"> </span><span class="n">const_iterator</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">basic_string_view</span><span class="o">&lt;</span><span class="n">CharT</span><span class="o">&gt;::</span><span class="n">const_iterator</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">constexpr</span><span class="w"> </span><span class="k">explicit</span><span class="w"> </span><span class="n">basic_format_parse_context</span><span class="p">(</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">basic_string_view</span><span class="o">&lt;</span><span class="n">CharT</span><span class="o">&gt;</span><span class="w"> </span><span class="n">fmt</span><span class="p">,</span>
+<span class="w">                            </span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span><span class="w"> </span><span class="n">num_args</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="k">noexcept</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">constexpr</span><span class="w"> </span><span class="k">explicit</span><span class="w"> </span><span class="n">basic_format_parse_context</span><span class="p">(</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">basic_format_parse_context</span><span class="o">&amp;</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">delete</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">constexpr</span><span class="w"> </span><span class="n">const_iterator</span><span class="w"> </span><span class="nf">begin</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="k">noexcept</span><span class="p">;</span>
+<span class="w">    </span><span class="k">constexpr</span><span class="w"> </span><span class="n">const_iterator</span><span class="w"> </span><span class="nf">end</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="k">noexcept</span><span class="p">;</span>
+
+<span class="w">    </span><span class="cm">/*</span>
+<span class="cm">    ... 其他成员函数</span>
+<span class="cm">    */</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>可以看到它主要是传入了一个字符串视图，并且通过begin和end函数来获取对象的实例化长度。</p>
+<p>那么，这个字符串长度从哪里到哪里呢？在gcc13以上它传入的字符串视图是从第二章介绍的<code>paraForm</code>开始的，直至到格式化字符串末尾。</p>
+<div class="highlight"><pre><span></span><code><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;{:abcde}</span><span class="se">\r\n</span><span class="s">&quot;</span><span class="p">;</span>
+</code></pre></div>
+<p>如上所示，它是从字符<code>a</code>开始，直到字符'\0'为止。而并未到下一个<code>}</code>为止。从而我们就知道了parse函数所提供的参数中所拥有的内容。</p>
+<p>parse的要求如下：</p>
+<ol>
+<li>如果格式说明符（format-spec）不存在或为空，那么要么 <code>parse_ctx.begin() == parse_ctx.end()</code>，要么 <code>*parse_ctx.begin() == '}'</code>。</li>
+<li>parse要求不能有运行时要求。</li>
+</ol>
+<p>因而，是否对用户的形式相应是由提供者决定的。比如可以选择任意形式都输出同一个格式：</p>
+<div class="highlight"><pre><span></span><code><span class="k">struct</span><span class="w"> </span><span class="nc">myclass</span><span class="w"> </span><span class="p">{</span>
+
+<span class="p">};</span>
+
+<span class="k">template</span><span class="o">&lt;&gt;</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">std</span><span class="o">::</span><span class="n">formatter</span><span class="o">&lt;</span><span class="n">MyType</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">constexpr</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">parse</span><span class="p">(</span><span class="k">auto</span><span class="o">&amp;</span><span class="w"> </span><span class="n">ctx</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">auto</span><span class="w"> </span><span class="n">it</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ctx</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span>
+<span class="w">        </span><span class="k">auto</span><span class="w"> </span><span class="n">end</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ctx</span><span class="p">.</span><span class="n">end</span><span class="p">();</span>
+
+<span class="w">        </span><span class="k">do</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">it</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">end</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="o">*</span><span class="n">it</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="sc">&#39;}&#39;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="k">return</span><span class="w"> </span><span class="n">it</span><span class="p">;</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span><span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">ctx</span><span class="p">.</span><span class="n">end</span><span class="p">();</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="k">private</span><span class="o">:</span>
+<span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="n">format_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sc">&#39;d&#39;</span><span class="p">;</span><span class="w"> </span><span class="c1">// 默认格式</span>
+<span class="p">};</span>
+</code></pre></div>
+<p>这样无论用户怎么填，他都是输出以<code>d</code>的格式输出的。</p>
+<p>那么让用户在编译期就知道不支持类型呢？cppreference使用的是抛运行期异常：</p>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;format&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;string_view&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdexcept&gt;</span>
+
+<span class="k">struct</span><span class="w"> </span><span class="nc">QuotableString</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string_view</span><span class="w"> </span><span class="p">{};</span>
+
+<span class="k">template</span><span class="o">&lt;&gt;</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">std</span><span class="o">::</span><span class="n">formatter</span><span class="o">&lt;</span><span class="n">QuotableString</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">quoted</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">constexpr</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">parse</span><span class="p">(</span><span class="k">auto</span><span class="o">&amp;</span><span class="w"> </span><span class="n">ctx</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">auto</span><span class="w"> </span><span class="n">it</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ctx</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">it</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">ctx</span><span class="p">.</span><span class="n">end</span><span class="p">())</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">it</span><span class="p">;</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="n">it</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="sc">&#39;#&#39;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">quoted</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
+<span class="w">            </span><span class="o">++</span><span class="n">it</span><span class="p">;</span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">it</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">ctx</span><span class="p">.</span><span class="n">end</span><span class="p">()</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="o">*</span><span class="n">it</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="sc">&#39;}&#39;</span><span class="p">)</span><span class="w"> </span><span class="c1">// 只允许 &#39;#&#39; 后紧跟 &#39;}&#39;</span>
+<span class="w">                </span><span class="k">throw</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">format_error</span><span class="p">(</span><span class="s">&quot;invalid format&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="n">it</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="sc">&#39;}&#39;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">throw</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">format_error</span><span class="p">(</span><span class="s">&quot;invalid format&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">it</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">format</span><span class="p">(</span><span class="n">QuotableString</span><span class="w"> </span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="k">auto</span><span class="o">&amp;</span><span class="w"> </span><span class="n">ctx</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">quoted</span><span class="p">)</span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">format_to</span><span class="p">(</span><span class="n">ctx</span><span class="p">.</span><span class="n">out</span><span class="p">(),</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\&quot;</span><span class="s">{}</span><span class="se">\&quot;</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">s</span><span class="p">);</span><span class="w"> </span><span class="c1">// 简化：直接加引号</span>
+<span class="w">        </span><span class="k">else</span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">format_to</span><span class="p">(</span><span class="n">ctx</span><span class="p">.</span><span class="n">out</span><span class="p">(),</span><span class="w"> </span><span class="s">&quot;{}&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">s</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">};</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(){</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">format</span><span class="p">(</span><span class="s">&quot;{:#}&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">QuotableString</span><span class="p">{});</span><span class="w"> </span><span class="c1">// ok;</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">format</span><span class="p">(</span><span class="s">&quot;{:#11}&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">QuotableString</span><span class="p">{});</span><span class="w"> </span><span class="c1">// error;</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="32-format">3.2 格式化字符串format</h3>
+<p>format就是如何根据parse解析到的格式来格式化输出内容。先看它的函数声明：</p>
+<div class="highlight"><pre><span></span><code><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="w"> </span><span class="nc">FmtContext</span><span class="o">&gt;</span>
+<span class="n">FmtContext</span><span class="o">::</span><span class="n">iterator</span><span class="w"> </span><span class="n">format</span><span class="p">(</span><span class="n">Arg</span><span class="w"> </span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="n">FmtContext</span><span class="o">&amp;</span><span class="w"> </span><span class="n">ctx</span><span class="p">)</span><span class="w"> </span><span class="k">const</span>
+</code></pre></div>
+<p>第一个参数就是特化时所使用的模板参数，第二个就是所谓的输出字符串，可以把它理解为字符串容器。</p>
+<p>那么这个<code>FmtContext</code>类一般为<code>std::basic_format_parse_context</code>。先看它的类声明:</p>
+<div class="highlight"><pre><span></span><code><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="w"> </span><span class="nc">OutputIt</span><span class="p">,</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">CharT</span><span class="w"> </span><span class="o">&gt;</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">basic_format_context</span><span class="w"> </span><span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="k">using</span><span class="w"> </span><span class="n">char_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CharT</span><span class="p">;</span>
+<span class="k">using</span><span class="w"> </span><span class="n">iterator</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="n">OutputIt</span><span class="p">;</span>
+
+
+<span class="n">basic_format_context</span><span class="p">()</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">delete</span><span class="p">;</span>
+<span class="n">basic_format_context</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">basic_format_context</span><span class="o">&amp;</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">delete</span><span class="p">;</span>
+
+<span class="cm">/*重要函数*/</span>
+<span class="n">iterator</span><span class="w"> </span><span class="nf">out</span><span class="p">();</span>
+<span class="p">};</span>
+</code></pre></div>
+<p>其中主要暴露了out函数，它返回指向输出缓冲区的迭代器。该结果由存储的迭代器通过移动构造得到。</p>
+<p>知道了它之后，我们就可以这样调用<code>std::formmat_to</code>函数将变量值格式化到缓冲区中。以<code>std::format_string</code>为例，看看<code>std::formmat_to</code>的函数声明。</p>
+<div class="highlight"><pre><span></span><code><span class="k">template</span><span class="o">&lt;</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">OutputIt</span><span class="p">,</span><span class="w"> </span><span class="k">class</span><span class="p">...</span><span class="w"> </span><span class="n">Args</span><span class="w"> </span><span class="o">&gt;</span>
+<span class="n">OutputIt</span><span class="w"> </span><span class="n">format_to</span><span class="p">(</span><span class="w"> </span><span class="n">OutputIt</span><span class="w"> </span><span class="n">out</span><span class="p">,</span>
+<span class="w">                    </span><span class="n">std</span><span class="o">::</span><span class="n">format_string</span><span class="o">&lt;</span><span class="n">Args</span><span class="p">...</span><span class="o">&gt;</span><span class="w"> </span><span class="n">fmt</span><span class="p">,</span><span class="w"> </span><span class="n">Args</span><span class="o">&amp;&amp;</span><span class="p">...</span><span class="w"> </span><span class="n">args</span><span class="w"> </span><span class="p">);</span>
+</code></pre></div>
+<p>为什么建议使用它呢？c++标准库已经把一些常见的类和基础类型已经有了特化版本的format实现了，一般来说，自定义类型是基础类型和库类型的一种堆叠，那么利用这个就可以完成字符串的格式化。</p>
+<p>如下例子：</p>
+<div class="highlight"><pre><span></span><code><span class="k">struct</span><span class="w"> </span><span class="nc">mystruct</span><span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">b</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="k">template</span><span class="o">&lt;&gt;</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">std</span><span class="o">::</span><span class="n">formatter</span><span class="o">&lt;</span><span class="n">mystruct</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">print_a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">print_b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
+<span class="w">    </span><span class="k">using</span><span class="w"> </span><span class="n">Arg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mystruct</span><span class="p">;</span>
+
+<span class="k">constexpr</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">parse</span><span class="p">(</span><span class="k">auto</span><span class="o">&amp;</span><span class="w"> </span><span class="n">ctx</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">auto</span><span class="w"> </span><span class="n">it</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ctx</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span>
+<span class="w">        </span><span class="k">auto</span><span class="w"> </span><span class="n">end</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ctx</span><span class="p">.</span><span class="n">end</span><span class="p">();</span>
+
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">it</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">end</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="o">*</span><span class="n">it</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="sc">&#39;}&#39;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="n">it</span><span class="p">;</span><span class="w"> </span><span class="c1">// 使用默认值：都打印</span>
+<span class="w">        </span><span class="p">}</span>
+
+<span class="w">        </span><span class="n">print_a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
+<span class="w">        </span><span class="n">print_b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
+
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(;</span><span class="w"> </span><span class="n">it</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">end</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="o">*</span><span class="n">it</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="sc">&#39;}&#39;</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">it</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">switch</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="n">it</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="k">case</span><span class="w"> </span><span class="sc">&#39;a&#39;</span><span class="p">:</span>
+<span class="w">                    </span><span class="n">print_a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
+<span class="w">                    </span><span class="k">break</span><span class="p">;</span>
+<span class="w">                </span><span class="k">case</span><span class="w"> </span><span class="sc">&#39;b&#39;</span><span class="p">:</span>
+<span class="w">                    </span><span class="n">print_b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
+<span class="w">                    </span><span class="k">break</span><span class="p">;</span>
+<span class="w">                </span><span class="k">default</span><span class="o">:</span>
+<span class="w">                    </span><span class="k">break</span><span class="p">;</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">it</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">format</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Arg</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="k">auto</span><span class="o">&amp;</span><span class="w"> </span><span class="n">ctx</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">auto</span><span class="w"> </span><span class="n">iterator</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ctx</span><span class="p">.</span><span class="n">out</span><span class="p">();</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">print_a</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">iterator</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">format_to</span><span class="p">(</span><span class="n">iterator</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;a = {} &quot;</span><span class="p">,</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">a</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span>
+
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">print_b</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">iterator</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">format_to</span><span class="p">(</span><span class="n">iterator</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;b = {} &quot;</span><span class="p">,</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">b</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">iterator</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div>
+<p>综上，可以把传入的参数当作是一个使用<code>std::back_inserter</code>构造出来的输出迭代器。</p>
+<h3 id="33-parse">3.3 验证parse传入的字符串</h3>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;format&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;array&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;cstddef&gt;</span>
+
+<span class="k">struct</span><span class="w"> </span><span class="nc">mystruct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">b</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="k">template</span><span class="o">&lt;&gt;</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">std</span><span class="o">::</span><span class="n">formatter</span><span class="o">&lt;</span><span class="n">mystruct</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// 存储前4个字符，不足用 &#39;\0&#39; 填充</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">array</span><span class="o">&lt;</span><span class="kt">char</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="o">&gt;</span><span class="w"> </span><span class="n">prefix</span><span class="p">{</span><span class="sc">&#39;\0&#39;</span><span class="p">,</span><span class="w"> </span><span class="sc">&#39;\0&#39;</span><span class="p">,</span><span class="w"> </span><span class="sc">&#39;\0&#39;</span><span class="p">,</span><span class="w"> </span><span class="sc">&#39;\0&#39;</span><span class="p">};</span>
+<span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w">  </span><span class="c1">// 实际字符数</span>
+
+<span class="w">    </span><span class="c1">// 解析格式字符串中的内容（在 {} 内）</span>
+<span class="w">    </span><span class="k">constexpr</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">parse</span><span class="p">(</span><span class="k">auto</span><span class="o">&amp;</span><span class="w"> </span><span class="n">ctx</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">auto</span><span class="w"> </span><span class="n">it</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ctx</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span>
+<span class="w">        </span><span class="k">auto</span><span class="w"> </span><span class="n">end</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ctx</span><span class="p">.</span><span class="n">end</span><span class="p">();</span>
+
+<span class="w">        </span><span class="c1">// 遍历最多4个字符，直到 &#39;}&#39; 或结束</span>
+<span class="w">        </span><span class="n">count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">        </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">it</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">end</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="o">*</span><span class="n">it</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="sc">&#39;}&#39;</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">count</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">4</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">prefix</span><span class="p">[</span><span class="n">count</span><span class="o">++</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">*</span><span class="n">it</span><span class="p">;</span>
+<span class="w">            </span><span class="o">++</span><span class="n">it</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+
+<span class="w">        </span><span class="c1">// 注意：返回的是最后一个解析位置（不包括 &#39;}&#39;）</span>
+<span class="w">        </span><span class="c1">// 标准要求返回 &#39;}&#39; 前的位置，std::format 会自动处理 &#39;}&#39;</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">it</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// 格式化输出：直接打印记录的前4个字符</span>
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">format</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">mystruct</span><span class="o">&amp;</span><span class="p">,</span><span class="w"> </span><span class="k">auto</span><span class="o">&amp;</span><span class="w"> </span><span class="n">ctx</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">auto</span><span class="w"> </span><span class="n">out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ctx</span><span class="p">.</span><span class="n">out</span><span class="p">();</span>
+
+<span class="w">        </span><span class="c1">// 输出实际记录的字符</span>
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">size_t</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">count</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="o">*</span><span class="n">out</span><span class="o">++</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">prefix</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+<span class="w">        </span><span class="p">}</span>
+
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">out</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">};</span>
+
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">mystruct</span><span class="w"> </span><span class="n">data</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mf">2.0</span><span class="p">};</span>
+
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">format</span><span class="p">(</span><span class="s">&quot;HELLO {}!&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">mystruct</span><span class="p">{})</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="c1">// 输出: HELLO !</span>
+
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">format</span><span class="p">(</span><span class="s">&quot;Code: {ABC}&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="c1">// 输出: Code: ABC</span>
+
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">format</span><span class="p">(</span><span class="s">&quot;Tag: {hello}&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="c1">// 输出: Tag: hell  （只取前4个）</span>
+
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">format</span><span class="p">(</span><span class="s">&quot;Empty: {}&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="c1">// 输出: Empty: </span>
+<span class="p">}</span>
+</code></pre></div>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.instant", "navigation.tabs", "toc.integrate", "content.code.copy", "content.code.annotate", "navigation.top", "search.highlight"], "search": "../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+      
+        <script src="../../assets/javascripts/focus-mode.js"></script>
+      
+    
+  </body>
+</html>

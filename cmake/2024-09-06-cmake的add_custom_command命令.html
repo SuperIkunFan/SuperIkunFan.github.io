@@ -9,21 +9,25 @@
       
       
       
+        <link rel="prev" href="2024-09-05-cmake%E7%9A%84set%E5%91%BD%E4%BB%A4.html">
       
       
-      <link rel="icon" href="/assets/images/favicon.png">
+        <link rel="next" href="2025-01-09-cmake%E7%9A%84file%E5%91%BD%E4%BB%A4.html">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.20">
     
     
       
-        <title>ikun爱学习</title>
+        <title>cmake的add_custom_command命令详解 - ikun爱学习</title>
       
     
     
-      <link rel="stylesheet" href="/assets/stylesheets/main.e53b48f4.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.e53b48f4.min.css">
       
         
-        <link rel="stylesheet" href="/assets/stylesheets/palette.06af60db.min.css">
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
       
       
 
@@ -42,7 +46,7 @@
       
     
     
-    <script>__md_scope=new URL("/",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -67,6 +71,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#_1" class="md-skip">
+          跳转至
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -77,7 +86,7 @@
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="页眉">
-    <a href="/index.html" title="ikun爱学习" class="md-header__button md-logo" aria-label="ikun爱学习" data-md-component="logo">
+    <a href="../index.html" title="ikun爱学习" class="md-header__button md-logo" aria-label="ikun爱学习" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -97,7 +106,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              
+              cmake的add_custom_command命令详解
             
           </span>
         </div>
@@ -196,7 +205,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="/index.html" class="md-tabs__link">
+      <a href="../index.html" class="md-tabs__link">
         
   
   
@@ -213,11 +222,13 @@
   
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
-        <a href="/cmake/2024-09-04-cmake%E7%9A%84install%E5%91%BD%E4%BB%A4.html" class="md-tabs__link">
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="2024-09-04-cmake%E7%9A%84install%E5%91%BD%E4%BB%A4.html" class="md-tabs__link">
           
   
   
@@ -237,7 +248,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="/cplusplus/2025-05-26-%E4%B8%80%E7%A7%8Dc%2B%2B%E5%B8%B8%E9%87%8F%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF.html" class="md-tabs__link">
+        <a href="../cplusplus/2025-05-26-%E4%B8%80%E7%A7%8Dc%2B%2B%E5%B8%B8%E9%87%8F%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF.html" class="md-tabs__link">
           
   
   
@@ -257,7 +268,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="/%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/2025-03-28-cmake%E7%9A%84ctest%E6%A1%86%E6%9E%B6.html" class="md-tabs__link">
+        <a href="../%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/2025-03-28-cmake%E7%9A%84ctest%E6%A1%86%E6%9E%B6.html" class="md-tabs__link">
           
   
   
@@ -277,7 +288,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="/%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6/2025-09-16-clangd%E7%9A%84vscode%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B.html" class="md-tabs__link">
+        <a href="../%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6/2025-09-16-clangd%E7%9A%84vscode%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B.html" class="md-tabs__link">
           
   
   
@@ -297,7 +308,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="/%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/2025-05-07-%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86%E4%B8%AD%E7%9A%84%E5%90%84%E7%A7%8D%E9%A2%91%E7%8E%87.html" class="md-tabs__link">
+        <a href="../%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/2025-05-07-%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86%E4%B8%AD%E7%9A%84%E5%90%84%E7%A7%8D%E9%A2%91%E7%8E%87.html" class="md-tabs__link">
           
   
   
@@ -317,7 +328,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/2025-08-26-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84R_tree%28%E4%B8%80%29.html" class="md-tabs__link">
+        <a href="../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/2025-08-26-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84R_tree%28%E4%B8%80%29.html" class="md-tabs__link">
           
   
   
@@ -337,7 +348,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="/%E7%94%B5%E6%9C%BA%E6%8E%A7%E5%88%B6/2025-05-07-%E6%97%A0%E6%84%9F%E7%94%B5%E6%9C%BA%E6%8E%A7%E5%88%B6%E6%80%BB%E7%BA%B2%E9%A2%86.html" class="md-tabs__link">
+        <a href="../%E7%94%B5%E6%9C%BA%E6%8E%A7%E5%88%B6/2025-05-07-%E6%97%A0%E6%84%9F%E7%94%B5%E6%9C%BA%E6%8E%A7%E5%88%B6%E6%80%BB%E7%BA%B2%E9%A2%86.html" class="md-tabs__link">
           
   
   
@@ -357,7 +368,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="/%E7%B3%BB%E7%BB%9F%E8%84%9A%E6%9C%AC/2025-05-29-powershell%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8.html" class="md-tabs__link">
+        <a href="../%E7%B3%BB%E7%BB%9F%E8%84%9A%E6%9C%AC/2025-05-29-powershell%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8.html" class="md-tabs__link">
           
   
   
@@ -393,7 +404,7 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="导航栏" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="/index.html" title="ikun爱学习" class="md-nav__button md-logo" aria-label="ikun爱学习" data-md-component="logo">
+    <a href="../index.html" title="ikun爱学习" class="md-nav__button md-logo" aria-label="ikun爱学习" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -411,7 +422,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/index.html" class="md-nav__link">
+      <a href="../index.html" class="md-nav__link">
         
   
   
@@ -430,24 +441,29 @@
       
   
   
+    
   
   
+  
     
     
     
     
-      
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
         
           
-          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
             
   
   
@@ -460,7 +476,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_2">
             <span class="md-nav__icon md-icon"></span>
             Cmake
@@ -474,7 +490,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/cmake/2024-09-04-cmake%E7%9A%84install%E5%91%BD%E4%BB%A4.html" class="md-nav__link">
+      <a href="2024-09-04-cmake%E7%9A%84install%E5%91%BD%E4%BB%A4.html" class="md-nav__link">
         
   
   
@@ -497,7 +513,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/cmake/2024-09-04-cmake%E7%9A%84%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%8F%82%E6%95%B0.html" class="md-nav__link">
+      <a href="2024-09-04-cmake%E7%9A%84%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%8F%82%E6%95%B0.html" class="md-nav__link">
         
   
   
@@ -520,7 +536,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/cmake/2024-09-05-cmake%E7%9A%84include%E5%91%BD%E4%BB%A4.html" class="md-nav__link">
+      <a href="2024-09-05-cmake%E7%9A%84include%E5%91%BD%E4%BB%A4.html" class="md-nav__link">
         
   
   
@@ -543,7 +559,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/cmake/2024-09-05-cmake%E7%9A%84list%E5%91%BD%E4%BB%A4.html" class="md-nav__link">
+      <a href="2024-09-05-cmake%E7%9A%84list%E5%91%BD%E4%BB%A4.html" class="md-nav__link">
         
   
   
@@ -566,7 +582,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/cmake/2024-09-05-cmake%E7%9A%84set%E5%91%BD%E4%BB%A4.html" class="md-nav__link">
+      <a href="2024-09-05-cmake%E7%9A%84set%E5%91%BD%E4%BB%A4.html" class="md-nav__link">
         
   
   
@@ -586,10 +602,30 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="/cmake/2024-09-06-cmake%E7%9A%84add_custom_command%E5%91%BD%E4%BB%A4.html" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    cmake的add_custom_command命令详解
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="2024-09-06-cmake%E7%9A%84add_custom_command%E5%91%BD%E4%BB%A4.html" class="md-nav__link md-nav__link--active">
         
   
   
@@ -600,6 +636,123 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      一、前言
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="一、前言">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.1 感性认知
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      二、命令详解
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="二、命令详解">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.1 与文件绑定的触发方式
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.1 与文件绑定的触发方式">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#211" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.1.1 什么时候执行
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#212" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.1.2 执行什么操作
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#213" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.1.3 有哪些条件或者是输出结果
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.2 与目标绑定的触发方式
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      三、参考文献
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -612,7 +765,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/cmake/2025-01-09-cmake%E7%9A%84file%E5%91%BD%E4%BB%A4.html" class="md-nav__link">
+      <a href="2025-01-09-cmake%E7%9A%84file%E5%91%BD%E4%BB%A4.html" class="md-nav__link">
         
   
   
@@ -635,7 +788,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/cmake/2025-01-09-cmake%E7%9A%84option%E5%91%BD%E4%BB%A4.html" class="md-nav__link">
+      <a href="2025-01-09-cmake%E7%9A%84option%E5%91%BD%E4%BB%A4.html" class="md-nav__link">
         
   
   
@@ -658,7 +811,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/cmake/2025-01-15-cmake%E7%9A%84target%E6%A6%82%E5%BF%B5.html" class="md-nav__link">
+      <a href="2025-01-15-cmake%E7%9A%84target%E6%A6%82%E5%BF%B5.html" class="md-nav__link">
         
   
   
@@ -681,7 +834,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/cmake/2025-01-16-cmake%E7%9A%84%E6%80%BB%E4%BD%93%E8%AF%AD%E8%A8%80%E6%A6%82%E5%BF%B5.html" class="md-nav__link">
+      <a href="2025-01-16-cmake%E7%9A%84%E6%80%BB%E4%BD%93%E8%AF%AD%E8%A8%80%E6%A6%82%E5%BF%B5.html" class="md-nav__link">
         
   
   
@@ -704,7 +857,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/cmake/2025-07-09-cmake%E7%9A%84%E5%89%8D%E7%BD%AE%E7%9F%A5%E8%AF%86gcc.html" class="md-nav__link">
+      <a href="2025-07-09-cmake%E7%9A%84%E5%89%8D%E7%BD%AE%E7%9F%A5%E8%AF%86gcc.html" class="md-nav__link">
         
   
   
@@ -727,7 +880,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/cmake/2025-08-04-cmake%E7%9A%84preset%E5%8A%9F%E8%83%BD.html" class="md-nav__link">
+      <a href="2025-08-04-cmake%E7%9A%84preset%E5%8A%9F%E8%83%BD.html" class="md-nav__link">
         
   
   
@@ -750,7 +903,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/cmake/2025-08-08-cmake%E7%9A%84%E7%94%9F%E6%88%90%E5%99%A8%E8%A1%A8%E8%BE%BE%E5%BC%8F.html" class="md-nav__link">
+      <a href="2025-08-08-cmake%E7%9A%84%E7%94%9F%E6%88%90%E5%99%A8%E8%A1%A8%E8%BE%BE%E5%BC%8F.html" class="md-nav__link">
         
   
   
@@ -821,7 +974,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/cplusplus/2025-05-26-%E4%B8%80%E7%A7%8Dc%2B%2B%E5%B8%B8%E9%87%8F%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF.html" class="md-nav__link">
+      <a href="../cplusplus/2025-05-26-%E4%B8%80%E7%A7%8Dc%2B%2B%E5%B8%B8%E9%87%8F%E6%B3%A8%E5%85%A5%E6%8A%80%E6%9C%AF.html" class="md-nav__link">
         
   
   
@@ -844,7 +997,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/cplusplus/2025-06-25-c%2B%2B%E6%A8%A1%E6%9D%BF%E5%8F%82%E6%95%B0%E6%8E%A8%E5%AF%BC%E5%92%8C%E6%A8%A1%E6%9D%BF%E5%AE%9E%E4%BE%8B%E5%8C%96.html" class="md-nav__link">
+      <a href="../cplusplus/2025-06-25-c%2B%2B%E6%A8%A1%E6%9D%BF%E5%8F%82%E6%95%B0%E6%8E%A8%E5%AF%BC%E5%92%8C%E6%A8%A1%E6%9D%BF%E5%AE%9E%E4%BE%8B%E5%8C%96.html" class="md-nav__link">
         
   
   
@@ -867,7 +1020,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/cplusplus/2025-06-26-c%2B%2B%E6%A0%87%E7%AD%BE%E6%B4%BE%E5%8F%91%E6%8A%80%E6%9C%AF--%E4%BB%A5geometry%E6%B3%9B%E5%9E%8B%E4%B8%BA%E4%BE%8B.html" class="md-nav__link">
+      <a href="../cplusplus/2025-06-26-c%2B%2B%E6%A0%87%E7%AD%BE%E6%B4%BE%E5%8F%91%E6%8A%80%E6%9C%AF--%E4%BB%A5geometry%E6%B3%9B%E5%9E%8B%E4%B8%BA%E4%BE%8B.html" class="md-nav__link">
         
   
   
@@ -890,7 +1043,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/cplusplus/2025-07-10-c%2B%2B%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96%E6%96%B9%E5%BC%8F%E4%BB%A5%E5%8F%8A%E5%88%9D%E5%A7%8B%E5%8C%96%E5%88%97%E8%A1%A8.html" class="md-nav__link">
+      <a href="../cplusplus/2025-07-10-c%2B%2B%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96%E6%96%B9%E5%BC%8F%E4%BB%A5%E5%8F%8A%E5%88%9D%E5%A7%8B%E5%8C%96%E5%88%97%E8%A1%A8.html" class="md-nav__link">
         
   
   
@@ -913,7 +1066,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/cplusplus/2025-07-11-c%2B%2B%E7%9A%84%E5%8F%AF%E5%8F%98%E5%8F%82%E6%95%B0%E6%A8%A1%E6%9D%BF.html" class="md-nav__link">
+      <a href="../cplusplus/2025-07-11-c%2B%2B%E7%9A%84%E5%8F%AF%E5%8F%98%E5%8F%82%E6%95%B0%E6%A8%A1%E6%9D%BF.html" class="md-nav__link">
         
   
   
@@ -936,7 +1089,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/cplusplus/2025-07-15-c%2B%2B%E7%9A%84%E5%B9%B3%E5%87%A1%E7%B1%BB%E5%92%8C%E6%A0%87%E5%87%86%E5%B8%83%E5%B1%80%E7%B1%BB.html" class="md-nav__link">
+      <a href="../cplusplus/2025-07-15-c%2B%2B%E7%9A%84%E5%B9%B3%E5%87%A1%E7%B1%BB%E5%92%8C%E6%A0%87%E5%87%86%E5%B8%83%E5%B1%80%E7%B1%BB.html" class="md-nav__link">
         
   
   
@@ -959,7 +1112,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/cplusplus/2025-08-18-c%2B%2B%E7%9A%84%E5%B8%B8%E9%87%8F%E6%BC%94%E5%8F%98.html" class="md-nav__link">
+      <a href="../cplusplus/2025-08-18-c%2B%2B%E7%9A%84%E5%B8%B8%E9%87%8F%E6%BC%94%E5%8F%98.html" class="md-nav__link">
         
   
   
@@ -982,7 +1135,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/cplusplus/2025-09-10-c%2B%2B%E7%9A%84%E7%B1%BB%E5%A4%96%E7%B1%BB%E5%9E%8B%E8%A7%A3%E6%9E%90%E8%A7%84%E5%88%99.html" class="md-nav__link">
+      <a href="../cplusplus/2025-09-10-c%2B%2B%E7%9A%84%E7%B1%BB%E5%A4%96%E7%B1%BB%E5%9E%8B%E8%A7%A3%E6%9E%90%E8%A7%84%E5%88%99.html" class="md-nav__link">
         
   
   
@@ -1046,7 +1199,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/cplusplus/c%2B%2B20/2025-08-19-c%2B%2B%E7%9A%84format%E5%BA%93.html" class="md-nav__link">
+      <a href="../cplusplus/c%2B%2B20/2025-08-19-c%2B%2B%E7%9A%84format%E5%BA%93.html" class="md-nav__link">
         
   
   
@@ -1069,7 +1222,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/cplusplus/c%2B%2B20/2025-09-16-c%2B%2B%E7%9A%84%E5%8D%8F%E7%A8%8B%E5%BA%93.html" class="md-nav__link">
+      <a href="../cplusplus/c%2B%2B20/2025-09-16-c%2B%2B%E7%9A%84%E5%8D%8F%E7%A8%8B%E5%BA%93.html" class="md-nav__link">
         
   
   
@@ -1148,7 +1301,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/2025-03-28-cmake%E7%9A%84ctest%E6%A1%86%E6%9E%B6.html" class="md-nav__link">
+      <a href="../%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/2025-03-28-cmake%E7%9A%84ctest%E6%A1%86%E6%9E%B6.html" class="md-nav__link">
         
   
   
@@ -1171,7 +1324,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/2025-03-29-boost.test%E6%A1%86%E6%9E%B6.html" class="md-nav__link">
+      <a href="../%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/2025-03-29-boost.test%E6%A1%86%E6%9E%B6.html" class="md-nav__link">
         
   
   
@@ -1242,7 +1395,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6/2025-09-16-clangd%E7%9A%84vscode%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B.html" class="md-nav__link">
+      <a href="../%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6/2025-09-16-clangd%E7%9A%84vscode%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B.html" class="md-nav__link">
         
   
   
@@ -1265,7 +1418,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6/2025-09-26-draw-io%E7%9A%84%E5%B8%B8%E8%A7%81%E6%93%8D%E4%BD%9C.html" class="md-nav__link">
+      <a href="../%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6/2025-09-26-draw-io%E7%9A%84%E5%B8%B8%E8%A7%81%E6%93%8D%E4%BD%9C.html" class="md-nav__link">
         
   
   
@@ -1336,7 +1489,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/2025-05-07-%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86%E4%B8%AD%E7%9A%84%E5%90%84%E7%A7%8D%E9%A2%91%E7%8E%87.html" class="md-nav__link">
+      <a href="../%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/2025-05-07-%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86%E4%B8%AD%E7%9A%84%E5%90%84%E7%A7%8D%E9%A2%91%E7%8E%87.html" class="md-nav__link">
         
   
   
@@ -1359,7 +1512,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/2025-05-08-%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E4%B8%AD%E9%A2%91%E5%9F%9F%E6%BB%A4%E6%B3%A2%E5%99%A8%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86.html" class="md-nav__link">
+      <a href="../%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/2025-05-08-%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E4%B8%AD%E9%A2%91%E5%9F%9F%E6%BB%A4%E6%B3%A2%E5%99%A8%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86.html" class="md-nav__link">
         
   
   
@@ -1382,7 +1535,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/2025-05-08-%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86%E4%B8%AD%E7%9A%84%E5%B7%B4%E7%89%B9%E6%B2%83%E6%96%AF%E6%BB%A4%E6%B3%A2%E5%99%A8.html" class="md-nav__link">
+      <a href="../%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/2025-05-08-%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86%E4%B8%AD%E7%9A%84%E5%B7%B4%E7%89%B9%E6%B2%83%E6%96%AF%E6%BB%A4%E6%B3%A2%E5%99%A8.html" class="md-nav__link">
         
   
   
@@ -1453,7 +1606,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/2025-08-26-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84R_tree%28%E4%B8%80%29.html" class="md-nav__link">
+      <a href="../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/2025-08-26-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84R_tree%28%E4%B8%80%29.html" class="md-nav__link">
         
   
   
@@ -1476,7 +1629,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/2025-08-29-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84R_tree%28%E4%BA%8C%29.html" class="md-nav__link">
+      <a href="../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/2025-08-29-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84R_tree%28%E4%BA%8C%29.html" class="md-nav__link">
         
   
   
@@ -1547,7 +1700,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/%E7%94%B5%E6%9C%BA%E6%8E%A7%E5%88%B6/2025-05-07-%E6%97%A0%E6%84%9F%E7%94%B5%E6%9C%BA%E6%8E%A7%E5%88%B6%E6%80%BB%E7%BA%B2%E9%A2%86.html" class="md-nav__link">
+      <a href="../%E7%94%B5%E6%9C%BA%E6%8E%A7%E5%88%B6/2025-05-07-%E6%97%A0%E6%84%9F%E7%94%B5%E6%9C%BA%E6%8E%A7%E5%88%B6%E6%80%BB%E7%BA%B2%E9%A2%86.html" class="md-nav__link">
         
   
   
@@ -1570,7 +1723,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/%E7%94%B5%E6%9C%BA%E6%8E%A7%E5%88%B6/2025-09-24-%E9%AB%98%E9%A2%91%E5%BC%A6%E6%B3%A2%E6%B3%A8%E5%85%A5.html" class="md-nav__link">
+      <a href="../%E7%94%B5%E6%9C%BA%E6%8E%A7%E5%88%B6/2025-09-24-%E9%AB%98%E9%A2%91%E5%BC%A6%E6%B3%A2%E6%B3%A8%E5%85%A5.html" class="md-nav__link">
         
   
   
@@ -1641,7 +1794,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/%E7%B3%BB%E7%BB%9F%E8%84%9A%E6%9C%AC/2025-05-29-powershell%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8.html" class="md-nav__link">
+      <a href="../%E7%B3%BB%E7%BB%9F%E8%84%9A%E6%9C%AC/2025-05-29-powershell%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8.html" class="md-nav__link">
         
   
   
@@ -1664,7 +1817,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/%E7%B3%BB%E7%BB%9F%E8%84%9A%E6%9C%AC/2025-08-06-wsl%E5%B8%B8%E7%94%A8%E5%86%85%E5%AE%B9.html" class="md-nav__link">
+      <a href="../%E7%B3%BB%E7%BB%9F%E8%84%9A%E6%9C%AC/2025-08-06-wsl%E5%B8%B8%E7%94%A8%E5%86%85%E5%AE%B9.html" class="md-nav__link">
         
   
   
@@ -1699,8 +1852,141 @@
             <div class="md-content" data-md-component="content">
               <article class="md-content__inner md-typeset">
                 
-  <h1>404 - Not found</h1>
+                  
 
+
+
+  <h1>cmake的add_custom_command命令详解</h1>
+
+<h2 id="_1">一、前言</h2>
+<p>CMake作为C++的跨平台构建工具，需要支持大量特性以适应C++多样化的实现方式和个性化构建需求。由于C++的复杂性（同一功能常有多种实现路径），CMake必须提供丰富的功能来覆盖这些场景。为了实现个性化定制，并且将这些划入到cmake构建过程中，cmake提出一种接口命令的形式，由用户自行定义其实现内容，然后cmake将这些实现内容翻译成makefile或者直接执行。</p>
+<p>这种设计类似于Linux的ioctl机制——在基础操作（如open/read/write）之外，通过用户自定义扩展功能来覆盖多样化需求。</p>
+<h3 id="11">1.1 感性认知</h3>
+<p>在介绍具体的参数等详细内容之前，先想想在编译时有哪些场景需求：</p>
+<ol>
+<li>需要在某些文件或目标操作前执行特定动作（如条件检查）。</li>
+<li>希望CMake自动安排执行时机，避免手动调用导致的遗漏。</li>
+<li>不明确具体执行时间，仅需保证在目标或条件之前完成。</li>
+</ol>
+<p>这三条都有一个特性，那就是时间或者是位置的不确定的时候执行某些操作。在<code>C/C++</code>中，一种解决方案是先将回调函数注册到能够感知到条件的地方，然后当条件满足时，就执行相应的回调函数。一般情况下，能够感知变化的是操作系统。因此编译的时候，使用的使用cmake，自然cmake需要充当这个操作系统的角色，以提升编译时的能力。因此，cmake提出了add_custom_command命令。</p>
+<h2 id="_2">二、命令详解</h2>
+<p>在前面提到了cmake提供了类似回调函数的执行机制的编译机制。一般在使用回调函数机制时，执行内容是由用户编写，而什么时候执行是由操作系统决定。</p>
+<p>那么这里引申出两个问题：</p>
+<ol>
+<li>
+<p>cmake在什么时候什么地方会执行用户定义的命令？即触发方式。</p>
+<ul>
+<li>与文件绑定的方式</li>
+<li>与target绑定的方式</li>
+</ul>
+</li>
+<li>
+<p>cmake支持用户可以干哪些事？</p>
+<ul>
+<li>使用CAMMAND标识所要执行的命令</li>
+</ul>
+</li>
+</ol>
+<h3 id="21">2.1 与文件绑定的触发方式</h3>
+<p>根据cmake官方参考文档，该命令有两种形式，第一个是将命令的输出作为连接口，当其他的流程需要这个文件时，那么这个命令就会被执行，语法如下：</p>
+<div class="highlight"><pre><span></span><code><span class="nb">add_custom_command</span><span class="p">(</span><span class="s">OUTPUT</span><span class="w"> </span><span class="s">output1</span><span class="w"> </span><span class="s">[output2</span><span class="w"> </span><span class="s">...]</span>
+<span class="w">                   </span><span class="s">COMMAND</span><span class="w"> </span><span class="s">command1</span><span class="w"> </span><span class="s">[ARGS]</span><span class="w"> </span><span class="s">[args1...]</span>
+<span class="w">                   </span><span class="s">[COMMAND</span><span class="w"> </span><span class="s">command2</span><span class="w"> </span><span class="s">[ARGS]</span><span class="w"> </span><span class="s">[args2...]</span><span class="w"> </span><span class="s">...]</span>
+<span class="w">                   </span><span class="s">[MAIN_DEPENDENCY</span><span class="w"> </span><span class="s">depend]</span>
+<span class="w">                   </span><span class="s">[DEPENDS</span><span class="w"> </span><span class="s">[depends...]]</span>
+<span class="w">                   </span><span class="s">[BYPRODUCTS</span><span class="w"> </span><span class="s">[files...]]</span>
+<span class="w">                   </span><span class="s">[IMPLICIT_DEPENDS</span><span class="w"> </span><span class="s">&lt;lang1&gt;</span><span class="w"> </span><span class="s">depend1</span>
+<span class="w">                                    </span><span class="s">[&lt;lang2&gt;</span><span class="w"> </span><span class="s">depend2]</span><span class="w"> </span><span class="s">...]</span>
+<span class="w">                   </span><span class="s">[WORKING_DIRECTORY</span><span class="w"> </span><span class="s">dir]</span>
+<span class="w">                   </span><span class="s">[COMMENT</span><span class="w"> </span><span class="s">comment]</span>
+<span class="w">                   </span><span class="s">[DEPFILE</span><span class="w"> </span><span class="s">depfile]</span>
+<span class="w">                   </span><span class="s">[JOB_POOL</span><span class="w"> </span><span class="s">job_pool]</span>
+<span class="w">                   </span><span class="s">[JOB_SERVER_AWARE</span><span class="w"> </span><span class="s">&lt;bool&gt;]</span>
+<span class="w">                   </span><span class="s">[VERBATIM]</span><span class="w"> </span><span class="s">[APPEND]</span><span class="w"> </span><span class="s">[USES_TERMINAL]</span>
+<span class="w">                   </span><span class="s">[COMMAND_EXPAND_LISTS]</span>
+<span class="w">                   </span><span class="s">[DEPENDS_EXPLICIT_ONLY]</span><span class="p">)</span>
+</code></pre></div>
+<p>可以看出，cmake官方提供的这个命令是相当的复杂。但可以看到，除了OUTPUT和COMMAND之后，其他的都是可选参数，也就意味着，如果你没有这方面的需求，那么就没有必要深入了解，当你需要使用到高阶的定制化内容时，那么再进行了解，在使用中学习，这才是最好的方式。</p>
+<blockquote>
+<hr />
+<p>引自泡沫o0 <a href="https://developer.aliyun.com/article/1465043">CMake深度解析：掌握add_custom_command，精通Makefile生成规则（一）</a></p>
+<p>这个命令的主要作用是定义一条自定义的构建规则，这条规则可以在构建过程中执行一系列的命令。下面我们来详细解析这个命令的各个参数:</p>
+<ul>
+<li>OUTPUT output1 [output2 ...]：这个参数用于指定自定义命令的输出文件。这些文件在构建过程中会被生成，如果这些文件不存在，那么CMake就会执行这条自定义命令。</li>
+<li>COMMAND command1 [ARGS] [args1...]：这个参数用于指定要执行的命令。你可以提供任何有效的命令，包括系统命令、脚本，或者其他的构建工具。ARGS关键字后面可以跟随一系列的参数，这些参数会被传递给命令  。</li>
+<li>MAIN_DEPENDENCY depend：这个参数用于指定自定义命令的主要依赖。如果这个依赖的文件被修改，那么自定义命令就会被执行。</li>
+<li>DEPENDS [depends...]：这个参数用于指定自定义命令的其他依赖。如果这些依赖的文件被修改，那么自定义命令也会被执行。</li>
+<li>BYPRODUCTS [files...]：这个参数用于指定自定义命令的副产品。如果你指定了一个或多个文件作为副产品，那么这些文件将会被添加到构建系统的清理列表中。</li>
+<li>WORKING_DIRECTORY dir：这个参数用于指定自定义命令的工作目录。如果你没有指定这个参数，那么自定义命令将会在当前的源码目录中执行。</li>
+<li>COMMENT comment：这个参数用于指定一个注释，这个注释将会在执行自定义命令时被打印出来。</li>
+<li>VERBATIM：这个参数用于控制命令参数的处理方式。如果你指定了VERBATIM，那么命令参数将会被按照字面意义处理，而不会被解析为变量或表达式</li>
+</ul>
+<hr />
+</blockquote>
+<p>针对这个命令，我们需要搞清楚三个问题，什么时候被执行，执行什么操作，执行时还需要哪些条件限定以及结果。</p>
+<h4 id="211">2.1.1 什么时候执行</h4>
+<p>它是由OUTPUT决定的，它的后面紧接着的一堆文件，当这些文件被需要时，这条命令就会被执行。</p>
+<ul>
+<li>当这个OUTPUT输出的文件被当做其他的TARGET直接或者是间接的被使用时，它就像是makefile中的依赖一样，就会被执行。  </li>
+<li>待续...  </li>
+</ul>
+<h4 id="212">2.1.2 执行什么操作</h4>
+<p><code>COMMAND command1 [ARGS] [args1...]</code> 决定了执行什么操作。</p>
+<ul>
+<li>当执行一些常规的命令时，例如拷贝，打印这些时，可以使用cmake提供的命令，达到跨平台的目的，COMMAND ${CMAKE_COMMAND} -E 命令 参数...，在命令行终端中使用cmake -E 查看当前支持哪些操作。</li>
+<li>执行python的命令</li>
+<li>执行与平台相关的命令</li>
+</ul>
+<h4 id="213">2.1.3 有哪些条件或者是输出结果</h4>
+<p>其他的在上面已经说明了，值得一提的是BYPRODUCTS选项，这个表示命令的执行完毕之后的副产品，它并不会直接触发整个命令是否被执行。因此可以利用它表征命令执行的情况，包括什么时候执行，执行的结果是怎样等等。 </p>
+<h3 id="22">2.2 与目标绑定的触发方式</h3>
+<p>语法格式：</p>
+<div class="highlight"><pre><span></span><code><span class="nb">add_custom_command</span><span class="p">(</span><span class="s">TARGET</span><span class="w"> </span><span class="s">&lt;target&gt;</span>
+<span class="w">                   </span><span class="s">PRE_BUILD</span><span class="w"> </span><span class="s">|</span><span class="w"> </span><span class="s">PRE_LINK</span><span class="w"> </span><span class="s">|</span><span class="w"> </span><span class="s">POST_BUILD</span>
+<span class="w">                   </span><span class="s">COMMAND</span><span class="w"> </span><span class="s">command1</span><span class="w"> </span><span class="s">[ARGS]</span><span class="w"> </span><span class="s">[args1...]</span>
+<span class="w">                   </span><span class="s">[COMMAND</span><span class="w"> </span><span class="s">command2</span><span class="w"> </span><span class="s">[ARGS]</span><span class="w"> </span><span class="s">[args2...]</span><span class="w"> </span><span class="s">...]</span>
+<span class="w">                   </span><span class="s">[BYPRODUCTS</span><span class="w"> </span><span class="s">[files...]]</span>
+<span class="w">                   </span><span class="s">[WORKING_DIRECTORY</span><span class="w"> </span><span class="s">dir]</span>
+<span class="w">                   </span><span class="s">[COMMENT</span><span class="w"> </span><span class="s">comment]</span>
+<span class="w">                   </span><span class="s">[VERBATIM]</span>
+<span class="w">                   </span><span class="s">[COMMAND_EXPAND_LISTS]</span><span class="p">)</span>
+</code></pre></div>
+<p>可以看到，它是和TARGET进行绑定，从而触发相应的事件发生的；与前一种方式不同的是，他是主动绑定到一个TARGET上，并且它还有一个概念是构建的执行时间点：</p>
+<ul>
+<li>PRE_BUILD 预构建：在构建这个目标之前</li>
+<li>PRE_LINK 链接前：执行需要在编译完成但链接未开始之前的任务，如生成或更新一些需要链接的库文件</li>
+<li>POST_BUILD 构建后：执行后处理任务，如复制生成的文件到指定的目录，执行一些测试和验证任务 </li>
+</ul>
+<p>因此，为什么需要指定这个呢，一个TARGET在构建的时候分多个部分，cmake搞不清在什么时候执行，因此需要用户进行指定。<br />
+与其他内容相似的，它也可以使用其他的参数内容。  </p>
+<p>那么，这也就解释了什么时候执行的问题。</p>
+<p>注意点如下： </p>
+<ol>
+<li>Target是单个，不能绑定TARGETS，即单个目标绑定  </li>
+<li>Target是由add_library,add_excutable等命令创建的。</li>
+<li>Target需要在定义该命令创建过。</li>
+</ol>
+<h2 id="_3">三、参考文献</h2>
+<ol>
+<li><a href="https://developer.aliyun.com/article/1465043">CMake深度解析：掌握add_custom_command，精通Makefile生成规则（一）</a>  </li>
+<li><a href="https://cmake.org/cmake/help/latest/command/add_custom_command.html">CMAKE官方</a>  </li>
+</ol>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
               </article>
             </div>
           
@@ -1742,10 +2028,10 @@
     
     
       
-      <script id="__config" type="application/json">{"base": "/", "features": ["navigation.instant", "navigation.tabs", "toc.integrate", "content.code.copy", "content.code.annotate", "navigation.top", "search.highlight"], "search": "/assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+      <script id="__config" type="application/json">{"base": "..", "features": ["navigation.instant", "navigation.tabs", "toc.integrate", "content.code.copy", "content.code.annotate", "navigation.top", "search.highlight"], "search": "../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
     
     
-      <script src="/assets/javascripts/bundle.f55a23d4.min.js"></script>
+      <script src="../assets/javascripts/bundle.f55a23d4.min.js"></script>
       
         <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
       
@@ -1753,7 +2039,7 @@
       
         <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
       
-        <script src="/assets/javascripts/focus-mode.js"></script>
+        <script src="../assets/javascripts/focus-mode.js"></script>
       
     
   </body>
