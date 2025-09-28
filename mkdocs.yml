@@ -1,5 +1,7 @@
 site_name: ikun爱学习
 
+use_directory_urls: false
+
 theme:
   name: material  # 核心配置：使用 Material 主题
   palette: #调色板
