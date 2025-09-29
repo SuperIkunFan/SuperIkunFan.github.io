@@ -1836,9 +1836,11 @@
 </li>
 <li>
 <p>解决方案：<br />
-    有学者提出了一种改进方法，其核心有两个要点：<br />
-        + 改变观测坐标系：在静止坐标系下观测电流。
-        + 改变注入波形：使用方波代替正弦波进行注入，从而能够实现更高的有效注入频率。</p>
+    有学者提出了一种改进方法，其核心有两个要点：  </p>
+<ul>
+<li>改变观测坐标系：在静止坐标系下观测电流。</li>
+<li>改变注入波形：使用方波代替正弦波进行注入，从而能够实现更高的有效注入频率。</li>
+</ul>
 </li>
 </ol>
 <h2 id="_2">二、基本原理</h2>
@@ -1861,41 +1863,41 @@ U_{qhfi}(s) =  sL_q I_{qhfi}(s)
 \end{align}
 \]</div>
 <p>其中，<span class="arithmatex">\(U_{dhfi}(s)\)</span> <span class="arithmatex">\(U_{qhfi}(s)\)</span> <span class="arithmatex">\(I_{dhfi}(s)\)</span> <span class="arithmatex">\(I_{qhfi}(s)\)</span> 是对应拉氏变换后的象函数。</p>
-<p>$$
+<div class="arithmatex">\[
 \begin{bmatrix}
-I_{dhfi}(s)\
+I_{dhfi}(s) \\
 I_{qhfi}(s)
 \end{bmatrix}
-= 
+=
 \begin{bmatrix}
-sL_d &amp; 0\
+sL_d &amp; 0\\
 0 &amp; sL_q
-\end{bmatrix}^{-1}</p>
-<p>\begin{bmatrix}
-U_{dhfi}(s) \
+\end{bmatrix}^{-1}
+\begin{bmatrix}
+U_{dhfi}(s) \\
 U_{qhfi}(s)
 \end{bmatrix}
-$$</p>
+\]</div>
 <p>将电流化为<span class="arithmatex">\(\alpha\)</span>-<span class="arithmatex">\(\beta\)</span>坐标系下</p>
-<p>$$
+<div class="arithmatex">\[
 \begin{bmatrix}
-I_{\alpha hfi}(s) \
+I_{\alpha hfi}(s) \\
 I_{\beta hfi}(s)
 \end{bmatrix}
-= 
+=
 \begin{bmatrix}
-cos(\theta) &amp; sin(\theta) \
+cos(\theta) &amp; sin(\theta) \\
 -sin(\theta) &amp; cos(\theta)
-\end{bmatrix}^{-1}</p>
-<p>\begin{bmatrix}
-sL_d &amp; 0\
+\end{bmatrix}^{-1}
+\begin{bmatrix}
+sL_d &amp; 0\\
 0 &amp; sL_q
-\end{bmatrix}^{-1}</p>
-<p>\begin{bmatrix}
-U_{dhfi}(s) \
+\end{bmatrix}^{-1}
+\begin{bmatrix}
+U_{dhfi}(s) \\
 U_{qhfi}(s)
 \end{bmatrix} \tag{2-3}
-$$</p>
+\]</div>
 <p>实际输入的是估计坐标系下的电压值，他们之间存在关系</p>
 <div class="arithmatex">\[
 \begin{bmatrix}
@@ -1913,65 +1915,65 @@ $$</p>
 \end{bmatrix} \tag{2-4}
 \]</div>
 <p>将式2-4带入到式2-3中，就可以估计坐标系dq轴高频电压输入和真实<span class="arithmatex">\(\alpha\)</span>-<span class="arithmatex">\(\beta\)</span>坐标系之间的关系式。</p>
-<p>$$
+<div class="arithmatex">\[
 \begin{bmatrix}
-I_{\alpha hfi}(s) \
+I_{\alpha hfi}(s) \\
 I_{\beta hfi}(s)
 \end{bmatrix}
 = 
 \begin{bmatrix}
-cos(\theta) &amp; sin(\theta) \
+cos(\theta) &amp; sin(\theta) \\
 -sin(\theta) &amp; cos(\theta)
-\end{bmatrix}^{-1}</p>
-<p>\begin{bmatrix}
-sL_d &amp; 0\
+\end{bmatrix}^{-1}
+\begin{bmatrix}
+sL_d &amp; 0\\
 0 &amp; sL_q
-\end{bmatrix}^{-1}</p>
-<p>\begin{bmatrix}
-    cos(\theta_s) &amp; sin(\theta_s) \
+\end{bmatrix}^{-1}
+\begin{bmatrix}
+    cos(\theta_s) &amp; sin(\theta_s) \\
     -sin(\theta_s)&amp; cos(\theta_s) 
 \end{bmatrix}
 \begin{bmatrix}
-    \hat{U_{dhfi}(s)} \
+    \hat{U_{dhfi}(s)} \\
     \hat{U_{qhfi}(s)} 
 \end{bmatrix} \tag{2-5}
-$$</p>
+\]</div>
 <p>化简之后可得到</p>
-<p>$$
+<div class="arithmatex">\[
 \begin{bmatrix}
-I_{\alpha hfi}(s) \
+I_{\alpha hfi}(s) \\
 I_{\beta hfi}(s)
 \end{bmatrix}
 = 
 \begin{bmatrix}
-\frac{\cos(\theta)}{sL_d} &amp; -\frac{\sin(\theta)}{sL_q} \
+\frac{\cos(\theta)}{sL_d} &amp; -\frac{\sin(\theta)}{sL_q} \\
 \frac{\sin(\theta)}{sL_d} &amp; \frac{\cos(\theta)}{sL_q}
-\end{bmatrix}</p>
-<p>\begin{bmatrix}
-    cos(\theta_s) &amp; sin(\theta_s) \
+\end{bmatrix}
+\begin{bmatrix}
+    cos(\theta_s) &amp; sin(\theta_s) \\
     -sin(\theta_s)&amp; cos(\theta_s) 
 \end{bmatrix}
 \begin{bmatrix}
-    \hat{U_{dhfi}(s)} \
+    \hat{U_{dhfi}(s)} \\
     \hat{U_{qhfi}(s)} 
 \end{bmatrix} \tag{2-6}
-$$</p>
+\]</div>
 <p>由于估计的dq轴和实际dq轴的误差角度在迭代多次后逐渐逼近0，这将导致旋转矩阵变成单位矩阵也就是假设估计的dq轴位置就是实际dq轴的位置。</p>
-<p>$$
+<div class="arithmatex">\[
 \begin{bmatrix}
-I_{\alpha hfi}(s) \
+I_{\alpha hfi}(s) \\
 I_{\beta hfi}(s)
 \end{bmatrix}
 = 
 \begin{bmatrix}
-\frac{\cos(\theta)}{sL_d} &amp; -\frac{\sin(\theta)}{sL_q} \
+\frac{\cos(\theta)}{sL_d} &amp; -\frac{\sin(\theta)}{sL_q} \\
 \frac{\sin(\theta)}{sL_d} &amp; \frac{\cos(\theta)}{sL_q}
-\end{bmatrix}</p>
-<p>\begin{bmatrix}
-    \hat{U_{dhfi}(s)} \
+\end{bmatrix}
+\begin{bmatrix}
+    \hat{U_{dhfi}(s)} \\
     \hat{U_{qhfi}(s)} 
 \end{bmatrix} \tag{2-7}
-$$</p>
+\]</div>
 <p>d轴注入方波电压，而q轴输入零，</p>
 <div class="arithmatex">\[
 \begin{bmatrix}
@@ -2011,14 +2013,14 @@ i[n] = i[n]_{ base} + i[n]_{hfi}
 \]</div>
 <p>注入负电压下</p>
 <div class="arithmatex">\[
-i[n+1] = i[n]_{ base} - i[n]_{hfi}
+i[n+1] = i[n + 1]_{ base} - i[n + 1]_{hfi}
 \]</div>
 <p>因此基波电流和高频电流为</p>
 <div class="arithmatex">\[
-i_{base} = \frac{i[n] - i[n+1]}{2} \tag{2-10}
+i_{base} = \frac{i[n] + i[n+1]}{2} \tag{2-10}
 \]</div>
 <div class="arithmatex">\[
-i_{hfi} = \frac{i[n] + i[n+1]}{2} \tag{2-11}
+i_{hfi} = \frac{i[n] - i[n+1]}{2} \tag{2-11}
 \]</div>
 <p>上式对<span class="arithmatex">\(\alpha \, \beta\)</span>均成立。从式2-10和2-11就作差就可以得到对应的<span class="arithmatex">\(\alpha\)</span>-<span class="arithmatex">\(\beta\)</span>坐标系电流差。然后带入式2-9就可以得到对应的差。</p>
 <h2 id="_4">四、锁相环观测电角度</h2>
