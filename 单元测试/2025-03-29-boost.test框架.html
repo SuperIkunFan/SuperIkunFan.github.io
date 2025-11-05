@@ -16,7 +16,7 @@
       
       
       <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.20">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.23">
     
     
       
@@ -24,7 +24,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.e53b48f4.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.84d31ad4.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
@@ -1999,7 +1999,8 @@
   <h1>boost的单元测试框架</h1>
 
 <h2 id="_1">第一章 前言</h2>
-<p>当写出来一个代码之后，使用一定的测试来判断代码是否正常运行，因此我们可以考虑使用一定的测试框架来检测自己的代码是否正确。接下来介绍一下boost.test框架所带来的测试框架流程。</p>
+<p>当写出来一个代码之后，使用一定的测试来判断代码是否正常运行，因此我们可以考虑使用一定的测试框架来检测自己的代码是否正确。</p>
+<p>接下来介绍一下boost.test框架所带来的测试框架流程。</p>
 <h2 id="_2">第二章 总体预览</h2>
 <p>boost.test框架将测试代码以树的方式进行构建。boost.test称之为test tree。<br />
 整棵树主要分为四类：</p>
@@ -2037,28 +2038,34 @@
 <h4 id="321">3.2.1 断言</h4>
 <p>测试断言就是告诉boost在哪里进行判断的。</p>
 <ol>
-<li>基础断言宏  </li>
+<li>基础断言宏  <ul>
 <li>BOOST_TEST 它支持bool或者是表达式能够转化为bool，常见形式如下：<br />
-    <div class="highlight"><pre><span></span><code><span class="w">  </span><span class="n">BOOST_TEST</span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">2</span><span class="p">);</span><span class="w">          </span><span class="c1">// 布尔表达式</span>
+   <div class="highlight"><pre><span></span><code><span class="w">  </span><span class="n">BOOST_TEST</span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">2</span><span class="p">);</span><span class="w">          </span><span class="c1">// 布尔表达式</span>
 <span class="w">  </span><span class="n">BOOST_TEST</span><span class="p">(</span><span class="n">func</span><span class="p">()</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">expected</span><span class="p">);</span><span class="w">  </span><span class="c1">// 函数返回值比较</span>
 <span class="w">  </span><span class="n">BOOST_TEST</span><span class="p">(</span><span class="n">var</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Optional message&quot;</span><span class="p">);</span><span class="w"> </span><span class="c1">// 附带自定义错误消息</span>
 </code></pre></div></li>
 <li>严格比较 BOOST_TEST_EQ / BOOST_TEST_NE 明确值相等或者是不相等<br />
-    <div class="highlight"><pre><span></span><code><span class="w">  </span><span class="n">BOOST_TEST_EQ</span><span class="p">(</span><span class="mi">42</span><span class="p">,</span><span class="w"> </span><span class="n">answer</span><span class="p">());</span><span class="w">     </span><span class="c1">// 要求严格相等</span>
+   <div class="highlight"><pre><span></span><code><span class="w">  </span><span class="n">BOOST_TEST_EQ</span><span class="p">(</span><span class="mi">42</span><span class="p">,</span><span class="w"> </span><span class="n">answer</span><span class="p">());</span><span class="w">     </span><span class="c1">// 要求严格相等</span>
 <span class="w">  </span><span class="n">BOOST_TEST_NE</span><span class="p">(</span><span class="n">status</span><span class="p">,</span><span class="w"> </span><span class="n">ERROR</span><span class="p">);</span><span class="w">    </span><span class="c1">// 要求不等</span>
 </code></pre></div></li>
-<li>条件检测断言 </li>
+</ul>
+</li>
+<li>条件检测断言 <ul>
 <li>BOOST_TEST 通用条件检查，当检查失败时，代码继续执行  </li>
 <li>BOOST_REQUIRE 致命条件检查，当检查失败时，终止当前测试用例<br />
-    <div class="highlight"><pre><span></span><code><span class="w">  </span><span class="n">BOOST_REQUIRE</span><span class="p">(</span><span class="n">file</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="k">nullptr</span><span class="p">);</span><span class="w">    </span><span class="c1">// 若失败，后续代码不执行</span>
+   <div class="highlight"><pre><span></span><code><span class="w">  </span><span class="n">BOOST_REQUIRE</span><span class="p">(</span><span class="n">file</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="k">nullptr</span><span class="p">);</span><span class="w">    </span><span class="c1">// 若失败，后续代码不执行</span>
 <span class="w">  </span><span class="n">BOOST_TEST</span><span class="p">(</span><span class="n">data</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span><span class="w">      </span><span class="c1">// 继续执行即使失败</span>
 </code></pre></div></li>
-<li>异常断言</li>
+</ul>
+</li>
+<li>异常断言<ul>
 <li>判断是否抛出预期异常：<br />
-    <div class="highlight"><pre><span></span><code><span class="w">  </span><span class="n">BOOST_REQUIRE_THROW</span><span class="p">(</span><span class="n">func</span><span class="p">(),</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">runtime_error</span><span class="p">);</span><span class="w"> </span><span class="c1">// 必须抛出指定异常</span>
+   <div class="highlight"><pre><span></span><code><span class="w">  </span><span class="n">BOOST_REQUIRE_THROW</span><span class="p">(</span><span class="n">func</span><span class="p">(),</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">runtime_error</span><span class="p">);</span><span class="w"> </span><span class="c1">// 必须抛出指定异常</span>
 <span class="w">  </span><span class="n">BOOST_CHECK_NO_THROW</span><span class="p">(</span><span class="n">safe_func</span><span class="p">());</span><span class="w">               </span><span class="c1">// 不应抛出任何异常</span>
 <span class="w">  </span><span class="n">BOOST_CHECK_THROW</span><span class="p">(</span><span class="n">func</span><span class="p">(),</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">logic_error</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Why?&quot;</span><span class="p">);</span><span class="w"> </span><span class="c1">// 检查异常类型+消息</span>
 </code></pre></div></li>
+</ul>
+</li>
 <li>浮点数近似比较，主要时处理浮点数误差的<br />
     <div class="highlight"><pre><span></span><code><span class="w">  </span><span class="n">BOOST_TEST</span><span class="p">(</span><span class="mf">1.0</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mf">1.001</span><span class="p">,</span><span class="w"> </span><span class="n">tt</span><span class="o">::</span><span class="n">tolerance</span><span class="p">(</span><span class="mf">0.01</span><span class="p">));</span><span class="w">  </span><span class="c1">// 允许1%误差</span>
 <span class="w">  </span><span class="n">BOOST_CHECK_CLOSE</span><span class="p">(</span><span class="n">result</span><span class="p">,</span><span class="w"> </span><span class="mf">3.14</span><span class="p">,</span><span class="w"> </span><span class="mf">0.1</span><span class="p">);</span><span class="w">           </span><span class="c1">// 允许0.1%误差</span>
@@ -2070,47 +2077,59 @@
 </code></pre></div></li>
 <li>自定义断言拓展，通过定义一个谓词，加上一个表达式，既可以判断复杂逻辑的判断<br />
     <div class="highlight"><pre><span></span><code><span class="w">  </span><span class="n">BOOST_TEST_PREDICATE</span><span class="p">([](</span><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="p">},</span><span class="w"> </span><span class="p">(</span><span class="n">value</span><span class="p">));</span>
-</code></pre></div>
-根据以上断言工具，便可以在测试用例中告诉boost，如何控制整个测试用例的运行了。</li>
+</code></pre></div></li>
 </ol>
+<p>根据以上断言工具，便可以在测试用例中告诉boost，如何控制整个测试用例的运行了。</p>
 <h4 id="322">3.2.2 编程范式</h4>
 <p>boost支持三种编程范式。</p>
 <ol>
-<li>头文件格式</li>
+<li>头文件格式<ul>
 <li>注意点在于，需要定义BOOST_TEST_MODULE这个宏定义，然后再包含测试框架的相关设施
-    <div class="highlight"><pre><span></span><code><span class="cp">#define BOOST_TEST_MODULE test module name</span>
+   <div class="highlight"><pre><span></span><code><span class="cp">#define BOOST_TEST_MODULE test module name</span>
 <span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;boost/test/included/unit_test.hpp&gt;</span>
 </code></pre></div></li>
-<li>静态库链接</li>
+</ul>
+</li>
+<li>静态库链接<ul>
 <li>第一步，所有的翻译单元都需要包含下面的头文件
-    <div class="highlight"><pre><span></span><code><span class="w">  </span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;boost/test/unit_test.hpp&gt;</span>
+   <div class="highlight"><pre><span></span><code><span class="w">  </span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;boost/test/unit_test.hpp&gt;</span>
 </code></pre></div></li>
 <li>第二步，有且仅有一个翻译单元是如下格式
-    <div class="highlight"><pre><span></span><code><span class="cp">#define BOOST_TEST_MODULE test module name</span>
+   <div class="highlight"><pre><span></span><code><span class="cp">#define BOOST_TEST_MODULE test module name</span>
 <span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;boost/test/unit_test.hpp&gt;</span>
 </code></pre></div></li>
 <li>第三步，链接boost的静态库
-  此方法的缺点：会增大二进制文件的大小。</li>
-<li>动态库链接</li>
+ 此方法的缺点：会增大二进制文件的大小。</li>
+</ul>
+</li>
+<li>动态库链接<ul>
 <li>第一步，所有翻译单元均需要包含如下两行
-    <div class="highlight"><pre><span></span><code><span class="cp">#define BOOST_TEST_DYN_LINK</span>
+   <div class="highlight"><pre><span></span><code><span class="cp">#define BOOST_TEST_DYN_LINK</span>
 <span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;boost/test/unit_test.hpp&gt;</span>
 </code></pre></div>
-  有且仅有一个翻译单元满足如下三行
-    <div class="highlight"><pre><span></span><code><span class="cp">#define BOOST_TEST_MODULE test module name</span>
+ 有且仅有一个翻译单元满足如下三行
+   <div class="highlight"><pre><span></span><code><span class="cp">#define BOOST_TEST_MODULE test module name</span>
 <span class="cp">#define BOOST_TEST_DYN_LINK</span>
 <span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;boost/test/unit_test.hpp&gt;</span>
 </code></pre></div></li>
 <li>第二步，链接boost的动态库</li>
+</ul>
+</li>
 </ol>
 <h4 id="323">3.2.3 注册方式</h4>
 <p>boost支持两种注册方式，一种是手动注册，一种是自动注册，由于手动注册属于定制化较高的，需要精准控制整个测试的运行过程，本文不涉及。</p>
 <h3 id="33">3.3 场景</h3>
 <p>目前boost支持三种测试场景：</p>
 <ol>
-<li>无参测试用例。  </li>
-<li>有参测试用例。  </li>
-<li>带有模板的测试用例。</li>
+<li>
+<p>无参测试用例。</p>
+</li>
+<li>
+<p>有参测试用例。</p>
+</li>
+<li>
+<p>带有模板的测试用例。</p>
+</li>
 </ol>
 <p>本文仅仅涉及前两个场景，第三个请参考boost官方文档。</p>
 <h4 id="331">3.3.1 无参测试用例</h4>
@@ -2131,21 +2150,27 @@
 <h5 id="3321">3.3.2.1 数据集</h5>
 <p>数据集中“样本(Sample)”的定义与特性</p>
 <ol>
-<li>核心概念</li>
+<li>核心概念<ul>
 <li>样本(Sample) 是一种多态元组(polymorphic tuple)，即可以容纳不同类型的元素组合。</li>
 <li>元组的长度直接定义为样本的元数(arity)，即样本中包含的元素数量。</li>
-<li>作用</li>
+</ul>
+</li>
+<li>作用<ul>
 <li>通过多态元组的结构，单个样本可以灵活地封装测试所需的多维输入数据（例如：(int, string, float) 三者组合）。</li>
 <li>元数(arity) 明确了每次测试时需要的参数个数，例如：<ul>
 <li>元数为2的样本：(input_value, expected_result)</li>
 <li>元数为3的样本：(x, y, expected_sum)</li>
 </ul>
 </li>
-<li>与数据集(Data Dataset)的关系</li>
+</ul>
+</li>
+<li>与数据集(Data Dataset)的关系<ul>
 <li>数据集是由多个样本构成的集合，用于参数化测试（如迭代测试同一逻辑的不同输入组合）。  </li>
+</ul>
+</li>
 </ol>
-<p>以采样汽车运动数据为例说明数据集，样本，以及元数的概念。假设我们需要测试一辆汽车在一段时间内的位置，速度，加速度，假设这三个都是我们可以直接使用传感器测量到的，那么每一次测量都有位置、速度、加速度，这一次就叫做采样；而一次采样包含了位置、速度、加速度这三种类型的信息，这叫做元数，这个例子中元数为3，假设我们不测量加速度了，那么元数是2；而这一段时间内所有的采样就是数据集。<br />
-在boost中，数据集需要满足三个功能：  </p>
+<p>以采样汽车运动数据为例说明数据集，样本，以及元数的概念。假设我们需要测试一辆汽车在一段时间内的位置，速度，加速度，假设这三个都是我们可以直接使用传感器测量到的，那么每一次测量都有位置、速度、加速度，这一次就叫做采样；而一次采样包含了位置、速度、加速度这三种类型的信息，这叫做元数，这个例子中元数为3，假设我们不测量加速度了，那么元数是2；而这一段时间内所有的采样就是数据集。</p>
+<p>在boost中，数据集需要满足三个功能：  </p>
 <ul>
 <li>可向前迭代的，即这个类型支持operator++运算符。</li>
 <li>需要实现size函数，返回这个数据的所包含的元素个数。  </li>
@@ -2154,17 +2179,21 @@
 <p>而为了实现数据集的功能，数据集需要定义如下接口函数：  </p>
 <ol>
 <li>iterator begin()，返回指向数据集中第一个样本的向前迭代器。至于向前迭代器的功能可参考cppreference中的定义。</li>
-<li>boost::unit_test::data::size_t size() const函数  </li>
+<li>boost::unit_test::data::size_t size() const函数  <ul>
 <li>返回数据集的大小，其返回值类型为 boost::unit_test::data::size_t（专有类型）。</li>
 <li>返回值可能是有限值（如 10）或表示无限数据集（如 boost::unit_test::data::infinite）。</li>
-<li>enum arity</li>
+</ul>
+</li>
+<li>enum arity<ul>
 <li>表示数据集中每个样本的元数（arity），即样本包含的元素个数</li>
 <li>一般来说，还需要这个数据集进行模板特化，这样boost就可以通过模板萃取读取到这个类了。
-  <div class="highlight"><pre><span></span><code><span class="w">  </span><span class="n">boost</span><span class="o">::</span><span class="n">unit_test</span><span class="o">::</span><span class="n">data</span><span class="o">::</span><span class="n">monomorphic</span><span class="o">::</span><span class="n">is_dataset</span>
+ <div class="highlight"><pre><span></span><code><span class="w">  </span><span class="n">boost</span><span class="o">::</span><span class="n">unit_test</span><span class="o">::</span><span class="n">data</span><span class="o">::</span><span class="n">monomorphic</span><span class="o">::</span><span class="n">is_dataset</span>
 </code></pre></div></li>
 <li>其条件是<br />
-  <div class="highlight"><pre><span></span><code><span class="w">    </span><span class="n">boost</span><span class="o">::</span><span class="n">unit_test</span><span class="o">::</span><span class="n">data</span><span class="o">::</span><span class="n">monomorphic</span><span class="o">::</span><span class="n">is_dataset</span><span class="o">&lt;</span><span class="n">D</span><span class="o">&gt;::</span><span class="n">value</span>
+ <div class="highlight"><pre><span></span><code><span class="w">    </span><span class="n">boost</span><span class="o">::</span><span class="n">unit_test</span><span class="o">::</span><span class="n">data</span><span class="o">::</span><span class="n">monomorphic</span><span class="o">::</span><span class="n">is_dataset</span><span class="o">&lt;</span><span class="n">D</span><span class="o">&gt;::</span><span class="n">value</span>
 </code></pre></div></li>
+</ul>
+</li>
 </ol>
 <p>boost官方例程<br />
 <div class="highlight"><pre><span></span><code><span class="cp">#define BOOST_TEST_MODULE dataset_example68</span>
@@ -2235,16 +2264,20 @@
 第二种只是添加了夹具，与前面的并无区别。</p>
 <p><strong>核心机制</strong>:  </p>
 <ol>
-<li>批量生成测试用例  </li>
+<li>批量生成测试用例  <ul>
 <li>与BOOST_AUTO_TEST_CASE（声明单个测试用例）不同，BOOST_DATA_TEST_CASE 会根据数据集中的样本数量动态注册多个测试用例，每个用例对应一个样本。</li>
 <li>若数据集有 5 个样本，则注册 5 个独立测试用例  </li>
-<li>命名规则</li>
+</ul>
+</li>
+<li>命名规则<ul>
 <li>生成一个名为 test_case_name 的测试套件（Test Suite）。</li>
 <li>套件内的每个测试用例按样本索引命名，格式为 _0, _1, ..., _N-1（N 为数据集大小）
-  <div class="highlight"><pre><span></span><code><span class="w">  </span>test_case_name/_0<span class="w">  </span>→<span class="w"> </span>样本0的测试
+ <div class="highlight"><pre><span></span><code><span class="w">  </span>test_case_name/_0<span class="w">  </span>→<span class="w"> </span>样本0的测试
 <span class="w">  </span>test_case_name/_1<span class="w">  </span>→<span class="w"> </span>样本1的测试
 </code></pre></div></li>
-<li>关键优势  </li>
+</ul>
+</li>
+<li>关键优势  <ol>
 <li>精准定位失败样本，日志中会明确标识失败的样本索引（如 test_case_name/_3 failed），并输出该样本的具体值，加速调试。</li>
 <li>灵活的测试控制  <ul>
 <li>命令行筛选：支持单独运行特定样本或子集
@@ -2261,42 +2294,52 @@
 </ul>
 </li>
 </ol>
+</li>
+</ol>
 <h5 id="3323">3.3.2.3 数据集的操作</h5>
 <p>数据集支持三种操作：</p>
 <ol>
-<li>顺序结合，使用operator+  </li>
+<li>顺序结合，使用operator+  <ul>
 <li>作用：将多个数据集按顺序串联，形成一个更长的新数据集。</li>
 <li>行为：新数据集包含所有输入数据集的样本，依次排列。</li>
 <li>示例：
-  <div class="highlight"><pre><span></span><code><span class="w">  </span><span class="k">auto</span><span class="w"> </span><span class="n">ds1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">data</span><span class="o">::</span><span class="n">make</span><span class="p">({</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">});</span><span class="w">          </span><span class="c1">// 数据集1: [1, 2]</span>
+ <div class="highlight"><pre><span></span><code><span class="w">  </span><span class="k">auto</span><span class="w"> </span><span class="n">ds1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">data</span><span class="o">::</span><span class="n">make</span><span class="p">({</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">});</span><span class="w">          </span><span class="c1">// 数据集1: [1, 2]</span>
 <span class="w">  </span><span class="k">auto</span><span class="w"> </span><span class="n">ds2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">data</span><span class="o">::</span><span class="n">make</span><span class="p">({</span><span class="s">&quot;a&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;b&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;c&quot;</span><span class="p">});</span><span class="w"> </span><span class="c1">// 数据集2: [&quot;a&quot;, &quot;b&quot;, &quot;c&quot;]</span>
 <span class="w">  </span><span class="k">auto</span><span class="w"> </span><span class="n">combined</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ds1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">ds2</span><span class="p">;</span><span class="w">              </span><span class="c1">// 结果: [1, 2, &quot;a&quot;, &quot;b&quot;, &quot;c&quot;]</span>
 </code></pre></div></li>
 <li>适用场景：需要合并多个独立数据集的样本（如测试不同数据类型的组合）。</li>
-<li>压缩结合，使用operator^ </li>
+</ul>
+</li>
+<li>压缩结合，使用operator^ <ul>
 <li>作用：将多个数据集的样本按索引逐对拼接（类似拉链效果）。</li>
 <li>行为：新数据集的每个样本是各输入数据集对应索引位置的组合。</li>
 <li>长度限制：以最短输入数据集为准，多余样本被截断。</li>
 <li>示例：
-  <div class="highlight"><pre><span></span><code><span class="w">  </span><span class="k">auto</span><span class="w"> </span><span class="n">ds1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">data</span><span class="o">::</span><span class="n">make</span><span class="p">({</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">});</span><span class="w">       </span><span class="c1">// 数据集1: [1, 2, 3]</span>
+ <div class="highlight"><pre><span></span><code><span class="w">  </span><span class="k">auto</span><span class="w"> </span><span class="n">ds1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">data</span><span class="o">::</span><span class="n">make</span><span class="p">({</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">});</span><span class="w">       </span><span class="c1">// 数据集1: [1, 2, 3]</span>
 <span class="w">  </span><span class="k">auto</span><span class="w"> </span><span class="n">ds2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">data</span><span class="o">::</span><span class="n">make</span><span class="p">({</span><span class="s">&quot;x&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;y&quot;</span><span class="p">});</span><span class="w">      </span><span class="c1">// 数据集2: [&quot;x&quot;, &quot;y&quot;]</span>
 <span class="w">  </span><span class="k">auto</span><span class="w"> </span><span class="n">zipped</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ds1</span><span class="w"> </span><span class="o">^</span><span class="w"> </span><span class="n">ds2</span><span class="p">;</span><span class="w">                </span><span class="c1">// 结果: [(1,&quot;x&quot;), (2,&quot;y&quot;)]</span>
 </code></pre></div></li>
 <li>适用场景：需要一对一关联不同数据集的样本（如输入与期望输出的配对测试）。</li>
-<li>笛卡尔积，Cartesian products with operator*</li>
+</ul>
+</li>
+<li>笛卡尔积，Cartesian products with operator*<ul>
 <li>作用：生成所有可能的样本组合（即笛卡尔积）。</li>
 <li>行为：新数据集的每个样本是各输入数据集样本的全排列组合。</li>
 <li>长度计算：若输入数据集大小为 A 和 B，则结果大小为 A * B。</li>
 <li>示例：
-  <div class="highlight"><pre><span></span><code><span class="w">  </span><span class="k">auto</span><span class="w"> </span><span class="n">ds1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">data</span><span class="o">::</span><span class="n">make</span><span class="p">({</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">});</span><span class="w">          </span><span class="c1">// 数据集1: [1, 2]</span>
+ <div class="highlight"><pre><span></span><code><span class="w">  </span><span class="k">auto</span><span class="w"> </span><span class="n">ds1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">data</span><span class="o">::</span><span class="n">make</span><span class="p">({</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">});</span><span class="w">          </span><span class="c1">// 数据集1: [1, 2]</span>
 <span class="w">  </span><span class="k">auto</span><span class="w"> </span><span class="n">ds2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">data</span><span class="o">::</span><span class="n">make</span><span class="p">({</span><span class="s">&quot;a&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;b&quot;</span><span class="p">});</span><span class="w">      </span><span class="c1">// 数据集2: [&quot;a&quot;, &quot;b&quot;]</span>
 <span class="w">  </span><span class="k">auto</span><span class="w"> </span><span class="n">product</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ds1</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">ds2</span><span class="p">;</span><span class="w">               </span><span class="c1">// 结果: [(1,&quot;a&quot;), (1,&quot;b&quot;), (2,&quot;a&quot;), (2,&quot;b&quot;)]</span>
 </code></pre></div></li>
 <li>适用场景：需要覆盖所有参数组合的测试（如边界值交叉验证）</li>
+</ul>
+</li>
 </ol>
 <h5 id="3324">3.3.2.4 数据集的生成器</h5>
 <ol>
-<li><strong>单例生成器（Singletons）</strong></li>
+<li>
+<p><strong>单例生成器（Singletons）</strong></p>
+<ul>
 <li>生成仅包含单个值或固定值组合的小型数据集。</li>
 <li>适用场景：测试特定边界值或常量输入。</li>
 <li>
@@ -2313,6 +2356,8 @@
 <p>特点：</p>
 <ul>
 <li>元数（arity）由参数数量决定（如 <code>make(1, 2)</code> 的元数为 2）。</li>
+</ul>
+</li>
 </ul>
 </li>
 <li>
@@ -2427,7 +2472,7 @@
 </code></pre></div>
 如上所示。  </p>
 <h3 id="42">4.2 主测试套件</h3>
-<p>根据前文"概述"部分的定义，主测试套件（master test suite）是测试树结构的根节点。使用本单元测试框架构建的每个测试模块，其内部始终维护着一个（唯一的）主测试套件实例。框架内部自动管理该主测试套件，所有其他测试单元均以直接或间接子节点的形式注册于主测试套件之下。<br />
+<p>根据前文"概述"部分的定义，主测试套件（master test suite）是测试树结构的根节点。使用本单元测试框架构建的每个测试模块，其内部始终维护着一个（唯一的）主测试套件实例。框架内部自动管理该主测试套件，所有其他测试单元均以直接或间接子节点的形式注册于主测试套件之下。</p>
 <div class="highlight"><pre><span></span><code><span class="k">namespace</span><span class="w"> </span><span class="nn">boost</span><span class="w"> </span><span class="p">{</span>
 <span class="k">namespace</span><span class="w"> </span><span class="nn">unit_test</span><span class="w"> </span><span class="p">{</span>
 <span class="k">class</span><span class="w"> </span><span class="nc">master_test_suite_t</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">test_suite</span>
@@ -2440,7 +2485,7 @@
 
 <span class="p">}</span><span class="w"> </span><span class="c1">// namespace unit_test</span>
 <span class="p">}</span><span class="w"> </span><span class="c1">// namespace boost</span>
-</code></pre></div></p>
+</code></pre></div>
 <h4 id="421">4.2.1 如何获取命令行参数</h4>
 <p>要访问主测试套件的单个实例，请使用以下界面：</p>
 <div class="highlight"><pre><span></span><code><span class="k">namespace</span><span class="w"> </span><span class="nn">boost</span><span class="w"> </span><span class="p">{</span>
