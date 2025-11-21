@@ -1105,6 +1105,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="2025-11-20-cmake%E7%9A%84string%E5%91%BD%E4%BB%A4.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    cmake的string命令
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -2479,7 +2507,49 @@
 <li><code>comment</code>，这个就是对整个项目的注释说明。</li>
 </ol>
 <h3 id="32">3.2 引入外部功能</h3>
-<p><code>include</code>主要是为了引入外部已经写好的配置项，一种配置管理方式为：每一个配置项就用一个文件表示，这样当不需要这个配置时，直接删除这个文件即可，各个配置间互相解耦。</p>
+<p><code>CMake Presets</code> 中的 <code>include</code> 指令用于集成外部预先定义好的配置集合，这是一种高效的配置管理范式。其核心思想是将配置按不同维度（如目标平台、构建环境）进行物理隔离，每个独立的JSON文件仅封装一个完整的配置单元（例如，从 configurePresets 到 packagePresets 的所有设置）。</p>
+<p>以下是一种推荐的项目结构，它清晰地体现了这种模块化思想：</p>
+<div class="highlight"><pre><span></span><code>my_project/
+├──<span class="w"> </span>CMakePresets.json<span class="w">           </span><span class="c1"># 主文件，只负责 include</span>
+├──<span class="w"> </span>cmake/presets/
+│<span class="w">   </span>├──<span class="w"> </span>windows.json<span class="w">            </span><span class="c1"># 配置项1：纯 Windows 配置</span>
+│<span class="w">   </span>├──<span class="w"> </span>linux.json<span class="w">              </span><span class="c1"># 配置项2：纯 Linux 配置  </span>
+│<span class="w">   </span>├──<span class="w"> </span>macos.json<span class="w">              </span><span class="c1"># 配置项3：纯 macOS 配置</span>
+│<span class="w">   </span>└──<span class="w"> </span>ci.json<span class="w">                 </span><span class="c1"># 配置项4：纯 CI 配置</span>
+└──<span class="w"> </span>CMakeLists.txt
+</code></pre></div>
+<p>每个配置单元文件都是自包含的。例如，<code>windows.json</code> 中定义了该平台下完整的预设：</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">8</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;configurePresets&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;windows-dev&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;displayName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Windows Development&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;generator&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Visual Studio 17 2022&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;architecture&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;x64&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;cacheVariables&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;CMAKE_C_COMPILER&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;cl&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;CMAKE_CXX_COMPILER&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;cl&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;CMAKE_BUILD_TYPE&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Debug&quot;</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">]</span>
+<span class="w">  </span><span class="c1">// 可根据需要继续定义 buildPresets, testPresets 等</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>主配置文件 <code>CMakePresets.json</code> 的结构因此变得非常简洁，其唯一职责就是通过 <code>include</code> 指令引入这些分散的配置单元：</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">8</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;include&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="s2">&quot;cmake/presets/windows.json&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;cmake/presets/linux.json&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;cmake/presets/macos.json&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;cmake/presets/ci.json&quot;</span>
+<span class="w">  </span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>值得注意的是，主文件自身无需再定义任何具体的预设（presets），所有预设都已在其引入的各个文件中声明完毕。</p>
+<p>这种架构的优势在于实现了配置的极致解耦与高可维护性。当需要增删或修改某个特定环境（如放弃对macOS的支持）的配置时，只需直接操作对应的单个文件（删除macos.json并在主文件中移除其include条目即可），整个过程不会波及其他配置，极大降低了管理的复杂度和出错风险。</p>
 <h3 id="33-cmake">3.3 传统cmake功能</h3>
 <p>这里主要讲的是四个功能：</p>
 <ol>
