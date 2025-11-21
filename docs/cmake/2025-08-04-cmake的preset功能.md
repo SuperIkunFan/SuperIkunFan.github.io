@@ -210,7 +210,60 @@ graph LR
 
 ### 3.2 引入外部功能
 
-`include`主要是为了引入外部已经写好的配置项，一种配置管理方式为：每一个配置项就用一个文件表示，这样当不需要这个配置时，直接删除这个文件即可，各个配置间互相解耦。
+`CMake Presets` 中的 `include` 指令用于集成外部预先定义好的配置集合，这是一种高效的配置管理范式。其核心思想是将配置按不同维度（如目标平台、构建环境）进行物理隔离，每个独立的JSON文件仅封装一个完整的配置单元（例如，从 configurePresets 到 packagePresets 的所有设置）。
+
+以下是一种推荐的项目结构，它清晰地体现了这种模块化思想：
+
+```bash
+my_project/
+├── CMakePresets.json           # 主文件，只负责 include
+├── cmake/presets/
+│   ├── windows.json            # 配置项1：纯 Windows 配置
+│   ├── linux.json              # 配置项2：纯 Linux 配置  
+│   ├── macos.json              # 配置项3：纯 macOS 配置
+│   └── ci.json                 # 配置项4：纯 CI 配置
+└── CMakeLists.txt
+```
+
+每个配置单元文件都是自包含的。例如，`windows.json` 中定义了该平台下完整的预设：
+
+```json
+{
+  "version": 8,
+  "configurePresets": [
+    {
+      "name": "windows-dev",
+      "displayName": "Windows Development",
+      "generator": "Visual Studio 17 2022",
+      "architecture": "x64",
+      "cacheVariables": {
+        "CMAKE_C_COMPILER": "cl",
+        "CMAKE_CXX_COMPILER": "cl",
+        "CMAKE_BUILD_TYPE": "Debug"
+      }
+    }
+  ]
+  // 可根据需要继续定义 buildPresets, testPresets 等
+}
+```
+
+主配置文件 `CMakePresets.json` 的结构因此变得非常简洁，其唯一职责就是通过 `include` 指令引入这些分散的配置单元：
+
+```json
+{
+  "version": 8,
+  "include": [
+    "cmake/presets/windows.json",
+    "cmake/presets/linux.json",
+    "cmake/presets/macos.json",
+    "cmake/presets/ci.json"
+  ]
+}
+```
+
+值得注意的是，主文件自身无需再定义任何具体的预设（presets），所有预设都已在其引入的各个文件中声明完毕。
+
+这种架构的优势在于实现了配置的极致解耦与高可维护性。当需要增删或修改某个特定环境（如放弃对macOS的支持）的配置时，只需直接操作对应的单个文件（删除macos.json并在主文件中移除其include条目即可），整个过程不会波及其他配置，极大降低了管理的复杂度和出错风险。
 
 ### 3.3 传统cmake功能
 
