@@ -607,6 +607,7 @@ AllowShortFunctionsOnASingleLine: Inline
 **作用**：根据设置值，`if (a) return;` 这样的if语句可以放在单行上。
 
 **取值**：
+
 - `Never` - 从不在同一行放置短if语句
 - `WithoutElse` - 只有在没有else语句时才在同一行放置短if语句
 - `OnlyFirstIf` - 将短if语句放在同一行，但不包括else if和else语句
@@ -740,9 +741,9 @@ clang-format提供了BinPack相关的配置选项，用于控制参数和列表�
 
 ### 10.1 BinPack类和BitField类配置选项列表
 
-1. BinPackArguments - 参数打包
+1. BinPackArguments - 实参参数打包
 2. BinPackLongBracedList - 长大括号列表打包
-3. BinPackParameters - 参数打包风格
+3. BinPackParameters - 形参参数打包风格
 4. BitFieldColonSpacing - 位域冒号空格风格
 
 ### 10.2 BinPackArguments
