@@ -19,7 +19,7 @@
       
       
       <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
     
     
       
@@ -27,7 +27,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.618322db.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -7519,11 +7519,13 @@ someLongFunction(argument1,         someLongFunction(argument1,
 <h3 id="812-allowshortifstatementsonasingleline">8.12 AllowShortIfStatementsOnASingleLine</h3>
 <p><strong>类型</strong>：ShortIfStyle枚举<br />
 <strong>作用</strong>：根据设置值，<code>if (a) return;</code> 这样的if语句可以放在单行上。</p>
-<p><strong>取值</strong>：
-- <code>Never</code> - 从不在同一行放置短if语句
-- <code>WithoutElse</code> - 只有在没有else语句时才在同一行放置短if语句
-- <code>OnlyFirstIf</code> - 将短if语句放在同一行，但不包括else if和else语句
-- <code>AllIfsAndElse</code> - 总是将短if语句、else if和else语句放在同一行</p>
+<p><strong>取值</strong>：</p>
+<ul>
+<li><code>Never</code> - 从不在同一行放置短if语句</li>
+<li><code>WithoutElse</code> - 只有在没有else语句时才在同一行放置短if语句</li>
+<li><code>OnlyFirstIf</code> - 将短if语句放在同一行，但不包括else if和else语句</li>
+<li><code>AllIfsAndElse</code> - 总是将短if语句、else if和else语句放在同一行</li>
+</ul>
 <p><strong>配置示例</strong>：
 <div class="highlight"><pre><span></span><code><span class="nt">AllowShortIfStatementsOnASingleLine</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">WithoutElse</span>
 </code></pre></div></p>
@@ -7613,9 +7615,9 @@ someLongFunction(argument1,         someLongFunction(argument1,
 <p>clang-format提供了BinPack相关的配置选项，用于控制参数和列表的打包方式，以及BitField相关的空格设置。</p>
 <h3 id="101-binpackbitfield">10.1 BinPack类和BitField类配置选项列表</h3>
 <ol>
-<li>BinPackArguments - 参数打包</li>
+<li>BinPackArguments - 实参参数打包</li>
 <li>BinPackLongBracedList - 长大括号列表打包</li>
-<li>BinPackParameters - 参数打包风格</li>
+<li>BinPackParameters - 形参参数打包风格</li>
 <li>BitFieldColonSpacing - 位域冒号空格风格</li>
 </ol>
 <h3 id="102-binpackarguments">10.2 BinPackArguments</h3>
@@ -11019,10 +11021,10 @@ someLongFunction(argument1,         someLongFunction(argument1,
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.instant", "navigation.tabs", "toc.integrate", "content.code.copy", "content.code.annotate", "navigation.top", "search.highlight"], "search": "../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.instant", "navigation.tabs", "toc.integrate", "content.code.copy", "content.code.annotate", "navigation.top", "search.highlight"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
       
         <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
       
