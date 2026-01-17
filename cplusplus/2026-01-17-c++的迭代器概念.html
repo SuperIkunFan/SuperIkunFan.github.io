@@ -9,10 +9,10 @@
       
       
       
-        <link rel="prev" href="2025-09-10-c%2B%2B%E7%9A%84%E7%B1%BB%E5%A4%96%E7%B1%BB%E5%9E%8B%E8%A7%A3%E6%9E%90%E8%A7%84%E5%88%99.html">
+        <link rel="prev" href="2026-01-12-c%2B%2B%E7%9A%84%E5%AF%B9%E8%B1%A1%E7%AE%A1%E7%90%86%E8%AE%BE%E8%AE%A1.html">
       
       
-        <link rel="next" href="2026-01-17-c%2B%2B%E7%9A%84%E8%BF%AD%E4%BB%A3%E5%99%A8%E6%A6%82%E5%BF%B5.html">
+        <link rel="next" href="c%2B%2B20/2025-08-19-c%2B%2B%E7%9A%84format%E5%BA%93.html">
       
       
         
@@ -23,7 +23,7 @@
     
     
       
-        <title>c++的对象管理设计 - ikun爱学习</title>
+        <title>c++的迭代器设计 - ikun爱学习</title>
       
     
     
@@ -108,7 +108,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              c++的对象管理设计
+              c++的迭代器设计
             
           </span>
         </div>
@@ -1204,6 +1204,34 @@
                 
   
   
+  
+  
+    <li class="md-nav__item">
+      <a href="2026-01-12-c%2B%2B%E7%9A%84%E5%AF%B9%E8%B1%A1%E7%AE%A1%E7%90%86%E8%AE%BE%E8%AE%A1.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    c++的对象管理设计
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
     
   
   
@@ -1221,7 +1249,7 @@
   <span class="md-ellipsis">
     
   
-    c++的对象管理设计
+    c++的迭代器设计
   
 
     
@@ -1232,14 +1260,14 @@
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <a href="2026-01-12-c%2B%2B%E7%9A%84%E5%AF%B9%E8%B1%A1%E7%AE%A1%E7%90%86%E8%AE%BE%E8%AE%A1.html" class="md-nav__link md-nav__link--active">
+      <a href="2026-01-17-c%2B%2B%E7%9A%84%E8%BF%AD%E4%BB%A3%E5%99%A8%E6%A6%82%E5%BF%B5.html" class="md-nav__link md-nav__link--active">
         
   
   
   <span class="md-ellipsis">
     
   
-    c++的对象管理设计
+    c++的迭代器设计
   
 
     
@@ -1277,19 +1305,19 @@
   <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
       
-        二、对象数量维度考量
+        二、迭代器种类
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="二、对象数量维度考量">
+    <nav class="md-nav" aria-label="二、迭代器种类">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#21" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2.1 类的一般设计准则
+        2.1 输出迭代器
       
     </span>
   </a>
@@ -1300,7 +1328,51 @@
   <a href="#22" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2.2 数量的考量
+        2.2 输入迭代器
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3 前向迭代器
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4 双向迭代器
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#25" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.5 随机访问迭代器
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#26" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.6 连续访问迭代器
       
     </span>
   </a>
@@ -1316,121 +1388,10 @@
   <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
       
-        三、对象存储方式考量
+        三、迭代器实现过程
       
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="三、对象存储方式考量">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#31" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3.1 设计哲学
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#32" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3.2 现实考虑
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#33" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3.3 典型用例
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#34" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3.4 三者关系图
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_4" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        四、堆对象的管理方式
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="四、堆对象的管理方式">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#41" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4.1 原始指针与引用：裸指针的角色、风险与引用的替代价值
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#42-stdunique_ptr" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4.2 独占指针（std::unique_ptr）
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#43-stdshared_ptr" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4.3 共享指针（std::shared_ptr）
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#44-c" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4.4 总结：现代 C++ 资源管理三原则
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -1438,34 +1399,6 @@
   
 </nav>
       
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="2026-01-17-c%2B%2B%E7%9A%84%E8%BF%AD%E4%BB%A3%E5%99%A8%E6%A6%82%E5%BF%B5.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    c++的迭代器设计
-  
-
-    
-  </span>
-  
-  
-
-      </a>
     </li>
   
 
@@ -2455,271 +2388,364 @@
 
 
 
-  <h1>c++的对象管理设计</h1>
+  <h1>c++的迭代器设计</h1>
 
 <h2 id="_1">一、前言</h2>
-<p>编程，本质上是用代码模拟现实。我们从真实世界中抽象出“类”，再创建“对象”去代表具体事物，最终通过控制这些对象的行为，实现我们想要的效果。这正是面向对象的核心——封装、继承、多态与抽象，让程序更贴近生活、更易维护、更可扩展。</p>
-<h2 id="_2">二、对象数量维度考量</h2>
-<h3 id="21">2.1 类的一般设计准则</h3>
-<p>对象应具备面向对象编程的三大特性：</p>
+<p>在C++中，为实现对同质化数据序列（如容器）的通用算法操作，需设计一个轻量级访问接口。指针虽能高效遍历连续数组（通过p++移动、<em>p解引用），但并非所有容器都保证元素连续存储（如std::list的元素分散在内存中）。若直接依赖指针，算法将被绑定到特定容器实现。
+因此，C++提出迭代器概念：只要一个类型支持++（自增）、</em>（解引用）和==（相等比较）这三个基础操作，它就被视为迭代器。这源于“鸭子类型”思想——无需关注具体实现，仅需满足操作契约即可。例如：</p>
+<ul>
+<li><code>int*</code>（指针）满足迭代器要求</li>
+<li><code>std::vector&lt;int&gt;::iterator</code> 也满足</li>
+<li><code>std::list&lt;int&gt;::iterator</code> 同样满足（但内部实现非连续）</li>
+</ul>
+<p>迭代器剥离了指针的强功能（如任意偏移），仅保留遍历序列的最小必要操作。这使算法（如 <code>std::sort</code>）能统一操作任意容器，而无需关心容器内部结构，完美实现“算法依赖抽象，而非细节”的设计原则。</p>
+<p>引用cppreference对迭代器的感性认识:</p>
+<blockquote>
+<p>迭代器是对指针的泛化，它使得 C++ 程序能够以统一的方式处理不同的数据结构（例如容器和自 C++20 起引入的范围）。迭代器库提供了迭代器的定义，以及迭代器特征（iterator traits）、适配器（adaptors）和实用函数（utility functions）。由于迭代器是指针的抽象，其语义是对 C++ 中指针大多数语义的泛化。这确保了任何接受迭代器的函数模板同样也能与普通指针良好地协作。</p>
+</blockquote>
+<h2 id="_2">二、迭代器种类</h2>
+<p><code>LegacyIterator</code> 的要求描述了可用于标识和遍历容器元素的类型。它是迭代器最低的要求，常常把它用作是萃取一些迭代器中一些类型别名或者是标签派发。它对定义的迭代器必须满足的要求，要求主要分为三类如下：</p>
 <ol>
-<li><strong>继承</strong>:子类复用父类属性与方法，实现代码复用与层级扩展。</li>
-<li><strong>多态</strong>:同一接口不同实现，运行时动态绑定，提升灵活性。</li>
-<li><strong>封装</strong>:隐藏内部细节，对外提供统一接口，保障数据安全与模块独立。</li>
-</ol>
-<p>此外，常通过组合多个对象构建更复杂的对象，以实现更强功能。实际设计中，类通常同时结合继承、多态与组合，构建结构更完善、可维护性更高的代码。</p>
-<h3 id="22">2.2 数量的考量</h3>
-<p>多个对象通常通过容器管理，容器是若干对象的集合。其主要考量包括：</p>
-<ol>
-<li><strong>抽象集合</strong>：将多个同质对象组织为统一接口，屏蔽底层存储细节。</li>
-<li><strong>统一管理</strong>：提供标准操作（增删改查、迭代），简化多对象处理。</li>
-<li><strong>表达设计意图</strong>：通过容器类型选择表达“对象是否独立”、“是否支持多态”等设计决策。</li>
-<li><strong>性能与灵活性权衡</strong>：值语义容器内存连续、缓存友好；指针语义容器支持动态大小和多态。</li>
-</ol>
-<h2 id="_3">三、对象存储方式考量</h2>
-<p>对象实体在内存模型中主要分为栈对象、堆对象与全局对象（含局部静态对象）。</p>
-<h3 id="31">3.1 设计哲学</h3>
+<li>这个迭代器自身必须满足：  </li>
+<li>可拷贝构造；</li>
+<li>可拷贝复值；</li>
+<li>
+<p>具有析构函数函数，以及它是可交换的。</p>
+</li>
+<li>
+<p>满足 <code>std::iterator_traits&lt;It&gt;</code>的特化要求，即迭代器内部定义如下的类型别名：  </p>
+<ul>
+<li><code>difference_type</code> 一般来说，它表示两个迭代器之间距离（偏移量） 的有符号整数类型。</li>
+<li><code>value_type</code> 它表示迭代器指向的元素的实际类型。</li>
+<li><code>pointer</code> 表示迭代器指向的元素的指针。</li>
+<li><code>reference</code> 表示迭代器指向的元素的引用。</li>
+<li>
+<p><code>iterator_category</code> 表示迭代器所支持的具体的操作，它往往是通过标签派发的方式完成类型萃取，具体取之如下：</p>
 <table>
 <thead>
 <tr>
-<th>方式</th>
-<th>核心哲学</th>
-<th>关键词</th>
-<th>适用对象</th>
+<th>迭代器能力</th>
+<th>C++98/03/11/14/17 标签类型（取值）</th>
+<th>C++20 概念（Concept）</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><strong>栈对象</strong></td>
-<td>自动化、确定性、零开销</td>
-<td>RAII、作用域、局部性</td>
-<td>单个对象、容器元素（值语义）</td>
+<td>输入迭代器</td>
+<td><code>std::input_iterator_tag</code></td>
+<td><code>std::input_iterator</code></td>
 </tr>
 <tr>
-<td><strong>堆对象</strong></td>
-<td>动态性、控制力、所有权语义</td>
-<td>智能指针、多态、生命周期控制</td>
-<td>单个对象、容器元素（指针语义）</td>
+<td>输出迭代器</td>
+<td><code>std::output_iterator_tag</code></td>
+<td><code>std::output_iterator</code></td>
 </tr>
 <tr>
-<td><strong>全局对象</strong></td>
-<td>静态生命周期、全局可见</td>
-<td>静态初始化、单例、全局状态</td>
-<td>全局配置、单例服务、共享资源</td>
+<td>前向迭代器</td>
+<td><code>std::forward_iterator_tag</code></td>
+<td><code>std::forward_iterator</code></td>
+</tr>
+<tr>
+<td>双向迭代器</td>
+<td><code>std::bidirectional_iterator_tag</code></td>
+<td><code>std::bidirectional_iterator</code></td>
+</tr>
+<tr>
+<td>随机访问迭代器</td>
+<td><code>std::random_access_iterator_tag</code></td>
+<td><code>std::random_access_iterator</code></td>
+</tr>
+<tr>
+<td>连续迭代器（C++20 新增）</td>
+<td>—（无独立标签）</td>
+<td><code>std::contiguous_iterator</code></td>
 </tr>
 </tbody>
 </table>
-<blockquote>
-<p><strong>关键认知</strong>：三者非对象类型之别，而是<strong>存储位置与生命周期管理方式</strong>的差异。同一对象（如 <code>User</code>）可依需置于栈、堆或全局区。</p>
-</blockquote>
-<h3 id="32">3.2 现实考虑</h3>
+</li>
+</ul>
+</li>
+<li>
+<p>如果有一个左值类型的迭代器it，那么它必须支持如下操作  </p>
+<ul>
+<li><code>value operator * ()</code>，他可以返回任意类型，但是一般来说，都是返回其内部定义的 <code>reference</code>。</li>
+<li><code>It&amp; operator++()</code>，表示它可以完成自增操作。</li>
+</ul>
+</li>
+</ol>
+<p>接下来依次介绍各种类型的迭代器。</p>
+<h3 id="21">2.1 输出迭代器</h3>
+<p>输出迭代器往往表示一个最低的访问权限媒介，它能够自增和引用组合，从而完成对同质元素的访问，并且它是能够完成迭代器的特化的。</p>
 <table>
 <thead>
 <tr>
-<th>考量维度</th>
-<th>栈对象</th>
-<th>堆对象</th>
-<th>全局对象</th>
+<th>表达式</th>
+<th>类型</th>
+<th>语义说明</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><strong>生命周期</strong></td>
-<td>作用域绑定</td>
-<td>手动/智能指针管理</td>
-<td>程序启动至结束</td>
+<td><code>i != j</code></td>
+<td>满足 <code>BooleanTestable</code> 的类型（C++20 之前）<br>建模 <code>boolean-testable</code> 的类型（C++20 起）</td>
+<td><strong>前置条件</strong>：<code>i</code> 和 <code>j</code> 在 <code>==</code> 的定义域内。<br><strong>效果</strong>：等价于 <code>!(i == j)</code>。</td>
 </tr>
 <tr>
-<td><strong>内存位置</strong></td>
-<td>栈</td>
-<td>堆</td>
-<td>数据段/静态区</td>
+<td><code>*i</code></td>
+<td>类型 <code>R</code>，可转换为 <code>T</code></td>
+<td><strong>前置条件</strong>：<code>i</code> 可解引用（dereferenceable）。<br><strong>效果</strong>：<br>- 表达式 <code>(void)*i</code> 与 <code>*i</code> 等价。<br>- 若 <code>i</code> 和 <code>j</code> 在 <code>==</code> 的定义域内，且 <code>i == j</code>，则 <code>*i</code> 与 <code>*j</code> 等价。</td>
 </tr>
 <tr>
-<td><strong>性能</strong></td>
-<td>极快</td>
-<td>较慢</td>
-<td>初始化开销，访问快</td>
+<td><code>i-&gt;m</code></td>
+<td>—</td>
+<td><strong>前置条件</strong>：<code>i</code> 可解引用。<br><strong>效果</strong>：等价于 <code>(*i).m</code>。</td>
 </tr>
 <tr>
-<td><strong>安全</strong></td>
-<td>高</td>
-<td>中</td>
-<td>依赖初始化顺序，易出错</td>
+<td><code>++r</code></td>
+<td><code>X&amp;</code></td>
+<td><strong>前置条件</strong>：<code>r</code> 可解引用。<br><strong>后置条件</strong>：<br>- <code>r</code> 要么仍可解引用，要么处于尾后（past-the-end）位置。<br>- 所有 <code>r</code> 的先前值的副本不再要求可解引用，也不再要求处于 <code>==</code> 的定义域内。</td>
 </tr>
 <tr>
-<td><strong>适用规模</strong></td>
-<td>小型、固定</td>
-<td>大型、动态</td>
-<td>单一实例、共享状态</td>
+<td><code>(void)r++</code></td>
+<td>—</td>
+<td><strong>效果</strong>：等价于 <code>(void)++r</code>。</td>
 </tr>
 <tr>
-<td><strong>多态支持</strong></td>
-<td>否（需指针）</td>
-<td>是</td>
-<td>是（通过指针/引用）</td>
-</tr>
-<tr>
-<td><strong>容器中使用</strong></td>
-<td>值语义容器</td>
-<td>指针语义容器</td>
-<td>一般不直接用于容器</td>
+<td><code>*r++</code></td>
+<td>可转换为 <code>T</code> 的类型</td>
+<td><strong>效果</strong>：等价于 <code>T x = *r; ++r; return x;</code>。</td>
 </tr>
 </tbody>
 </table>
-<h3 id="33">3.3 典型用例</h3>
-<div class="highlight"><pre><span></span><code><span class="c1">// 栈对象</span>
-<span class="n">User</span><span class="w"> </span><span class="n">user</span><span class="p">(</span><span class="s">&quot;Alice&quot;</span><span class="p">);</span><span class="w">                  </span><span class="c1">// 栈上分配</span>
-
-<span class="c1">// 堆对象</span>
-<span class="k">auto</span><span class="w"> </span><span class="n">user_ptr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_unique</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;Bob&quot;</span><span class="p">);</span><span class="w"> </span><span class="c1">// 堆上分配</span>
-
-<span class="c1">// 全局对象</span>
-<span class="n">User</span><span class="w"> </span><span class="n">g_user</span><span class="p">(</span><span class="s">&quot;Admin&quot;</span><span class="p">);</span><span class="w">                </span><span class="c1">// 全局静态对象</span>
-
-<span class="c1">// 局部静态对象（函数内全局语义）</span>
-<span class="kt">void</span><span class="w"> </span><span class="nf">init</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="n">User</span><span class="w"> </span><span class="n">local_static_user</span><span class="p">(</span><span class="s">&quot;Singleton&quot;</span><span class="p">);</span><span class="w"> </span><span class="c1">// 首次调用初始化，生命周期全局</span>
-<span class="p">}</span>
-
-<span class="c1">// 容器：值语义</span>
-<span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span><span class="w"> </span><span class="n">users</span><span class="p">;</span>
-<span class="n">users</span><span class="p">.</span><span class="n">emplace_back</span><span class="p">(</span><span class="s">&quot;Charlie&quot;</span><span class="p">);</span>
-
-<span class="c1">// 容器：指针语义</span>
-<span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">user_ptrs</span><span class="p">;</span>
-<span class="n">user_ptrs</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">make_unique</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;David&quot;</span><span class="p">));</span>
-</code></pre></div>
-<h3 id="34">3.4 三者关系图</h3>
-<pre class="mermaid"><code>graph TD
-    A[你是否需要表示“一个”实体？] --&gt;|是| B[是单个对象]
-    A --&gt;|否| C[是“多个”实体 → 使用容器]
-
-    B --&gt; D{选择存储方式}
-    D --&gt;|默认| E[栈对象&lt;br&gt;生命周期与作用域绑定]
-    D --&gt;|需动态生命周期| F[堆对象&lt;br&gt;通过智能指针管理]
-    D --&gt;|需全局可见/持久| G[全局对象&lt;br&gt;静态生命周期，程序范围可见]
-
-    C --&gt; H{容器中元素是否支持多态&lt;br&gt;或需独立生命周期？}
-    H --&gt;|是| I[指针语义容器&lt;br&gt;如 vector&lt;unique_ptr&lt;T&gt;&gt;]
-    H --&gt;|否| J[值语义容器&lt;br&gt;如 vector&lt;T&gt;]
-
-    style A fill:#f9f,stroke:#333
-    style B fill:#ccf,stroke:#333
-    style C fill:#ccf,stroke:#333
-    style D fill:#eef,stroke:#333
-    style E fill:#dfd,stroke:#333
-    style F fill:#dfd,stroke:#333
-    style G fill:#dfd,stroke:#333
-    style H fill:#eef,stroke:#333
-    style I fill:#dfd,stroke:#333
-    style J fill:#dfd,stroke:#333</code></pre>
-<blockquote>
-<p><strong>简洁说明</strong>：全局对象适用于程序全程共享的资源，但应谨慎使用，避免初始化依赖混乱和测试耦合。</p>
-</blockquote>
-<h2 id="_4">四、堆对象的管理方式</h2>
-<h3 id="41">4.1 原始指针与引用：裸指针的角色、风险与引用的替代价值</h3>
-<blockquote>
-<p><strong>设计定位</strong>：</p>
-<ol>
-<li>原始指针不是资源管理工具，而是<strong>访问工具</strong>。它不拥有资源，仅用于<strong>观察、传递或临时访问</strong>已由智能指针或容器管理的对象。</li>
-<li>引用是对象的“别名”，它绑定到一个已存在的对象，且不能为 null，不能重新绑定。它比原始指针更安全、更直观，是“传递对象”的首选方式</li>
-</ol>
-</blockquote>
+<h3 id="22">2.2 输入迭代器</h3>
+<p>输入迭代器具有对这个对象具有写入的权限，它主要是对最简单的循环写入的抽象。</p>
+<table>
+<thead>
+<tr>
+<th>表达式</th>
+<th>返回类型</th>
+<th>等价表达式</th>
+<th>前置条件</th>
+<th>后置条件</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>*r = o</code></td>
+<td>（未使用）</td>
+<td>—</td>
+<td><code>r</code> 可解引用</td>
+<td><code>r</code> 是可递增的（incrementable）</td>
+<td>执行此操作后，不要求 <code>r</code> 仍可解引用；且 <code>r</code> 的任何先前值的副本不再要求可解引用或可递增。</td>
+</tr>
+<tr>
+<td><code>++r</code></td>
+<td><code>X&amp;</code></td>
+<td>—</td>
+<td><code>r</code> 可递增</td>
+<td><code>r</code> 与 <code>++r</code> 指向同一个迭代器对象；<code>r</code> 要么可解引用，要么处于尾后（past-the-end）位置</td>
+<td>执行此操作后，不要求 <code>r</code> 仍可递增；且 <code>r</code> 的任何先前值的副本不再要求可解引用或可递增。</td>
+</tr>
+<tr>
+<td><code>r++</code></td>
+<td>可转换为 <code>const X&amp;</code></td>
+<td><code>X temp = r; ++r; return temp;</code></td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>*r++ = o</code></td>
+<td>（未使用）</td>
+<td><code>*r = o; ++r;</code></td>
+<td><code>r</code> 可解引用且可递增</td>
+<td>—</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<h3 id="23">2.3 前向迭代器</h3>
+<p>前向迭代器是在输出迭代器的基础上，它满足所谓的“多趟保证”，即所谓的迭代器之间的自增操作是相互独立的。类型为 X 的两个可解引用迭代器 a 和 b 满足多遍（multi-pass）保证，当且仅当下列所有条件均成立：</p>
+<ul>
+<li>迭代器满足可默认构造。这个是在向前迭代器中新增的。</li>
+<li>若 a == b，则 ++a == ++b.</li>
+<li>X 是指针类型或者是表达式 <span class="arithmatex">\((void)++X(a)\)</span>, <span class="arithmatex">\(*a\)</span> 与表达式 <span class="arithmatex">\(*a\)</span> 等价。</li>
+</ul>
+<p>在c++中，只满足输出迭代器但是不满足前向迭代器的例子就是 <code>filesystem</code> 中的文件迭代器，它就不保证迭代器之间相互独立。</p>
+<h3 id="24">2.4 双向迭代器</h3>
+<p>前面的迭代器类型只满足以自增的方式实现对同质化数据进行依次访问，而双向迭代器支持通过以自减方式访问数据。即自增访问下一个，自减访问上一个。那么这样自然暗含了能够满足前向迭代器的要求，否则自减就没有太多意义了。例如，一个算法需要查看这个数据的前一个和后一个，也就是同时使用自增和自减，但是自增和自减不能影响当前这个迭代器的实际指向的对象。</p>
+<table>
+<thead>
+<tr>
+<th>表达式</th>
+<th>返回类型</th>
+<th>等价表达式</th>
+<th>说明（Notes）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--a</code></td>
+<td><code>It&amp;</code></td>
+<td></td>
+<td>前提条件（Preconditions）：<br> <code>a</code> 是可递减的（即存在某个 <code>b</code>，使得 <code>a == ++b</code>）。<br>后置条件（Postconditions）：<br> <code>a</code> 是可解引用的；<br> <code>--(++a) == a</code>；<br> 若 <code>--a == --b</code>，则 <code>a == b</code>；<br> <code>a</code> 与 <code>--a</code> 指向同一个迭代器对象。</td>
+</tr>
+<tr>
+<td><code>a--</code></td>
+<td>可转换为 <code>const It&amp;</code></td>
+<td><code>It temp = a; --a; return temp;</code></td>
+<td>后置递减操作符：先返回原值的副本，再将 <code>a</code> 递减。</td>
+</tr>
+<tr>
+<td><code>*a--</code></td>
+<td><code>reference</code></td>
+<td></td>
+<td>先对 <code>a</code> 解引用，然后执行后置递减（即解引用的是递减前的值）。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="25">2.5 随机访问迭代器</h3>
+<p>随机访问迭代器是在双向迭代器的基础上，增加了指定不同间隔长度（间隔可正可负）去访问下一个数据的能力，而非只能依次访问数据。具体随机访问迭代器要求如下</p>
 <ul>
 <li>
-<p><strong>适用场景</strong>：  </p>
-<ul>
-<li>作为函数参数接收对象（不获取所有权）。</li>
-<li>在性能敏感代码中作为“观察者”访问对象（如遍历容器、调用接口）。</li>
-<li>与 C 接口或遗留代码交互时的“桥梁”。</li>
-</ul>
+<p><code>value_type</code>：由 <code>std::iterator_traits&lt;It&gt;::value_type</code> 所表示的类型。它是迭代器所指向元素的值类型（通常为去引用后对象的非引用、非 const 版本）。例如，对于 <code>int*</code>，value_type 是 int。</p>
 </li>
 <li>
-<p><strong>关键准则</strong>：  </p>
-<ul>
-<li><strong>“谁申请，谁释放” —— 原始指针绝不负责释放资源！</strong></li>
-<li>如果你通过 <code>new</code> 或 <code>malloc</code> 分配了内存，必须由<strong>同一个作用域或明确的所有者</strong>负责释放（通常通过智能指针封装）。原始指针只是“借用”访问权，不能承担所有权责任。</li>
-</ul>
+<p><code>difference_type</code>：由 <code>std::iterator_traits&lt;It&gt;::difference_type</code> 所表示的类型。
+它是用于表示两个迭代器之间距离的有符号整数类型（通常为 std::ptrdiff_t）。</p>
 </li>
-<li>
-<p><strong>风险警示</strong>：  </p>
+<li><code>reference</code>：由 <code>std::iterator_traits&lt;It&gt;::reference</code> 所表示的类型。
+它是通过解引用迭代器（如 <code>*it</code>）所得到的引用类型。例如，对于普通指针 <code>int*</code>，<code>reference</code> 是 <code>int&amp;</code>；对于 <code>const int*</code>，则是 <code>const int&amp;</code>。</li>
+<li><code>i, a, b</code>：类型为 <code>It</code> 或 <code>const It</code> 的对象；<code>r</code>：类型为 <code>It</code> 的左值（lvalue）；<code>n</code>：类型为 <code>difference_type</code> 的整数</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>表达式</th>
+<th>返回类型</th>
+<th>操作语义（Operational Semantics）</th>
+<th>说明（Notes）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>r += n</code></td>
+<td><code>It&amp;</code></td>
+<td><code>cpp&lt;br&gt;difference_type m = n;&lt;br&gt;if (m &gt;= 0) while (m--) ++r;&lt;br&gt;else while (m++) --r;&lt;br&gt;return r;&lt;br&gt;</code></td>
+<td>- <code>n</code> 可正可负。<br>- 复杂度必须是常数时间（即实际实现不能真的执行上述 <code>while</code> 循环，仅用于语义说明）。</td>
+</tr>
+<tr>
+<td><code>a + n</code><br><code>n + a</code></td>
+<td><code>It</code></td>
+<td><code>cpp&lt;br&gt;It temp = a;&lt;br&gt;return temp += n;&lt;br&gt;</code></td>
+<td>- <code>n</code> 可正可负。<br>- 满足交换律：<code>a + n == n + a</code>。</td>
+</tr>
+<tr>
+<td><code>r -= n</code></td>
+<td><code>It&amp;</code></td>
+<td><code>return r += -n;</code></td>
+<td>- 要求 <code>|n|</code> 在 <code>difference_type</code> 可表示范围内。</td>
+</tr>
+<tr>
+<td><code>i - n</code></td>
+<td><code>It</code></td>
+<td><code>cpp&lt;br&gt;It temp = i;&lt;br&gt;return temp -= n;&lt;br&gt;</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>b - a</code></td>
+<td><code>difference_type</code></td>
+<td><code>return n;</code>（见前提条件）</td>
+<td>前提条件：<br>存在一个 <code>difference_type</code> 类型的值 <code>n</code>，使得 <code>a + n == b</code>。<br>后置条件：<br><code>b == a + (b - a)</code>。</td>
+</tr>
+<tr>
+<td><code>i[n]</code></td>
+<td>可转换为 <code>reference</code></td>
+<td><code>*(i + n)</code></td>
+<td>等价于偏移后解引用。</td>
+</tr>
+<tr>
+<td><code>a &lt; b</code></td>
+<td>满足 <code>BooleanTestable</code>（C++20 前）<br>建模 <code>boolean-testable</code>（C++20 起）</td>
+<td>等价于 <code>b - a &gt; 0</code></td>
+<td>前提条件：同 <code>b - a</code>。<br>严格全序关系（Strict total ordering）：<br>• <code>!(a &lt; a)</code>（反自反）<br>• 若 <code>a &lt; b</code>，则 <code>!(b &lt; a)</code>（反对称）<br>• 若 <code>a &lt; b</code> 且 <code>b &lt; c</code>，则 <code>a &lt; c</code>（传递）<br>• <code>a &lt; b</code>、<code>b &lt; a</code>、<code>a == b</code> 中有且仅有一个为真。</td>
+</tr>
+<tr>
+<td><code>a &gt; b</code></td>
+<td>同上</td>
+<td><code>b &lt; a</code></td>
+<td>与 <code>&lt;</code> 相反的全序关系。</td>
+</tr>
+<tr>
+<td><code>a &gt;= b</code></td>
+<td>同上</td>
+<td><code>!(a &lt; b)</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>a &lt;= b</code></td>
+<td>同上</td>
+<td><code>!(a &gt; b)</code></td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<h3 id="26">2.6 连续访问迭代器</h3>
+<p>随机访问迭代器只是说支持以不同间隔去访问数据，但是它并没有要求这个数据在实际物理内存上是如何存储的。连续访问迭代器并没有在随机访问迭代器的基础上进行定义，而是直接在迭代器要求上进行定义的。</p>
+<p>类型 It 满足 LegacyContiguousIterator（传统连续迭代器）的条件是：</p>
 <ul>
-<li>原始指针极易导致<strong>悬空指针</strong>、<strong>内存泄漏</strong>、<strong>重复释放</strong>。</li>
-<li>现代 C++ 中，应<strong>尽量避免在新代码中使用原始指针管理资源</strong>，除非有明确理由且安全边界清晰。</li>
+<li>类型 It 满足 LegacyIterator（传统迭代器）的要求；</li>
+<li>对于任意 a：一个类型为 It 的可解引用迭代器， n：一个整数值，<br />
+    只要 a + n 是一个有效且可解引用的迭代器值，那么表达式 <code>*(a + n)</code> 和 <code>*(std::addressof(*a) + n)</code> 是等价的。</li>
 </ul>
-</li>
-</ul>
-<h3 id="42-stdunique_ptr">4.2 <strong>独占指针（std::unique_ptr）</strong></h3>
-<ul>
-<li><strong>设计目的</strong>：体现 <strong>独占所有权语义</strong> 和 <strong>资源唯一性</strong>。它确保一个资源在同一时间只有一个所有者，禁止拷贝，只允许移动，从而避免所有权混淆和资源重复释放。</li>
-<li><strong>可完成的目的</strong>：  <ul>
-<li><strong>自动内存管理</strong>：当 <code>unique_ptr</code> 离开作用域时，自动释放资源，防止内存泄漏。</li>
-<li><strong>明确所有权转移</strong>：通过 <code>std::move</code> 转移所有权，代码清晰表达资源传递意图。</li>
-<li><strong>轻量级和零开销</strong>：相比 <code>shared_ptr</code>，<code>unique_ptr</code> 几乎无额外开销（无引用计数），适合性能敏感场景。</li>
-<li><strong>自定义删除器</strong>：支持定制资源释放逻辑（如文件句柄、网络连接）。</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<p><strong>“谁申请，谁释放”准则在此完美落地</strong>：<br />
-<code>unique_ptr</code> 是资源的<strong>唯一拥有者</strong>，它在构造时（如 <code>make_unique</code>）申请资源，在销毁时自动释放，完全封装了“申请-释放”生命周期，是“谁申请谁释放”的最佳实践体现。</p>
-</blockquote>
-<p><strong>示例</strong>：
-<div class="highlight"><pre><span></span><code><span class="c1">// 独占所有权：资源只能由一个 unique_ptr 持有</span>
-<span class="k">auto</span><span class="w"> </span><span class="n">ptr1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_unique</span><span class="o">&lt;</span><span class="n">MyClass</span><span class="o">&gt;</span><span class="p">();</span>
-<span class="c1">// auto ptr2 = ptr1; // 错误！不能拷贝</span>
-<span class="k">auto</span><span class="w"> </span><span class="n">ptr2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">ptr1</span><span class="p">);</span><span class="w"> </span><span class="c1">// 正确：所有权转移，ptr1 变为空</span>
+<h2 id="_3">三、迭代器实现过程</h2>
+<p>第一步，满足 LegacyIterator（最低要求）</p>
+<div class="highlight"><pre><span></span><code><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="p">,</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">IsConst</span><span class="o">&gt;</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">IteratorImpl</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">using</span><span class="w"> </span><span class="n">value_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">typename</span><span class="w"> </span><span class="nc">std</span><span class="o">::</span><span class="n">conditional</span><span class="o">&lt;</span><span class="n">IsConst</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">T</span><span class="p">,</span><span class="w"> </span><span class="n">T</span><span class="o">&gt;::</span><span class="n">type</span><span class="p">;</span>
+<span class="w">    </span><span class="k">using</span><span class="w"> </span><span class="n">reference</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">value_type</span><span class="w"> </span><span class="o">&amp;</span><span class="p">;</span>
+<span class="w">    </span><span class="k">using</span><span class="w"> </span><span class="n">pointer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">value_type</span><span class="w"> </span><span class="o">*</span><span class="p">;</span>
+<span class="w">    </span><span class="k">using</span><span class="w"> </span><span class="n">difference_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="kt">ptrdiff_t</span><span class="p">;</span>
+<span class="w">    </span><span class="k">using</span><span class="w"> </span><span class="n">iterator_category</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">random_access_iterator_tag</span><span class="p">;</span>
+<span class="w">    </span><span class="n">reference</span><span class="w"> </span><span class="k">operator</span><span class="o">*</span><span class="p">();</span><span class="w"> </span><span class="c1">// 返回值不一样是reference</span>
 
-<span class="c1">// 用于工厂模式返回对象 —— 工厂“申请”，调用者“持有并释放”</span>
-<span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">MyClass</span><span class="o">&gt;</span><span class="w"> </span><span class="n">createObject</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_unique</span><span class="o">&lt;</span><span class="n">MyClass</span><span class="o">&gt;</span><span class="p">();</span><span class="w">  </span><span class="c1">// 工厂申请资源，返回所有权</span>
-<span class="p">}</span>
-</code></pre></div></p>
-<h3 id="43-stdshared_ptr">4.3 <strong>共享指针（std::shared_ptr）</strong></h3>
-<ul>
-<li>
-<p><strong>设计目的</strong>：体现<strong>共享所有权语义</strong>和<strong>资源协同管理</strong><br />
-    它允许多个指针共享同一资源，通过引用计数自动管理生命周期，当最后一个 <code>shared_ptr</code> 被销毁时释放资源。</p>
-</li>
-<li>
-<p><strong>可完成的目的</strong>：</p>
-<ul>
-<li><strong>多实体共享资源</strong>：适合多个对象需要访问同一资源的场景（如缓存、观察者模式）。</li>
-<li><strong>循环引用处理</strong>：虽然 <code>shared_ptr</code> 可能导致循环引用（需配合 <code>std::weak_ptr</code> 解决），但它提供了灵活的共享机制。</li>
-<li><strong>线程安全</strong>：引用计数操作是原子的，但对象访问需额外同步。</li>
-<li><strong>动态生命周期</strong>：资源生命周期由所有共享者共同决定，无需明确指定所有者。</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<p><strong>“谁申请，谁释放”准则的扩展形式</strong>：<br />
-在 <code>shared_ptr</code> 场景中，“申请者”可以是第一个创建 <code>shared_ptr</code> 的对象，但“释放者”是<strong>最后一个销毁 <code>shared_ptr</code> 的所有者</strong>。这本质上仍遵循“谁持有所有权，谁负责释放”，只是所有权被多个实体共享。</p>
-</blockquote>
-<p><strong>示例</strong>：
-<div class="highlight"><pre><span></span><code><span class="c1">// 共享所有权：多个 shared_ptr 指向同一对象</span>
-<span class="k">auto</span><span class="w"> </span><span class="n">ptr1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">MyClass</span><span class="o">&gt;</span><span class="p">();</span>
-<span class="k">auto</span><span class="w"> </span><span class="n">ptr2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ptr1</span><span class="p">;</span><span class="w"> </span><span class="c1">// 引用计数增加</span>
-<span class="c1">// 当 ptr1 和 ptr2 都销毁时，资源才释放 —— 多个“持有者”共同决定释放时机</span>
-
-<span class="c1">// 用于共享资源场景</span>
-<span class="k">class</span><span class="w"> </span><span class="nc">Cache</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">Data</span><span class="o">&gt;</span><span class="w"> </span><span class="n">data</span><span class="p">;</span>
-<span class="k">public</span><span class="o">:</span>
-<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="n">setData</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">Data</span><span class="o">&gt;</span><span class="w"> </span><span class="n">d</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">d</span><span class="p">;</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="c1">// 多个 Cache 实例可共享 Data</span>
-<span class="w">    </span><span class="c1">// 此处不负责释放，由原始创建者或最后一个持有者释放</span>
+<span class="w">    </span><span class="n">IteratorImpl</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">IteratorImpl</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">default</span><span class="p">;</span>
+<span class="w">    </span><span class="k">operator</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">IteratorImpl</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">default</span><span class="p">;</span>
+<span class="w">    </span><span class="o">~</span><span class="n">IteratorImpl</span><span class="p">()</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">default</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">swap</span><span class="p">(</span><span class="n">IteratorImpl</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="p">);</span>
 <span class="p">};</span>
-</code></pre></div></p>
-<h3 id="44-c">4.4 总结：现代 C++ 资源管理三原则</h3>
-<ol>
-<li><strong>优先使用智能指针管理资源</strong>：<code>unique_ptr</code>（独占）或 <code>shared_ptr</code>（共享），它们自动遵守“谁申请谁释放”。</li>
-<li><strong>原始指针仅作访问工具</strong>：绝不负责释放资源，避免所有权混淆。</li>
-<li><strong>所有权清晰化</strong>：通过移动语义（<code>std::move</code>）或引用传递，明确表达资源归属，减少 bug。</li>
-</ol>
-<blockquote>
-<p><strong>永远不要在新代码中用原始指针管理资源生命周期</strong><br />
-<strong>让智能指针做“守门人”，原始指针只做“访客”</strong></p>
-</blockquote>
+</code></pre></div>
+<p>第二步，升级为输入迭代器，要求解引用返回值必须是 <code>reference</code> ，并且新增访问运算符。</p>
+<div class="highlight"><pre><span></span><code><span class="n">pointer</span><span class="w"> </span><span class="k">operator</span><span class="o">-&gt;</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="o">&amp;</span><span class="p">(</span><span class="o">*</span><span class="p">(</span><span class="o">*</span><span class="k">this</span><span class="p">));</span><span class="w"> </span><span class="p">}</span>
+<span class="kt">bool</span><span class="w"> </span><span class="k">operator</span><span class="o">!=</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">IteratorImpl</span><span class="w"> </span><span class="o">&amp;</span><span class="n">other</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+<span class="n">IteratorImpl</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="k">operator</span><span class="o">++</span><span class="p">();</span>
+<span class="n">IteratorImpl</span><span class="w"> </span><span class="k">operator</span><span class="o">++</span><span class="p">(</span><span class="kt">int</span><span class="p">);</span>
+</code></pre></div>
+<p>第三步，升级为向前迭代器，这个没办法通过一些函数约束或者是类型别名要求，只能是具体实现是否满足，往往可以通过单元测试实现，拥有默认构造函数。</p>
+<div class="highlight"><pre><span></span><code><span class="n">IteratorImpl</span><span class="p">()</span><span class="o">=</span><span class="k">default</span><span class="err">；</span>
+</code></pre></div>
+<p>第四步，升级为双向迭代器，在 <code>LegacyForwardIterator</code> 基础上，支持自减操作 <code>（--it 和 it--）</code>。</p>
+<div class="highlight"><pre><span></span><code><span class="n">IteratorImpl</span><span class="w"> </span><span class="o">&amp;</span><span class="k">operator</span><span class="o">--</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">}</span><span class="w">  </span><span class="c1">// 前缀自减</span>
+<span class="n">IteratorImpl</span><span class="w"> </span><span class="k">operator</span><span class="o">--</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">}</span><span class="w">                    </span><span class="c1">// 后缀自减</span>
+</code></pre></div>
+<p>第五步，升级为随机访问迭代器，主要是增加对随机偏移的支持。</p>
+<div class="highlight"><pre><span></span><code><span class="n">IteratorImpl</span><span class="w"> </span><span class="k">operator</span><span class="o">+</span><span class="p">(</span><span class="n">difference_type</span><span class="w"> </span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">}</span><span class="w">  </span><span class="c1">// 随机偏移</span>
+<span class="n">IteratorImpl</span><span class="w"> </span><span class="k">operator</span><span class="o">-</span><span class="p">(</span><span class="n">difference_type</span><span class="w"> </span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">}</span><span class="w">  </span><span class="c1">// 反向偏移</span>
+<span class="n">difference_type</span><span class="w"> </span><span class="k">operator</span><span class="o">-</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">IteratorImpl</span><span class="w"> </span><span class="o">&amp;</span><span class="n">other</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">}</span><span class="w">  </span><span class="c1">// 距离计算</span>
+<span class="n">reference</span><span class="w"> </span><span class="k">operator</span><span class="p">[](</span><span class="n">difference_type</span><span class="w"> </span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">}</span><span class="w">  </span><span class="c1">// 随机访问</span>
+<span class="kt">bool</span><span class="w"> </span><span class="k">operator</span><span class="o">&lt;</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">IteratorImpl</span><span class="w"> </span><span class="o">&amp;</span><span class="n">other</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">}</span><span class="w">  </span><span class="c1">// 比较</span>
+<span class="k">friend</span><span class="w"> </span><span class="n">IteratorImpl</span><span class="w"> </span><span class="k">operator</span><span class="o">+</span><span class="p">(</span><span class="n">difference_type</span><span class="w"> </span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">IteratorImpl</span><span class="w"> </span><span class="o">&amp;</span><span class="n">it</span><span class="p">);</span>
+<span class="n">IteratorImpl</span><span class="w"> </span><span class="k">operator</span><span class="o">+</span><span class="p">(</span><span class="n">difference_type</span><span class="w"> </span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+<span class="n">IteratorImpl</span><span class="w"> </span><span class="k">operator</span><span class="o">-</span><span class="p">(</span><span class="n">difference_type</span><span class="w"> </span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+<span class="n">IteratorImpl</span><span class="w"> </span><span class="o">&amp;</span><span class="k">operator</span><span class="o">+=</span><span class="p">(</span><span class="n">difference_type</span><span class="w"> </span><span class="n">n</span><span class="p">);</span>
+<span class="n">IteratorImpl</span><span class="w"> </span><span class="o">&amp;</span><span class="k">operator</span><span class="o">-=</span><span class="p">(</span><span class="n">difference_type</span><span class="w"> </span><span class="n">n</span><span class="p">);</span>
+<span class="kt">bool</span><span class="w"> </span><span class="k">operator</span><span class="o">==</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">IteratorImpl</span><span class="w"> </span><span class="o">&amp;</span><span class="n">other</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+<span class="kt">bool</span><span class="w"> </span><span class="k">operator</span><span class="o">&lt;</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">IteratorImpl</span><span class="w"> </span><span class="o">&amp;</span><span class="n">other</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+<span class="kt">bool</span><span class="w"> </span><span class="k">operator</span><span class="o">&lt;=</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">IteratorImpl</span><span class="w"> </span><span class="o">&amp;</span><span class="n">other</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+<span class="kt">bool</span><span class="w"> </span><span class="k">operator</span><span class="o">&gt;</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">IteratorImpl</span><span class="w"> </span><span class="o">&amp;</span><span class="n">other</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+<span class="kt">bool</span><span class="w"> </span><span class="k">operator</span><span class="o">&gt;=</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">IteratorImpl</span><span class="w"> </span><span class="o">&amp;</span><span class="n">other</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+</code></pre></div>
 
 
 
