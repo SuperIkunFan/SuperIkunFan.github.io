@@ -60,7 +60,8 @@ __主要区别：__
 
 2.  **开启 Pages 开关**
     *   左侧菜单找到 **"Pages"**。
-    *   在 **Source** 下，选择分支（推荐 `main` 分支）和文件夹（推荐 `/ (root)` 或 `/docs`）。
+    *   在 **Source** 下，选择 `Deploy from a branch`
+    *   在 **Branch** 下，选择分支（推荐 `gh-pages` 分支）和文件夹（推荐 `/ (root)` 或 `/docs`）。
     *   点击 **Save**。
 
 3.  **等待部署**
