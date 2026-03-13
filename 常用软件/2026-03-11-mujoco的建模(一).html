@@ -2447,6 +2447,100 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        五、其余重要一级元素
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="五、其余重要一级元素">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-default-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1 default 元素 - 默认参数设置
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-option-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2 option 元素 - 仿真选项
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-compiler-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.3 compiler 元素 - 编译器设置
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#54-size-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.4 size 元素 - 内存分配
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#55-statistic-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.5 statistic 元素 - 模型统计
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#56-asset-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.6 asset 元素 - 资源管理
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#57" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.7 关键设置分类
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -3900,6 +3994,107 @@
 <ul>
 <li><strong>扩展性</strong>：通过插件机制集成外部传感器模型</li>
 </ul>
+<h2 id="_9">五、其余重要一级元素</h2>
+<h3 id="51-default-">5.1 <strong><code>default</code> 元素</strong> - 默认参数设置</h3>
+<p><strong>用途</strong>：定义可复用的组件模板
+<div class="highlight"><pre><span></span><code><span class="nt">&lt;default&gt;</span>
+<span class="w">    </span><span class="nt">&lt;geom</span><span class="w"> </span><span class="err">...</span><span class="nt">/&gt;</span><span class="w">        </span><span class="cm">&lt;!-- 几何体默认参数 --&gt;</span>
+<span class="w">    </span><span class="nt">&lt;joint</span><span class="w"> </span><span class="err">...</span><span class="nt">/&gt;</span><span class="w">       </span><span class="cm">&lt;!-- 关节默认参数 --&gt;</span>
+<span class="w">    </span><span class="nt">&lt;motor</span><span class="w"> </span><span class="err">...</span><span class="nt">/&gt;</span><span class="w">       </span><span class="cm">&lt;!-- 电机默认参数 --&gt;</span>
+<span class="w">    </span><span class="nt">&lt;site</span><span class="w"> </span><span class="err">...</span><span class="nt">/&gt;</span><span class="w">        </span><span class="cm">&lt;!-- 站点默认参数 --&gt;</span>
+<span class="w">    </span><span class="nt">&lt;tendon</span><span class="w"> </span><span class="err">...</span><span class="nt">/&gt;</span><span class="w">      </span><span class="cm">&lt;!-- 肌腱默认参数 --&gt;</span>
+<span class="w">    </span><span class="nt">&lt;actuator</span><span class="w"> </span><span class="err">...</span><span class="nt">/&gt;</span><span class="w">    </span><span class="cm">&lt;!-- 执行器默认参数 --&gt;</span>
+<span class="nt">&lt;/default&gt;</span>
+</code></pre></div>
+<strong>注意</strong>：通过 <code>class</code> 属性创建不同类别的默认设置</p>
+<h3 id="52-option-">5.2 <strong><code>option</code> 元素</strong> - 仿真选项</h3>
+<p><strong>用途</strong>：配置仿真环境和物理参数
+<div class="highlight"><pre><span></span><code><span class="nt">&lt;option&gt;</span>
+<span class="w">    </span><span class="nt">&lt;flag</span><span class="w"> </span><span class="err">...</span><span class="nt">/&gt;</span><span class="w">                    </span><span class="cm">&lt;!-- 功能开关标志 --&gt;</span>
+<span class="w">    </span><span class="nt">&lt;timestep&gt;</span>0.002<span class="nt">&lt;/timestep&gt;</span><span class="w">    </span><span class="cm">&lt;!-- 仿真步长 --&gt;</span>
+<span class="w">    </span><span class="nt">&lt;apirate&gt;</span>100<span class="nt">&lt;/apirate&gt;</span><span class="w">        </span><span class="cm">&lt;!-- API 更新率 --&gt;</span>
+<span class="w">    </span><span class="nt">&lt;gravity&gt;</span>0<span class="w"> </span>0<span class="w"> </span>-9.81<span class="nt">&lt;/gravity&gt;</span><span class="w">  </span><span class="cm">&lt;!-- 重力设置 --&gt;</span>
+<span class="w">    </span><span class="nt">&lt;wind&gt;</span>0<span class="w"> </span>0<span class="w"> </span>0<span class="nt">&lt;/wind&gt;</span><span class="w">            </span><span class="cm">&lt;!-- 风力设置 --&gt;</span>
+<span class="w">    </span><span class="nt">&lt;magnetic&gt;</span>0<span class="w"> </span>0<span class="w"> </span>0<span class="nt">&lt;/magnetic&gt;</span><span class="w">    </span><span class="cm">&lt;!-- 磁场设置 --&gt;</span>
+<span class="w">    </span><span class="nt">&lt;density&gt;</span>1000<span class="nt">&lt;/density&gt;</span><span class="w">       </span><span class="cm">&lt;!-- 介质密度 --&gt;</span>
+<span class="w">    </span><span class="nt">&lt;viscosity&gt;</span>0.0<span class="nt">&lt;/viscosity&gt;</span><span class="w">    </span><span class="cm">&lt;!-- 介质粘度 --&gt;</span>
+<span class="w">    </span><span class="nt">&lt;impratio&gt;</span>0.8<span class="nt">&lt;/impratio&gt;</span><span class="w">      </span><span class="cm">&lt;!-- 冲击比 --&gt;</span>
+<span class="w">    </span><span class="nt">&lt;o_solref</span><span class="w"> </span><span class="err">...</span><span class="nt">/&gt;</span><span class="w">               </span><span class="cm">&lt;!-- 优化求解器参数 --&gt;</span>
+<span class="w">    </span><span class="nt">&lt;o_solimp</span><span class="w"> </span><span class="err">...</span><span class="nt">/&gt;</span><span class="w">               </span><span class="cm">&lt;!-- 优化求解器阻抗 --&gt;</span>
+<span class="nt">&lt;/option&gt;</span>
+</code></pre></div></p>
+<h3 id="53-compiler-">5.3 <strong><code>compiler</code> 元素</strong> - 编译器设置</h3>
+<p><strong>用途</strong>：控制模型编译和预处理行为
+<div class="highlight"><pre><span></span><code><span class="nt">&lt;compiler&gt;</span>
+<span class="w">    </span><span class="nt">&lt;autolimits&gt;</span>true<span class="nt">&lt;/autolimits&gt;</span><span class="w">     </span><span class="cm">&lt;!-- 自动计算内存限制 --&gt;</span>
+<span class="w">    </span><span class="nt">&lt;boundmass&gt;</span>0.1<span class="nt">&lt;/boundmass&gt;</span><span class="w">        </span><span class="cm">&lt;!-- 惯性矩边界 --&gt;</span>
+<span class="w">    </span><span class="nt">&lt;boundinertia&gt;</span>0.1<span class="nt">&lt;/boundinertia&gt;</span><span class="w">  </span><span class="cm">&lt;!-- 惯性边界 --&gt;</span>
+<span class="w">    </span><span class="nt">&lt;settotalmass&gt;</span>10.0<span class="nt">&lt;/settotalmass&gt;</span><span class="w"> </span><span class="cm">&lt;!-- 设置总质量 --&gt;</span>
+<span class="w">    </span><span class="nt">&lt;balanceinertia&gt;</span>true<span class="nt">&lt;/balanceinertia&gt;</span><span class="w"> </span><span class="cm">&lt;!-- 平衡惯性 --&gt;</span>
+<span class="w">    </span><span class="nt">&lt;strippath&gt;</span>true<span class="nt">&lt;/stripath&gt;</span><span class="w">        </span><span class="cm">&lt;!-- 路径处理 --&gt;</span>
+<span class="w">    </span><span class="nt">&lt;coordinate&gt;</span>local<span class="nt">&lt;/coordinate&gt;</span><span class="w">    </span><span class="cm">&lt;!-- 坐标系 --&gt;</span>
+<span class="w">    </span><span class="nt">&lt;angle&gt;</span>radian<span class="nt">&lt;/angle&gt;</span><span class="w">             </span><span class="cm">&lt;!-- 角度单位 --&gt;</span>
+<span class="w">    </span><span class="nt">&lt;fitaabb&gt;</span>true<span class="nt">&lt;/fitaabb&gt;</span><span class="w">           </span><span class="cm">&lt;!-- AABB 拟合 --&gt;</span>
+<span class="w">    </span><span class="nt">&lt;eulerseq&gt;</span>xyz<span class="nt">&lt;/eulerseq&gt;</span><span class="w">          </span><span class="cm">&lt;!-- 欧拉角序列 --&gt;</span>
+<span class="w">    </span><span class="nt">&lt;meshdir&gt;</span>./meshes<span class="nt">&lt;/meshdir&gt;</span><span class="w">       </span><span class="cm">&lt;!-- 网格目录 --&gt;</span>
+<span class="w">    </span><span class="nt">&lt;texturedir&gt;</span>./textures<span class="nt">&lt;/texturedir&gt;</span><span class="w"> </span><span class="cm">&lt;!-- 纹理目录 --&gt;</span>
+<span class="nt">&lt;/compiler&gt;</span>
+</code></pre></div></p>
+<h3 id="54-size-">5.4 <strong><code>size</code> 元素</strong> - 内存分配</h3>
+<p><strong>用途</strong>：预分配内存池大小
+<div class="highlight"><pre><span></span><code><span class="nt">&lt;size&gt;</span>
+<span class="w">    </span><span class="nt">&lt;memory&gt;</span>65536<span class="nt">&lt;/memory&gt;</span><span class="w">        </span><span class="cm">&lt;!-- 总内存大小 --&gt;</span>
+<span class="w">    </span><span class="nt">&lt;njmax&gt;</span>500<span class="nt">&lt;/njmax&gt;</span><span class="w">            </span><span class="cm">&lt;!-- 最大约束数 --&gt;</span>
+<span class="w">    </span><span class="nt">&lt;nconmax&gt;</span>100<span class="nt">&lt;/nconmax&gt;</span><span class="w">        </span><span class="cm">&lt;!-- 最大接触数 --&gt;</span>
+<span class="w">    </span><span class="nt">&lt;nstack&gt;</span>10000<span class="nt">&lt;/nstack&gt;</span><span class="w">        </span><span class="cm">&lt;!-- 堆栈大小 --&gt;</span>
+<span class="w">    </span><span class="nt">&lt;nuserdata&gt;</span>100<span class="nt">&lt;/nuserdata&gt;</span><span class="w">    </span><span class="cm">&lt;!-- 用户数据大小 --&gt;</span>
+<span class="w">    </span><span class="nt">&lt;nkey&gt;</span>100<span class="nt">&lt;/nkey&gt;</span><span class="w">              </span><span class="cm">&lt;!-- 关键帧数 --&gt;</span>
+<span class="w">    </span><span class="nt">&lt;nuser_body&gt;</span>0<span class="nt">&lt;/nuser_body&gt;</span><span class="w">    </span><span class="cm">&lt;!-- 每个体的用户数据 --&gt;</span>
+<span class="w">    </span><span class="nt">&lt;nuser_jnt&gt;</span>0<span class="nt">&lt;/nuser_jnt&gt;</span><span class="w">      </span><span class="cm">&lt;!-- 每个关节的用户数据 --&gt;</span>
+<span class="w">    </span><span class="nt">&lt;nuser_geom&gt;</span>0<span class="nt">&lt;/nuser_geom&gt;</span><span class="w">    </span><span class="cm">&lt;!-- 每个几何体的用户数据 --&gt;</span>
+<span class="w">    </span><span class="nt">&lt;nuser_site&gt;</span>0<span class="nt">&lt;/nuser_site&gt;</span><span class="w">    </span><span class="cm">&lt;!-- 每个站点的用户数据 --&gt;</span>
+<span class="w">    </span><span class="nt">&lt;nuser_tendon&gt;</span>0<span class="nt">&lt;/nuser_tendon&gt;</span><span class="w"> </span><span class="cm">&lt;!-- 每个肌腱的用户数据 --&gt;</span>
+<span class="w">    </span><span class="nt">&lt;nuser_actuator&gt;</span>0<span class="nt">&lt;/nuser_actuator&gt;</span><span class="w"> </span><span class="cm">&lt;!-- 每个执行器的用户数据 --&gt;</span>
+<span class="nt">&lt;/size&gt;</span>
+</code></pre></div></p>
+<h3 id="55-statistic-">5.5 <strong><code>statistic</code> 元素</strong> - 模型统计</h3>
+<p><strong>用途</strong>：提供模型统计信息
+<div class="highlight"><pre><span></span><code><span class="nt">&lt;statistic&gt;</span>
+<span class="w">    </span><span class="nt">&lt;meanmass&gt;</span>1.0<span class="nt">&lt;/meanmass&gt;</span><span class="w">      </span><span class="cm">&lt;!-- 平均质量 --&gt;</span>
+<span class="w">    </span><span class="nt">&lt;meansize&gt;</span>0.1<span class="nt">&lt;/meansize&gt;</span><span class="w">      </span><span class="cm">&lt;!-- 平均尺寸 --&gt;</span>
+<span class="w">    </span><span class="nt">&lt;extent&gt;</span>10.0<span class="nt">&lt;/extent&gt;</span><span class="w">         </span><span class="cm">&lt;!-- 模型空间范围 --&gt;</span>
+<span class="w">    </span><span class="nt">&lt;center&gt;</span>0<span class="w"> </span>0<span class="w"> </span>0<span class="nt">&lt;/center&gt;</span><span class="w">        </span><span class="cm">&lt;!-- 模型中心 --&gt;</span>
+<span class="nt">&lt;/statistic&gt;</span>
+</code></pre></div></p>
+<h3 id="56-asset-">5.6 <strong><code>asset</code> 元素</strong> - 资源管理</h3>
+<p><strong>用途</strong>：管理外部资源和材质
+<div class="highlight"><pre><span></span><code><span class="nt">&lt;asset&gt;</span>
+<span class="w">    </span><span class="nt">&lt;texture</span><span class="w"> </span><span class="err">...</span><span class="nt">/&gt;</span><span class="w">    </span><span class="cm">&lt;!-- 纹理资源 --&gt;</span>
+<span class="w">    </span><span class="nt">&lt;material</span><span class="w"> </span><span class="err">...</span><span class="nt">/&gt;</span><span class="w">   </span><span class="cm">&lt;!-- 材质定义 --&gt;</span>
+<span class="w">    </span><span class="nt">&lt;mesh</span><span class="w"> </span><span class="err">...</span><span class="nt">/&gt;</span><span class="w">       </span><span class="cm">&lt;!-- 网格文件 --&gt;</span>
+<span class="w">    </span><span class="nt">&lt;hfield</span><span class="w"> </span><span class="err">...</span><span class="nt">/&gt;</span><span class="w">     </span><span class="cm">&lt;!-- 高度场 --&gt;</span>
+<span class="w">    </span><span class="nt">&lt;skin</span><span class="w"> </span><span class="err">...</span><span class="nt">/&gt;</span><span class="w">       </span><span class="cm">&lt;!-- 皮肤网格 --&gt;</span>
+<span class="nt">&lt;/asset&gt;</span>
+</code></pre></div></p>
+<h3 id="57">5.7 关键设置分类</h3>
+<p><strong>性能相关设置</strong></p>
+<ul>
+<li><strong><code>&lt;timestep&gt;</code></strong>：仿真步长，影响精度和速度</li>
+<li><strong><code>&lt;njmax&gt;/&lt;nconmax&gt;</code></strong>：约束和接触的内存预分配</li>
+<li><strong><code>&lt;autolimits&gt;</code></strong>：自动内存分配，简化配置</li>
+</ul>
+<p><strong>物理真实性设置</strong></p>
+<ul>
+<li><strong><code>&lt;gravity&gt;</code></strong>：重力加速度，影响动力学行为</li>
+<li><strong><code>&lt;impratio&gt;</code></strong>：冲击比，控制碰撞弹性特性</li>
+<li><strong><code>&lt;density&gt;/&lt;viscosity&gt;</code></strong>：介质物理属性</li>
+</ul>
+<p><strong>资源管理设置</strong></p>
+<ul>
+<li><strong><code>&lt;meshdir&gt;/&lt;texturedir&gt;</code></strong>：外部资源路径配置</li>
+<li><strong><code>&lt;coordinate&gt;/&lt;angle&gt;</code></strong>：坐标系和单位设置</li>
+</ul>
+<p>这些配置共同决定了仿真的性能、精度和物理特性，需要根据具体应用场景进行针对性调优。</p>
 
 
 
